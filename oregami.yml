@@ -1,0 +1,4 @@
+http:
+ port: 8080
+ adminPort: 8081
+ rootPath: /service/*  # Default is /* 
