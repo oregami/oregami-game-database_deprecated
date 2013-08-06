@@ -1,6 +1,7 @@
 package org.oregami.dropwizard;
 
 import org.oregami.resources.GamesResource;
+import org.oregami.resources.HomeResource;
 
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
@@ -24,7 +25,6 @@ public class OregamiService extends Service<OregamiConfiguration> {
 	@Override
 	public void initialize(Bootstrap<OregamiConfiguration> bootstrap) {
 		bootstrap.setName("hello-world");
-//		bootstrap.addBundle(hibernate);
 		bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
 		
 		guiceBundle = GuiceBundle.<OregamiConfiguration>newBuilder()
@@ -34,8 +34,6 @@ public class OregamiService extends Service<OregamiConfiguration> {
 				.setConfigClass(OregamiConfiguration.class)
 				.build();
 		bootstrap.addBundle(guiceBundle);
-//		OregamiGuiceInjector.get().getInstance(JPAInitializer.class);
-		
 				
 	}
 
@@ -48,7 +46,7 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		persistService.start();
 		
 		environment.addResource(guiceBundle.getInjector().getInstance(GamesResource.class));
-//		environment.addResource(GamesResource.class);
+		environment.addResource(HomeResource.class);
 	}
 
 
