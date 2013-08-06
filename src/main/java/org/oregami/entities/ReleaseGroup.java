@@ -25,6 +25,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.oregami.entities.KeyObjects.ReleaseGroupType;
+import org.oregami.entities.KeyObjects.SystemKey;
 
 
 @Entity
@@ -46,6 +47,11 @@ public class ReleaseGroup extends BaseEntity {
 	public ReleaseGroup() {
 	}
 	
+	public ReleaseGroup(String name, SystemKey system, ReleaseGroupType releaseGroupType) {
+		this.name = name;
+		this.releaseGroupType = releaseGroupType;
+	}
+
 	public void setGame(Game game) {
 		this.game = game;
 	}
