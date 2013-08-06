@@ -1,16 +1,17 @@
 package org.oregami.resources;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.oregami.data.DatabaseFiller;
 import org.oregami.data.GameDao;
 import org.oregami.entities.Game;
-import org.oregami.entities.GameTitle;
 
 import com.google.inject.Inject;
-import com.google.inject.persist.UnitOfWork;
 
 
 @Path("/games")
@@ -19,7 +20,8 @@ public class GamesResource {
 
 	public GameDao gameRepository;
 	
-	@Inject private UnitOfWork unitOfWork;
+	@Inject
+	private DatabaseFiller databaseFiller;
 	
 	@Inject
 	public GamesResource(GameDao gameRepository) {
@@ -28,33 +30,35 @@ public class GamesResource {
 	
 	  
 	@GET
+	@Path("/list")
+	public List<Game> list() {
+		List<Game> ret = null;
+		gameRepository.getTransaction().begin();
+		ret = gameRepository.findAll();
+		gameRepository.getTransaction().commit();
+		return ret;
+	}
+	
+	
+	@GET
 	@Path("/init")
-	public Game init() {
-		Game ret = null;
+	public String init() {
+		String ret = "data was already there";
 		gameRepository.getTransaction().begin();
 		Game game = null;
 		game = gameRepository.findOne(1L);
 		if (game==null) {
-			game = new org.oregami.entities.Game();
-			game.setTagLineDescription("Monkey Island");
-			gameRepository.save(game);
+			getDatabaseFiller().initData();
+			ret = "data initialized";
 		}
-		game.setTagLineDescription("Monkey Island");
-		game.setTagLineDescription(game.getTagLineDescription() + " rnd" + Math.random());
-		if (game.getGameTitleList().size()==0) {
-			game.addGameTitle(new GameTitle("Monkey Island - Title"));
-		}
-		GameTitle gameTitle = game.getGameTitleList().iterator().next();
-		gameTitle.setTitle("Monkey Island - Title" + " rnd" + Math.random());
-		gameRepository.update(game);
 		gameRepository.getTransaction().commit();
-		ret = game;
+		
 		return ret;
 	}
+
+
+	private DatabaseFiller getDatabaseFiller() {
+		return databaseFiller;
+	}	
 	
-	@GET
-	@Path("/test")
-	public Game test() {
-		return null;
-	}
 }
