@@ -34,6 +34,9 @@ public class GamesResource {
 	public List<Game> list() {
 		List<Game> ret = null;
 		gameRepository.getTransaction().begin();
+		if (gameRepository.findOne(1L)==null) {
+			getDatabaseFiller().initData();
+		}		
 		ret = gameRepository.findAll();
 		gameRepository.getTransaction().commit();
 		return ret;
