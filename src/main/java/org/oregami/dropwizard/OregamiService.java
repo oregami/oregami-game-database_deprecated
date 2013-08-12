@@ -1,5 +1,6 @@
 package org.oregami.dropwizard;
 
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.oregami.resources.GamesResource;
 import org.oregami.resources.HomeResource;
 
@@ -10,6 +11,7 @@ import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
+import com.yammer.dropwizard.config.FilterBuilder;
 //import com.yammer.dropwizard.db.DatabaseConfiguration;
 //import com.yammer.dropwizard.hibernate.HibernateBundle;
 
@@ -44,6 +46,9 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		
 		PersistService persistService = guiceBundle.getInjector().getInstance(PersistService.class);
 		persistService.start();
+		
+		FilterBuilder fconfig = environment.addFilter(CrossOriginFilter.class, "/*");
+        fconfig.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");		
 		
 		environment.addResource(guiceBundle.getInjector().getInstance(GamesResource.class));
 		environment.addResource(HomeResource.class);
