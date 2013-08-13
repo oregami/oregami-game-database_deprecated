@@ -1,4 +1,10 @@
-oregami-dropwizard-angularjs
+oregami-server
 ============================
+open source game database
 
-open source game database based on REST principles with Dropwizard and AngularJS
+This is the REST server written in Java.
+It uses dropwizard (http://dropwizard.codahale.com), JPA and Hibernate.
+
+How to start the Server:
+Run the class "org.oregami.dropwizard.OregamiService" and pass the parameters "server oregami.yml" as arguments.
+Open your web browser at localhost:8080/service/games/list
