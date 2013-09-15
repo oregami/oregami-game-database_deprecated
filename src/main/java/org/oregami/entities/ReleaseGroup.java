@@ -44,12 +44,15 @@ public class ReleaseGroup extends BaseEntity {
 
 	private ReleaseGroupType releaseGroupType;
 
+	private SystemKey system;
+
 	public ReleaseGroup() {
 	}
 	
 	public ReleaseGroup(String name, SystemKey system, ReleaseGroupType releaseGroupType) {
 		this.name = name;
 		this.releaseGroupType = releaseGroupType;
+		this.setSystem(system);
 	}
 
 	public void setGame(Game game) {
@@ -75,6 +78,14 @@ public class ReleaseGroup extends BaseEntity {
 
 	public Set<Release> getReleaseList() {
 		return releaseList;
+	}
+
+	public SystemKey getSystem() {
+		return system;
+	}
+
+	public void setSystem(SystemKey system) {
+		this.system = system;
 	}
 
 }
