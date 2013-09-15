@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import org.oregami.entities.BaseEntity;
 
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
 public abstract class GenericDAOImpl<E extends BaseEntity, P> implements
 		GenericDAO<E, P> {
@@ -24,6 +25,7 @@ public abstract class GenericDAOImpl<E extends BaseEntity, P> implements
 	
 	Class<E> entityClass;
 
+	@Transactional
 	@SuppressWarnings("unchecked")
 	public P save(E entity) {
 		entityManager.persist(entity);
@@ -34,6 +36,7 @@ public abstract class GenericDAOImpl<E extends BaseEntity, P> implements
 		return entityManager.find(getEntityClass(), id);
 	}
 
+	@Transactional
 	public void update(E entity) {
 		entityManager.merge(entity);
 	}
