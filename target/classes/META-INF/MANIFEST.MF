@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Built-By: sebastian
-Build-Jdk: 1.6.0_51
-Implementation-Title: oregami-dropwizard
-Implementation-Version: 0.0.1-SNAPSHOT
-Implementation-Vendor-Id: org.oregami
-Created-By: Maven Integration for Eclipse
-
