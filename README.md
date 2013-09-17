@@ -7,4 +7,4 @@ It uses dropwizard (http://dropwizard.codahale.com), JPA and Hibernate.
 
 How to start the Server:
 Run the class "org.oregami.dropwizard.OregamiService" and pass the parameters "server oregami.yml" as arguments.
-Open your web browser at localhost:8080/service/games/list
+Open your web browser at localhost:8080/games
