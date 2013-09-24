@@ -48,7 +48,8 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		persistService.start();
 		
 		FilterBuilder fconfig = environment.addFilter(CrossOriginFilter.class, "/*");
-        fconfig.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");		
+        fconfig.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");	
+        fconfig.setInitParam(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
 		
 		environment.addResource(guiceBundle.getInjector().getInstance(GamesResource.class));
 		environment.addResource(HomeResource.class);
