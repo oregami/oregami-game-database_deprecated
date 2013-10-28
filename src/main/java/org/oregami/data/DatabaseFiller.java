@@ -1,7 +1,5 @@
 package org.oregami.data;
 
-import java.util.Date;
-
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.KeyObjects.ReleaseGroupType;
@@ -28,9 +26,6 @@ public class DatabaseFiller {
 		gameMonkeyIsland.addGameTitle(new GameTitle("Monkey Island"));
 		gameMonkeyIsland.addGameTitle(new GameTitle("Monkey Island 1"));
 		gameMonkeyIsland.addGameTitle(new GameTitle("The Secret of Monkey Island"));
-
-		gameMonkeyIsland.setTagLineDescription("Monkey Island tld");
-		gameMonkeyIsland.setDescription("Tolles Spiel mit viel Humor! (" + new Date() + ")");
 
 		ReleaseGroup releaseGroupDos = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupType.Original);
 		ReleaseGroup releaseGroupDosDemo = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupType.Demo);
@@ -60,7 +55,6 @@ public class DatabaseFiller {
 
 		gameRepository.save(gameMonkeyIsland);
 		
-		gameMonkeyIsland.setDescription("new description");
 		gameRepository.update(gameMonkeyIsland);
 	}
 
@@ -69,8 +63,6 @@ public class DatabaseFiller {
 		Game gameResidentEvil = new Game();
 		// gameResidentEvil.setId(2l);
 
-		gameResidentEvil.setTagLineDescription("Resident Evil tld");
-		gameResidentEvil.setDescription("Horror-Shooter (" + new Date() + ")");
 		gameResidentEvil.addGameTitle(new GameTitle("Resident Evil"));
 
 		ReleaseGroup releaseGroupPlaystation = new ReleaseGroup("Playstation", SystemKey.Playstation, ReleaseGroupType.Original);
@@ -84,7 +76,6 @@ public class DatabaseFiller {
 	private void addXWingGame() {
 		Game gameXWing = new Game();
 
-		gameXWing.setTagLineDescription("X-Wing tld");
 		gameXWing.addGameTitle(new GameTitle("Star Wars - X-Wing"));
 		gameXWing.addGameTitle(new GameTitle("Star Wars - X-Wing: Space Combat Simulator"));
 

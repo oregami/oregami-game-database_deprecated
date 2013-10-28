@@ -40,12 +40,6 @@ public class Game extends BaseEntity {
 
 	private static final long serialVersionUID = -2362683596950421365L;
 
-	public String tagLineDescription;
-	
-	public String description;
-	
-	public String longDescription;
-	
 	public boolean compilation;
 	
 	public boolean addOn;
@@ -70,31 +64,6 @@ public class Game extends BaseEntity {
 
 	public Collection<ReleaseGroup> getReleaseGroupList() {
 		return releaseGroupList;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-	public String getTagLineDescription() {
-		return tagLineDescription;
-	}
-
-	public void setTagLineDescription(String tagLineDescription) {
-		this.tagLineDescription = tagLineDescription;
-	}
-
-	public String getLongDescription() {
-		return longDescription;
-	}
-
-	public void setLongDescription(String longDescription) {
-		this.longDescription = longDescription;
 	}
 
 	public boolean isCompilation() {
