@@ -40,12 +40,10 @@ public class GamesResource {
 	@GET
 	public List<Game> list() {
 		List<Game> ret = null;
-		gameRepository.getTransaction().begin();
 		if (gameRepository.findOne(1L)==null) {
 			getDatabaseFiller().initData();
 		}		
 		ret = gameRepository.findAll();
-		gameRepository.getTransaction().commit();
 		return ret;
 	}
 	
@@ -65,17 +63,11 @@ public class GamesResource {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		try {
-			
-		System.out.println("put: " + updatedGame);
-//		gameRepository.getTransaction().begin();
-		gameRepository.update(updatedGame);
-		
+			System.out.println("put: " + updatedGame);
+			gameRepository.update(updatedGame);
 		} catch (OptimisticLockException e) {
 			Logger.getLogger(this.getClass()).warn("OptimisticLockException", e);
 			return Response.status(Response.Status.BAD_REQUEST).tag("OptimisticLockException").build();
-		}
-		finally {
-//			gameRepository.getTransaction().commit();
 		}
 		return Response.status(Response.Status.ACCEPTED).entity(updatedGame).build();
 	}	
