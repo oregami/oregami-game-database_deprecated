@@ -10,45 +10,51 @@ import javax.persistence.EntityTransaction;
 import org.oregami.entities.BaseEntity;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 
 public abstract class GenericDAOImpl<E extends BaseEntity, P> implements
 		GenericDAO<E, P> {
 
+	private final Provider<EntityManager> emf;
+	
 	@Inject
-	public GenericDAOImpl(EntityManager man) {
-		this.entityManager = man;
+	public GenericDAOImpl(Provider<EntityManager> emf) {
+		this.emf=emf;
 	}
 
-	@Inject
-	private EntityManager entityManager;
-	
 	Class<E> entityClass;
 
+	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public P save(E entity) {
-		entityManager.persist(entity);
+		emf.get().persist(entity);
 		return (P) entity.getId();
 	}
 
+	@Override
 	public E findOne(P id) {
-		return entityManager.find(getEntityClass(), id);
+		return emf.get().find(getEntityClass(), id);
 	}
 
+	@Override
 	@Transactional
 	public void update(E entity) {
-		entityManager.merge(entity);
+		emf.get().merge(entity);
 	}
 
+	@Override
 	public void delete(E entity) {
-		entityManager.remove(entity);
+		emf.get().remove(entity);
 	}
 
+	@Override
 	public EntityManager getEntityManager() {
-		return entityManager;
+		return emf.get();
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Class<E> getEntityClass() {
 		if (entityClass == null) {
@@ -69,7 +75,7 @@ public abstract class GenericDAOImpl<E extends BaseEntity, P> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<E> findAll() {
-		return this.entityManager.createNamedQuery(
+		return this.emf.get().createNamedQuery(
 				getEntityClass().getSimpleName() + ".GetAll").getResultList();
 	}
 	
