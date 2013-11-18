@@ -28,6 +28,12 @@
 			<groupId>com.hubspot.dropwizard</groupId>
 			<artifactId>dropwizard-guice</artifactId>
 			<version>0.6.2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javassist</groupId>
+					<artifactId>javassist</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
