@@ -2,9 +2,7 @@ package org.oregami.data;
 
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
-import org.oregami.entities.KeyObjects.ReleaseGroupType;
-import org.oregami.entities.KeyObjects.SystemKey;
-import org.oregami.entities.ReleaseGroup;
+import org.oregami.entities.datalist.GameEntryType;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
@@ -19,39 +17,50 @@ public class DatabaseFiller {
 
 	@Inject 
 	private GameDao gameRepository;
+	
+	@Inject
+	private GameEntryTypeDao gameEntryTypeDao;
 
+	private void fillGameEntryType() {
+		GameEntryType gameEntryType = new GameEntryType();
+		gameEntryType.setValue(GameEntryType.GAME);
+		gameEntryTypeDao.save(gameEntryType);		
+	}
+	
 	private void addMonkeyIsland() {
 		Game gameMonkeyIsland = new Game();
+		
+//		gameMonkeyIsland.setGameEntryType(gameEntryTypeDao.findByName(GameEntryType.GAME));
 		
 		gameMonkeyIsland.addGameTitle(new GameTitle("Monkey Island"));
 		gameMonkeyIsland.addGameTitle(new GameTitle("Monkey Island 1"));
 		gameMonkeyIsland.addGameTitle(new GameTitle("The Secret of Monkey Island"));
 
-		ReleaseGroup releaseGroupDos = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupType.Original);
-		ReleaseGroup releaseGroupDosDemo = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupType.Demo);
-		ReleaseGroup releaseGroupDosEnhanced = new ReleaseGroup("DOS (Verbesserte CD-Version)", SystemKey.MSDOS, ReleaseGroupType.Enhanced);
-
-		gameMonkeyIsland.addReleaseGroup(releaseGroupDos);
-		gameMonkeyIsland.addReleaseGroup(releaseGroupDosDemo);
-		gameMonkeyIsland.addReleaseGroup(releaseGroupDosEnhanced);
-
-		// ########### Amiga
-		ReleaseGroup releaseGroupAmiga = new ReleaseGroup("Amiga 500/600 (OCS/ECS)", SystemKey.Amiga, ReleaseGroupType.Original);
-		ReleaseGroup releaseGroupAmigaDemo = new ReleaseGroup("Amiga 500/600 (OCS/ECS)", SystemKey.Amiga, ReleaseGroupType.Demo);
-
-		gameMonkeyIsland.addReleaseGroup(releaseGroupAmiga);
-		gameMonkeyIsland.addReleaseGroup(releaseGroupAmigaDemo);
-
-		// ########### Atari ST
-		ReleaseGroup releaseGroupAtariST = new ReleaseGroup("Atari ST", SystemKey.AtariST, ReleaseGroupType.Original);
-		gameMonkeyIsland.addReleaseGroup(releaseGroupAtariST);
-
-		// ########### Apple
-		ReleaseGroup releaseGroupApple = new ReleaseGroup("Apple Macintosh", SystemKey.AppleMacintosh, ReleaseGroupType.Original);
-		ReleaseGroup vogAppleSpecial = new ReleaseGroup("Apple Macintosh", SystemKey.AppleMacintosh, ReleaseGroupType.Enhanced);
-
-		gameMonkeyIsland.addReleaseGroup(releaseGroupApple);
-		gameMonkeyIsland.addReleaseGroup(vogAppleSpecial);
+//		ReleaseGroup releaseGroupDos = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupReason.ORIGINAL);
+//		ReleaseGroup releaseGroupDosDemo = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupReason.DEMO_PROMO);
+//		ReleaseGroup releaseGroupDosEnhanced = new ReleaseGroup("DOS (Verbesserte CD-Version)", SystemKey.MSDOS, ReleaseGroupReason.ENHANCED);
+//
+//		gameMonkeyIsland.addReleaseGroup(releaseGroupDos);
+//		gameMonkeyIsland.addReleaseGroup(releaseGroupDosDemo);
+//		gameMonkeyIsland.addReleaseGroup(releaseGroupDosEnhanced);
+//
+//		// ########### Amiga
+//		ReleaseGroup releaseGroupAmiga = new ReleaseGroup("Amiga 500/600 (OCS/ECS)", SystemKey.Amiga, ReleaseGroupReason.ORIGINAL);
+//		ReleaseGroup releaseGroupAmigaDemo = new ReleaseGroup("Amiga 500/600 (OCS/ECS)", SystemKey.Amiga, ReleaseGroupReason.DEMO_PROMO);
+//
+//		gameMonkeyIsland.addReleaseGroup(releaseGroupAmiga);
+//		gameMonkeyIsland.addReleaseGroup(releaseGroupAmigaDemo);
+//
+//		// ########### Atari ST
+//		ReleaseGroup releaseGroupAtariST = new ReleaseGroup("Atari ST", SystemKey.AtariST, ReleaseGroupReason.ORIGINAL);
+//		gameMonkeyIsland.addReleaseGroup(releaseGroupAtariST);
+//
+//		// ########### Apple
+//		ReleaseGroup releaseGroupApple = new ReleaseGroup("Apple Macintosh", SystemKey.AppleMacintosh, ReleaseGroupReason.ORIGINAL);
+//		ReleaseGroup vogAppleSpecial = new ReleaseGroup("Apple Macintosh", SystemKey.AppleMacintosh, ReleaseGroupReason.ENHANCED);
+//
+//		gameMonkeyIsland.addReleaseGroup(releaseGroupApple);
+//		gameMonkeyIsland.addReleaseGroup(vogAppleSpecial);
 
 		gameRepository.save(gameMonkeyIsland);
 		
@@ -65,10 +74,10 @@ public class DatabaseFiller {
 
 		gameResidentEvil.addGameTitle(new GameTitle("Resident Evil"));
 
-		ReleaseGroup releaseGroupPlaystation = new ReleaseGroup("Playstation", SystemKey.Playstation, ReleaseGroupType.Original);
-		gameResidentEvil.addReleaseGroup(releaseGroupPlaystation);
-		ReleaseGroup releaseGroupWindows = new ReleaseGroup("Windows", SystemKey.Windows, ReleaseGroupType.Original);
-		gameResidentEvil.addReleaseGroup(releaseGroupWindows);
+//		ReleaseGroup releaseGroupPlaystation = new ReleaseGroup("Playstation", SystemKey.Playstation, ReleaseGroupReason.ORIGINAL);
+//		gameResidentEvil.addReleaseGroup(releaseGroupPlaystation);
+//		ReleaseGroup releaseGroupWindows = new ReleaseGroup("Windows", SystemKey.Windows, ReleaseGroupReason.ORIGINAL);
+//		gameResidentEvil.addReleaseGroup(releaseGroupWindows);
 
 		gameRepository.save(gameResidentEvil);
 	}
@@ -79,17 +88,17 @@ public class DatabaseFiller {
 		gameXWing.addGameTitle(new GameTitle("Star Wars - X-Wing"));
 		gameXWing.addGameTitle(new GameTitle("Star Wars - X-Wing: Space Combat Simulator"));
 
-		ReleaseGroup rgDos = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupType.Original);
-		gameXWing.addReleaseGroup(rgDos);
-
-		ReleaseGroup rgDosEnhanced = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupType.Enhanced);
-		gameXWing.addReleaseGroup(rgDosEnhanced);
-
-		ReleaseGroup rgWinEnhanced = new ReleaseGroup("Windows", SystemKey.Windows, ReleaseGroupType.Enhanced);
-		gameXWing.addReleaseGroup(rgWinEnhanced);
-
-		ReleaseGroup rgMacEnhanced = new ReleaseGroup("Apple Macintosh", SystemKey.AppleMacintosh, ReleaseGroupType.Enhanced);
-		gameXWing.addReleaseGroup(rgMacEnhanced);
+//		ReleaseGroup rgDos = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupReason.ORIGINAL);
+//		gameXWing.addReleaseGroup(rgDos);
+//
+//		ReleaseGroup rgDosEnhanced = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupReason.ENHANCED);
+//		gameXWing.addReleaseGroup(rgDosEnhanced);
+//
+//		ReleaseGroup rgWinEnhanced = new ReleaseGroup("Windows", SystemKey.Windows, ReleaseGroupReason.ENHANCED);
+//		gameXWing.addReleaseGroup(rgWinEnhanced);
+//
+//		ReleaseGroup rgMacEnhanced = new ReleaseGroup("Apple Macintosh", SystemKey.AppleMacintosh, ReleaseGroupReason.ENHANCED);
+//		gameXWing.addReleaseGroup(rgMacEnhanced);
 
 		gameRepository.save(gameXWing);
 	}
@@ -106,6 +115,7 @@ public class DatabaseFiller {
 	
 	@Transactional
 	public void initData() {
+		fillGameEntryType();
 		addGames();
 //		addVideoGamesDatabase1991();
 //		addVideoGamesDatabase1992();
