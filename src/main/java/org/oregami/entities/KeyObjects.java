@@ -16,7 +16,9 @@
  ******************************************************************************/
 package org.oregami.entities;
 
+
 public class KeyObjects {
+	
 	
 	public enum SystemKey {
 		Amiga, AtariST, C64, MSDOS, AppleMacintosh, Windows, 
@@ -46,28 +48,5 @@ public class KeyObjects {
 		Saturn,
 		
 	};
-	public enum DistributionKey {RegularBox};
-	public enum LanguageKey {DE, EN};
-	
-	public enum CountryKey {
-		Deutschland, USA, Australien, HongKong, Taiwan, Frankreich, Italien, Spanien, UK, Japan, Oesterreich
-	};
-	
-	public enum ReleaseGroupType {
-		Original, Enhanced, Demo, Remake
-	};
-	
-	public enum x {a, b};
-	
-	public enum RoleKey {Admin, User};
-	
-	public enum ScreenshotType {unknown, title, intro, outro, companylogo, gameplayBeginningOfGame, gameplayMiddleOfGame, gameplayEndOfGame};
-	
-	public enum PhotoType {unknown, BoxFront, BoxBack, CompactDisc, Disc, Poster, Goodie};
-	
-	public enum UserStatusKey {
-		Registration, PasswordReset
-	};
-	
  
 }
