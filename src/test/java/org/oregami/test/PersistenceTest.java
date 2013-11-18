@@ -64,6 +64,29 @@ public class PersistenceTest {
 	
 	@Test
 	@Transactional
+	public void testSaveGameWithGameEntryType() {
+		GameEntryType gameEntryType = new GameEntryType();
+		gameEntryType.setValue(GameEntryType.GAME);
+		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
+		gameEntryTypeDao.save(gameEntryType);
+		
+		Game game = new Game();
+		game.addGameTitle(new GameTitle("Monkey Island"));
+		game.setGameEntryType(gameEntryType);
+		
+		GameDao gameDao = injector.getInstance(GameDao.class);
+		Long gameId = gameDao.save(game);
+		Assert.assertNotNull(gameId);
+		
+		Game loadedGame = gameDao.findOne(gameId);
+		Assert.assertNotNull(loadedGame);
+		Assert.assertEquals(game.getGameEntryType(), loadedGame.getGameEntryType());
+
+		
+	}
+	
+	@Test
+	@Transactional
 	public void testSaveReleaseGroup() {
 		ReleaseGroup releaseGroup = new ReleaseGroup();
 //		releaseGroup.setReleaseType(ReleaseType.NATIVE_DEVELOPMENT);
