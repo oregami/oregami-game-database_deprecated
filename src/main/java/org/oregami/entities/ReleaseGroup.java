@@ -24,8 +24,10 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.oregami.entities.KeyObjects.ReleaseGroupType;
 import org.oregami.entities.KeyObjects.SystemKey;
+import org.oregami.entities.datalist.ReleaseGroupReason;
+import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.UnreleaseState;
 
 
 @Entity
@@ -35,23 +37,35 @@ public class ReleaseGroup extends BaseEntity {
 
 	private String name;
 	
+	@ManyToOne
+	private ReleaseGroupReason releaseGroupReason;
+	
+	@ManyToOne
+	private ReleaseType releaseType;
+	
+	private boolean censored = false;
+	
+	private boolean released = true;
+	
+	private SystemKey system;
+	
+	@ManyToOne
+	private UnreleaseState unreleaseState;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Game game;
 
 	@OneToMany(mappedBy = "releaseGroup", cascade = CascadeType.ALL, orphanRemoval=true)
 //	@OrderBy("description ASC")
-	private Set<Release> releaseList = new HashSet<Release>();
+	private final Set<Release> releaseList = new HashSet<Release>();
 
-	private ReleaseGroupType releaseGroupType;
-
-	private SystemKey system;
 
 	public ReleaseGroup() {
 	}
 	
-	public ReleaseGroup(String name, SystemKey system, ReleaseGroupType releaseGroupType) {
+	public ReleaseGroup(String name, SystemKey system, ReleaseType releaseType) {
 		this.name = name;
-		this.releaseGroupType = releaseGroupType;
+		this.setReleaseType(releaseType);
 		this.setSystem(system);
 	}
 
@@ -64,14 +78,6 @@ public class ReleaseGroup extends BaseEntity {
 		vo.setReleaseGroup(this);
 	}
 
-	public ReleaseGroupType getReleaseGroupType() {
-		return releaseGroupType;
-	}
-
-	public void setReleaseGroupType(ReleaseGroupType releaseGroupType) {
-		this.releaseGroupType = releaseGroupType;
-	}	
-	
 	public String getName() {
 		return name;
 	}
@@ -86,6 +92,46 @@ public class ReleaseGroup extends BaseEntity {
 
 	public void setSystem(SystemKey system) {
 		this.system = system;
+	}
+
+	public boolean isCensored() {
+		return censored;
+	}
+
+	public void setCensored(boolean censored) {
+		this.censored = censored;
+	}
+
+	public boolean isReleased() {
+		return released;
+	}
+
+	public void setReleased(boolean released) {
+		this.released = released;
+	}
+
+	public UnreleaseState getUnreleaseState() {
+		return unreleaseState;
+	}
+
+	public void setUnreleaseState(UnreleaseState unreleaseState) {
+		this.unreleaseState = unreleaseState;
+	}
+
+	public ReleaseType getReleaseType() {
+		return releaseType;
+	}
+
+	public void setReleaseType(ReleaseType releaseType) {
+		this.releaseType = releaseType;
+	}
+
+	public ReleaseGroupReason getReleaseGroupReason() {
+		return releaseGroupReason;
+	}
+
+	public void setReleaseGroupReason(ReleaseGroupReason releaseGroupReason) {
+		this.releaseGroupReason = releaseGroupReason;
 	}
 
 }

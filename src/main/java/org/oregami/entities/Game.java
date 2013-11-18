@@ -24,12 +24,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.oregami.entities.datalist.GameEntryType;
 
 @Entity
 @NamedQueries({
@@ -40,19 +40,19 @@ public class Game extends BaseEntity {
 
 	private static final long serialVersionUID = -2362683596950421365L;
 
-	public boolean compilation;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private GameEntryType gameEntryType;
 	
-	public boolean addOn;
-
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	@JoinColumn(name="GameId", referencedColumnName="id")
-	private Set<GameTitle> gameTitleList = new HashSet<GameTitle>();
+	private final Set<GameTitle> gameTitleList = new HashSet<GameTitle>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 //	@OrderBy("system ASC")
 	@JoinColumn
-	private Set<ReleaseGroup> releaseGroupList = new HashSet<ReleaseGroup>();
+	private final Set<ReleaseGroup> releaseGroupList = new HashSet<ReleaseGroup>();
 
+	
 	public void addReleaseGroup(ReleaseGroup vog) {
 		this.releaseGroupList.add(vog);
 		vog.setGame(this);
@@ -64,22 +64,6 @@ public class Game extends BaseEntity {
 
 	public Collection<ReleaseGroup> getReleaseGroupList() {
 		return releaseGroupList;
-	}
-
-	public boolean isCompilation() {
-		return compilation;
-	}
-
-	public void setCompilation(boolean compilation) {
-		this.compilation = compilation;
-	}
-
-	public boolean isAddOn() {
-		return addOn;
-	}
-
-	public void setAddOn(boolean addOn) {
-		this.addOn = addOn;
 	}
 
 	public Set<GameTitle> getGameTitleList() {
@@ -96,9 +80,13 @@ public class Game extends BaseEntity {
 		}
 		return ret;
 	}
-	
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+
+	public GameEntryType getGameEntryType() {
+		return gameEntryType;
 	}
+
+	public void setGameEntryType(GameEntryType gameEntryType) {
+		this.gameEntryType = gameEntryType;
+	}
+
 }
