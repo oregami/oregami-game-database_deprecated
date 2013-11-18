@@ -29,6 +29,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 
 
 @MappedSuperclass
@@ -117,4 +120,9 @@ public abstract class BaseEntity implements Serializable
     {
         this.lastUpdate = lastUpdate;
     }
+    
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }
