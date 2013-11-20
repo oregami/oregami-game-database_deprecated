@@ -54,7 +54,6 @@ public class BaseEntityTest {
 
 		Game gameFromDb = entityManager.find(Game.class, game.getId());
 
-		// Two objects that refer to the same entity are equal.
 		assertThat("two objects that refer to the same entity are equal", game, is(gameFromDb));
 
 	}
