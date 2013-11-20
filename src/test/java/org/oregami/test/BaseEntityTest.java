@@ -60,12 +60,6 @@ public class BaseEntityTest {
 		// Two objects that refer to the same entity are equal.
 		assertThat(game, is(gameFromDb));
 
-		game.addGameTitle(new GameTitle("test"));
-
-		// Even though the objects have different properties, they
-		// refer to the same entity, so they are equal.
-		assertThat(game, is(gameFromDb));
-
 	}
 
 }
