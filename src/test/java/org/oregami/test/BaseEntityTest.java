@@ -35,7 +35,7 @@ public class BaseEntityTest {
 
 	@Test
 	@Transactional
-	public void testEquality() {
+	public void testEquals() {
 		ReleaseGroup releaseGroup = new ReleaseGroup();
 		Game game = new Game();
 		Game game2 = new Game();
