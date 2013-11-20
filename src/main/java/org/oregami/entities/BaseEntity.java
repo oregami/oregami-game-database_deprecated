@@ -81,12 +81,12 @@ public abstract class BaseEntity implements Serializable
         final BaseEntity other = (BaseEntity) obj;
         if (this.id != null && other.id != null)
         {
-            if (this.id != other.id)
+            if (this.getClass().equals(other.getClass()) && this.id == other.id)
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
  
     public Long getId()
