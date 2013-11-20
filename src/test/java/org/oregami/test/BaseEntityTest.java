@@ -40,11 +40,9 @@ public class BaseEntityTest {
 		Game game = new Game();
 		Game game2 = new Game();
 
-		// Objects of different classes are not equal.
-		assertFalse(releaseGroup.equals(game));
+		assertFalse("objects of different classes are not equal.", releaseGroup.equals(game));
 
-		// Identical objects are equal.
-		assertThat(game, is(game));
+		assertThat("identical objects are equal", game, is(game));
 
 		EntityManager entityManager = injector.getInstance(EntityManager.class);
 		entityManager.getTransaction().begin();
@@ -52,13 +50,12 @@ public class BaseEntityTest {
 		entityManager.flush();
 		entityManager.getTransaction().commit();
 
-		// Persisted objects are not equal to non-persisted objects.
-		assertThat(game, is(not(game2)));
+		assertThat("persisted objects are not equal to non-persisted objects", game, is(not(game2)));
 
 		Game gameFromDb = entityManager.find(Game.class, game.getId());
 
 		// Two objects that refer to the same entity are equal.
-		assertThat(game, is(gameFromDb));
+		assertThat("two objects that refer to the same entity are equal", game, is(gameFromDb));
 
 	}
 
