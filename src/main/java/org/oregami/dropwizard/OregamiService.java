@@ -19,6 +19,7 @@ public class OregamiService extends Service<OregamiConfiguration> {
 
 	private GuiceBundle<OregamiConfiguration> guiceBundle;
 	private final JpaPersistModule jpaPersistModule = new JpaPersistModule("data");
+//	private final JpaPersistModule jpaPersistModule = new JpaPersistModule("dataMysql");
 	
 	public static void main(String[] args) throws Exception {
 		new OregamiService().run(args);
