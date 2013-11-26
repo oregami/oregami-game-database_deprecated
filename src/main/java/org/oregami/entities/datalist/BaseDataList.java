@@ -7,16 +7,17 @@ import org.oregami.entities.BaseEntity;
 @MappedSuperclass
 public abstract class BaseDataList extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 
+	public BaseDataList(String value) {
+		super();
+		this.value = value;
+	}
+	
 	private String value = null;
 
 	public String getValue() {
 		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
 	}
 
 	

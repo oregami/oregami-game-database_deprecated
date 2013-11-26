@@ -2,13 +2,23 @@ package org.oregami.entities.datalist;
 
 import javax.persistence.Entity;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+5+-+Game+Entry+Type
  * Used in Game-Entity
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(name="GameEntryType.GetAll", query = 
+			"from GameEntryType g")
+})
 public class GameEntryType extends BaseDataList {
 
+	public GameEntryType(String value) {
+		super(value);
+	}
 	public static final String GAME = "GAME";
 	public static final String EPISODIC_GAME = "EPISODIC_GAME";
 	public static final String COMPILATION = "COMPILATION";

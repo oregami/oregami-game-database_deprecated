@@ -40,7 +40,7 @@ public class Game extends BaseEntity {
 
 	private static final long serialVersionUID = -2362683596950421365L;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private GameEntryType gameEntryType;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
@@ -48,7 +48,6 @@ public class Game extends BaseEntity {
 	private final Set<GameTitle> gameTitleList = new HashSet<GameTitle>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
-//	@OrderBy("system ASC")
 	@JoinColumn
 	private final Set<ReleaseGroup> releaseGroupList = new HashSet<ReleaseGroup>();
 

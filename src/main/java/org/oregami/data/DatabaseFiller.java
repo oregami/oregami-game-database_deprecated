@@ -22,8 +22,7 @@ public class DatabaseFiller {
 	private GameEntryTypeDao gameEntryTypeDao;
 
 	private void fillGameEntryType() {
-		GameEntryType gameEntryType = new GameEntryType();
-		gameEntryType.setValue(GameEntryType.GAME);
+		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
 		gameEntryTypeDao.save(gameEntryType);		
 	}
 	

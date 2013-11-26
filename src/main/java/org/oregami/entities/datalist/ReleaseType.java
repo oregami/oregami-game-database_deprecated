@@ -9,6 +9,10 @@ import javax.persistence.Entity;
 @Entity
 public class ReleaseType extends BaseDataList {
 
+	public ReleaseType(String value) {
+		super(value);
+	}
+	
 	public static final String NATIVE_DEVELOPMENT = "NATIVE_DEVELOPMENT";
 	public static final String PORT = "PORT";
 	public static final String EMULATOR_RELEASE = "EMULATOR_RELEASE";

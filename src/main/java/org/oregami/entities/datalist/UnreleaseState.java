@@ -9,6 +9,10 @@ import javax.persistence.Entity;
 @Entity
 public class UnreleaseState extends BaseDataList {
 
+	public UnreleaseState(String value) {
+		super(value);
+	}
+	
 	public static final String IN_DEVELOPMENT = "IN_DEVELOPMENT";
 	public static final String DEVELOPMENT_CANCELLED = "DEVELOPMENT_CANCELLED";
 	public static final String VAPORWARE = "VAPORWARE";

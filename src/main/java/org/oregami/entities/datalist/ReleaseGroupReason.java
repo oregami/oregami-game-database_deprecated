@@ -8,6 +8,10 @@ import javax.persistence.Entity;
 @Entity
 public class ReleaseGroupReason extends BaseDataList {
 
+	public ReleaseGroupReason(String value) {
+		super(value);
+	}
+	
 	public static final String ORIGINAL = "ORIGINAL";
 	public static final String DEMO_PROMO = "DEMO_PROMO";
 	public static final String ENHANCED = "ENHANCED";
