@@ -17,9 +17,10 @@ import com.yammer.dropwizard.config.FilterBuilder;
 
 public class OregamiService extends Service<OregamiConfiguration> {
 
+	public static final String JPA_UNIT = "data"; //"dataMysql"
+	
 	private GuiceBundle<OregamiConfiguration> guiceBundle;
-	private final JpaPersistModule jpaPersistModule = new JpaPersistModule("data");
-//	private final JpaPersistModule jpaPersistModule = new JpaPersistModule("dataMysql");
+	private final JpaPersistModule jpaPersistModule = new JpaPersistModule(JPA_UNIT);
 	
 	public static void main(String[] args) throws Exception {
 		new OregamiService().run(args);
