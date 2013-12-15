@@ -7,7 +7,7 @@ import javax.persistence.Entity;
  * used in ReleaseGroup-Entity
  */
 @Entity
-public class ReleaseType extends BaseDataList {
+public class ReleaseType extends BaseList {
 
 	public ReleaseType(String value) {
 		super(value);

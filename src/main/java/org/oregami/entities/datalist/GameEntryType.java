@@ -14,11 +14,18 @@ import org.hibernate.annotations.NamedQuery;
 	@NamedQuery(name="GameEntryType.GetAll", query = 
 			"from GameEntryType g")
 })
-public class GameEntryType extends BaseDataList {
+public class GameEntryType extends BaseList {
 
+	private static final long serialVersionUID = -2058077337831511047L;
+	
 	public GameEntryType(String value) {
 		super(value);
 	}
+	
+	GameEntryType() {
+		super("");
+	}
+	
 	public static final String GAME = "GAME";
 	public static final String EPISODIC_GAME = "EPISODIC_GAME";
 	public static final String COMPILATION = "COMPILATION";

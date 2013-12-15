@@ -21,10 +21,12 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.oregami.entities.KeyObjects.SystemKey;
+import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.ReleaseGroupReason;
 import org.oregami.entities.datalist.ReleaseType;
 import org.oregami.entities.datalist.UnreleaseState;
@@ -42,6 +44,9 @@ public class ReleaseGroup extends BaseEntity {
 	
 	@ManyToOne
 	private ReleaseType releaseType;
+
+	@ManyToMany
+	private Set<DemoContentType> demoContentType;
 	
 	private boolean censored = false;
 	

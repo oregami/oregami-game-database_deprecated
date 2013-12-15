@@ -6,10 +6,16 @@ import javax.persistence.Entity;
  * see http://wiki.oregami.org/display/OR/Data+List+1+-+Release+Group+Reasons
  */
 @Entity
-public class ReleaseGroupReason extends BaseDataList {
+public class ReleaseGroupReason extends BaseList {
 
+	private static final long serialVersionUID = -7611326913084521870L;
+	
 	public ReleaseGroupReason(String value) {
 		super(value);
+	}
+	
+	ReleaseGroupReason() {
+		super("");
 	}
 	
 	public static final String ORIGINAL = "ORIGINAL";

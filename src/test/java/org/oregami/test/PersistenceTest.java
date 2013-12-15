@@ -67,16 +67,16 @@ public class PersistenceTest {
 		Assert.assertEquals(game.getGameEntryType(), loadedGame.getGameEntryType());
 	}
 	
-	@Test
-	public void testSaveGameEntryType() {
-		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
-		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
-		gameEntryTypeDao.save(gameEntryType);
-		
-		GameEntryType loadedGameEntryType = gameEntryTypeDao.findOne(gameEntryType.getId());
-		Assert.assertNotNull(loadedGameEntryType);
-		Assert.assertEquals(loadedGameEntryType.getValue(), gameEntryType.getValue());
-	}
+//	@Test
+//	public void testSaveGameEntryType() {
+//		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
+//		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
+//		gameEntryTypeDao.save(gameEntryType);
+//		
+//		GameEntryType loadedGameEntryType = gameEntryTypeDao.findOne(gameEntryType.getId());
+//		Assert.assertNotNull(loadedGameEntryType);
+//		Assert.assertEquals(loadedGameEntryType.getValue(), gameEntryType.getValue());
+//	}
 	
 	
 	@Test

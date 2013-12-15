@@ -1,17 +1,24 @@
 package org.oregami.test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+
 import javax.persistence.EntityManager;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+import org.oregami.data.BaseListFinder;
+import org.oregami.data.DatabaseFiller;
+import org.oregami.data.GameEntryTypeDao;
 import org.oregami.entities.Game;
-import org.oregami.entities.GameTitle;
 import org.oregami.entities.ReleaseGroup;
+import org.oregami.entities.datalist.DemoContentType;
+import org.oregami.entities.datalist.GameEntryType;
 
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
@@ -21,6 +28,9 @@ public class BaseEntityTest {
 
 	private static Injector injector;
 
+	@Inject
+	private GameEntryTypeDao gameEntryDao;
+	
 	public BaseEntityTest() {
 	}
 
@@ -31,7 +41,9 @@ public class BaseEntityTest {
 		injector.getInstance(PersistenceTest.class);
 		PersistService persistService = injector.getInstance(PersistService.class);
 		persistService.start();
+		initBaseLists();
 	}
+	
 
 	@Test
 	@Transactional
@@ -57,5 +69,24 @@ public class BaseEntityTest {
 		assertThat("two objects that refer to the same entity are equal", game, is(gameFromDb));
 
 	}
+	
+	@Test
+	@Transactional
+	public void testGeneric() {
+		GameEntryType compilationLoaded = BaseListFinder.instance().getGameEntryType(GameEntryType.EPISODE);
+		System.out.println("gameEntryDao: " + compilationLoaded);
+		
+		DemoContentType demoContentType = BaseListFinder.instance().getDemoContentType(DemoContentType.ABSOLUTE_PLAY_COUNT_LIMIT);
+		System.out.println(demoContentType);
+	}
 
+	public GameEntryTypeDao getGameEntryDao() {
+		return gameEntryDao;
+	}
+	
+	
+	private static void initBaseLists() {
+		DatabaseFiller.getInstance().initBaseLists();
+	}
+	
 }

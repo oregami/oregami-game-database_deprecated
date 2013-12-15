@@ -15,7 +15,6 @@ public class GameEntryTypeDao extends GenericDAOImpl<GameEntryType, Long>{
 		entityClass=GameEntryType.class;
 	}
 	
-    @SuppressWarnings("unchecked")
     public GameEntryType findByName(String value) {
     	GameEntryType type = (GameEntryType)getEntityManager()
                 .createQuery("SELECT t FROM GameEntryType t where t.value = '" + value + "'").getSingleResult(); 

@@ -5,11 +5,11 @@ import javax.persistence.MappedSuperclass;
 import org.oregami.entities.BaseEntity;
 
 @MappedSuperclass
-public abstract class BaseDataList extends BaseEntity {
+public abstract class BaseList extends BaseEntity {
 
-	protected static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8492563207129737767L;
 
-	public BaseDataList(String value) {
+	public BaseList(String value) {
 		super();
 		this.value = value;
 	}
