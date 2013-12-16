@@ -4,6 +4,7 @@ import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseGroupReason;
+import org.oregami.entities.datalist.ReleaseType;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -34,14 +35,19 @@ public class BaseListFinder {
 	ReleaseGroupReasonDao releaseGroupReasonDao;
 
 	@Inject
+	ReleaseTypeDao releaseTypeDao;
+	
+	@Inject
 	DemoContentTypeDao demoContentTypeDao;
 	
-	@Transactional
 	public GameEntryType getGameEntryType(String value) {
 		return gameEntryTypeDao.findByName(value);
 	}
+	
+	public ReleaseType getReleaseType(String value) {
+		return releaseTypeDao.findByName(value);
+	}
 
-	@Transactional
 	public ReleaseGroupReason getReleaseGroupReason(String value) {
 		return releaseGroupReasonDao.findByName(value);
 	}
