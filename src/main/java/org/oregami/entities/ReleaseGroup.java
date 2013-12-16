@@ -46,7 +46,7 @@ public class ReleaseGroup extends BaseEntity {
 	private ReleaseType releaseType;
 
 	@ManyToMany
-	private Set<DemoContentType> demoContentType;
+	private final Set<DemoContentType> demoContentTypeList = new HashSet<DemoContentType>();
 	
 	private boolean censored = false;
 	
@@ -137,6 +137,14 @@ public class ReleaseGroup extends BaseEntity {
 
 	public void setReleaseGroupReason(ReleaseGroupReason releaseGroupReason) {
 		this.releaseGroupReason = releaseGroupReason;
+	}
+
+	public Set<DemoContentType> getDemoContentTypeList() {
+		return demoContentTypeList;
+	}
+	
+	public void addDemoContentType(DemoContentType demoContentType) {
+		demoContentTypeList.add(demoContentType);
 	}
 
 }
