@@ -7,18 +7,18 @@ import static org.junit.Assert.assertThat;
 
 import javax.persistence.EntityManager;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.oregami.data.BaseListFinder;
 import org.oregami.data.DatabaseFiller;
-import org.oregami.data.GameEntryTypeDao;
 import org.oregami.entities.Game;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
+import org.oregami.entities.datalist.ReleaseType;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
@@ -28,9 +28,6 @@ public class BaseEntityTest {
 
 	private static Injector injector;
 
-	@Inject
-	private GameEntryTypeDao gameEntryDao;
-	
 	public BaseEntityTest() {
 	}
 
@@ -75,16 +72,17 @@ public class BaseEntityTest {
 	public void testGeneric() {
 		GameEntryType compilationLoaded = BaseListFinder.instance().getGameEntryType(GameEntryType.EPISODE);
 		System.out.println("gameEntryDao: " + compilationLoaded);
+		Assert.assertNotNull(compilationLoaded);
 		
 		DemoContentType demoContentType = BaseListFinder.instance().getDemoContentType(DemoContentType.ABSOLUTE_PLAY_COUNT_LIMIT);
 		System.out.println(demoContentType);
+		Assert.assertNotNull(demoContentType);
+		
+		ReleaseType releaseType = BaseListFinder.instance().getReleaseType(ReleaseType.EMULATOR_RELEASE);
+		System.out.println(releaseType);
+		Assert.assertNotNull(releaseType);
 	}
 
-	public GameEntryTypeDao getGameEntryDao() {
-		return gameEntryDao;
-	}
-	
-	
 	private static void initBaseLists() {
 		DatabaseFiller.getInstance().initBaseLists();
 	}
