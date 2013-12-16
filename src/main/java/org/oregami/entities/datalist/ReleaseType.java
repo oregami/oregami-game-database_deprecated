@@ -13,6 +13,10 @@ public class ReleaseType extends BaseList {
 		super(value);
 	}
 	
+	ReleaseType() {
+		super("");
+	}
+	
 	public static final String NATIVE_DEVELOPMENT = "NATIVE_DEVELOPMENT";
 	public static final String PORT = "PORT";
 	public static final String EMULATOR_RELEASE = "EMULATOR_RELEASE";
