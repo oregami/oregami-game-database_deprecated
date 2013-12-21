@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.oregami.data.BaseListFinder;
 import org.oregami.data.DatabaseFiller;
+import org.oregami.data.GameEntryTypeDao;
 import org.oregami.entities.Game;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.DemoContentType;
@@ -82,7 +83,16 @@ public class BaseEntityTest {
 		System.out.println(releaseType);
 		Assert.assertNotNull(releaseType);
 	}
-
+	
+	@Test
+	@Transactional
+	public void testGenericBaseListDao() {
+		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
+		GameEntryType gameEntryType = gameEntryTypeDao.findByName(GameEntryType.COMPILATION);
+		Assert.assertNotNull(gameEntryType);
+		Assert.assertEquals(GameEntryType.COMPILATION,gameEntryType.getValue());
+	}
+	
 	private static void initBaseLists() {
 		DatabaseFiller.getInstance().initBaseLists();
 	}
