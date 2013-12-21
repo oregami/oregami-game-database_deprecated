@@ -20,7 +20,7 @@ public class OregamiService extends Service<OregamiConfiguration> {
 	public static final String JPA_UNIT = "data"; //"dataMysql"
 	
 	private GuiceBundle<OregamiConfiguration> guiceBundle;
-	private final JpaPersistModule jpaPersistModule = new JpaPersistModule(JPA_UNIT);
+	private static final JpaPersistModule jpaPersistModule = new JpaPersistModule(JPA_UNIT);
 	
 	public static void main(String[] args) throws Exception {
 		new OregamiService().run(args);
@@ -52,6 +52,10 @@ public class OregamiService extends Service<OregamiConfiguration> {
 
 		environment.addResource(guiceBundle.getInjector().getInstance(GamesResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(HomeResource.class));
+	}
+
+	public static JpaPersistModule createJpaModule() {
+		return jpaPersistModule;
 	}
 
 

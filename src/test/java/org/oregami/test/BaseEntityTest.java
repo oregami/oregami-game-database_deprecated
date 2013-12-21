@@ -10,8 +10,8 @@ import javax.persistence.EntityManager;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.oregami.data.BaseListFiller;
 import org.oregami.data.BaseListFinder;
-import org.oregami.data.DatabaseFiller;
 import org.oregami.data.GameEntryTypeDao;
 import org.oregami.entities.Game;
 import org.oregami.entities.ReleaseGroup;
@@ -94,7 +94,7 @@ public class BaseEntityTest {
 	}
 	
 	private static void initBaseLists() {
-		DatabaseFiller.getInstance().initBaseLists();
+		BaseListFiller.instance().initBaseLists();
 	}
 	
 }
