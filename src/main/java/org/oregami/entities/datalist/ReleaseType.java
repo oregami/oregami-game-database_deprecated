@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 @Entity
 public class ReleaseType extends BaseList {
 
+	private static final long serialVersionUID = -8652320100834691941L;
+	
 	public ReleaseType(String value) {
 		super(value);
 	}

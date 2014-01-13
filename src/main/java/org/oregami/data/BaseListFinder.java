@@ -5,12 +5,12 @@ import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseGroupReason;
 import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.TitleType;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
-import com.google.inject.persist.Transactional;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class BaseListFinder {
@@ -36,6 +36,9 @@ public class BaseListFinder {
 
 	@Inject
 	ReleaseTypeDao releaseTypeDao;
+
+	@Inject
+	TitleTypeDao titleTypeDao;
 	
 	@Inject
 	DemoContentTypeDao demoContentTypeDao;
@@ -47,12 +50,15 @@ public class BaseListFinder {
 	public ReleaseType getReleaseType(String value) {
 		return releaseTypeDao.findByName(value);
 	}
-
+	
+	public TitleType getTitleType(String value) {
+		return titleTypeDao.findByName(value);
+	}
+	
 	public ReleaseGroupReason getReleaseGroupReason(String value) {
 		return releaseGroupReasonDao.findByName(value);
 	}
 	
-	@Transactional
 	public DemoContentType getDemoContentType(String value) {
 		return demoContentTypeDao.findByName(value);
 	}

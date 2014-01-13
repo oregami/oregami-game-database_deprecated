@@ -12,6 +12,7 @@ public class ReleaseGroupReasonDao extends BaseListDao<ReleaseGroupReason>{
 	@Inject
 	public ReleaseGroupReasonDao(Provider<EntityManager> emf) {
 		super(emf);
+		entityClass=ReleaseGroupReason.class;
 	}
 	
 }

@@ -12,12 +12,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.oregami.data.BaseListFiller;
 import org.oregami.data.BaseListFinder;
+import org.oregami.data.DatabaseFiller;
+import org.oregami.data.GameDao;
 import org.oregami.data.GameEntryTypeDao;
 import org.oregami.entities.Game;
+import org.oregami.entities.GameTitle;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.TitleType;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -96,5 +100,24 @@ public class BaseEntityTest {
 	private static void initBaseLists() {
 		BaseListFiller.instance().initBaseLists();
 	}
+	
+	@Test
+	@Transactional
+	public void testDeleteGameData() {
+		GameDao gameDao = injector.getInstance(GameDao.class);
+		
+		Game game2 = new Game();
+		game2.connectGameTitle(new GameTitle("Street Fighter"), BaseListFinder.instance().getTitleType(TitleType.MAIN_TITLE));
+		Long gameId2 = gameDao.save(game2);
+		
+
+		int sizeBeforeDelete = gameDao.findAll().size();
+		Assert.assertTrue(sizeBeforeDelete==1);
+		
+		DatabaseFiller.getInstance().deleteGameData();
+		
+		int sizeAfterDelete = gameDao.findAll().size();
+		Assert.assertTrue(sizeAfterDelete==0);
+	}	
 	
 }

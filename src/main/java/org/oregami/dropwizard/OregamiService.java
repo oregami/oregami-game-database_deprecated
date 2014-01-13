@@ -1,6 +1,7 @@
 package org.oregami.dropwizard;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.oregami.resources.AdminResource;
 import org.oregami.resources.GamesResource;
 import org.oregami.resources.HomeResource;
 
@@ -17,7 +18,9 @@ import com.yammer.dropwizard.config.FilterBuilder;
 
 public class OregamiService extends Service<OregamiConfiguration> {
 
-	public static final String JPA_UNIT = "data"; //"dataMysql"
+	public static final String JPA_UNIT = 
+			"data"; 
+			//"dataMysql";
 	
 	private GuiceBundle<OregamiConfiguration> guiceBundle;
 	private static final JpaPersistModule jpaPersistModule = new JpaPersistModule(JPA_UNIT);
@@ -52,6 +55,7 @@ public class OregamiService extends Service<OregamiConfiguration> {
 
 		environment.addResource(guiceBundle.getInjector().getInstance(GamesResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(HomeResource.class));
+		environment.addResource(guiceBundle.getInjector().getInstance(AdminResource.class));
 	}
 
 	public static JpaPersistModule createJpaModule() {

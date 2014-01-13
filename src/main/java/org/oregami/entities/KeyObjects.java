@@ -47,6 +47,8 @@ public class KeyObjects {
 		Playstation2,
 		Saturn,
 		
+		FMTowns
+		
 	};
  
 }

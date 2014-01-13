@@ -2,26 +2,43 @@ package org.oregami.entities;
 
 import javax.persistence.Entity;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
+@NamedQueries({
+	@NamedQuery(name="GameTitle.GetAll", query = 
+			"from GameTitle t")
+})
 public class GameTitle extends BaseEntity {
 
 	private static final long serialVersionUID = -4693647736354542489L;
 	
-	private String title;
+	private String nativeSpelling;
+	
+	private String standardTransliteration;
 
 	public GameTitle() {
 	}
 	
-	public GameTitle(String title) {
-		this.title = title;
+	public GameTitle(String nativeSpelling) {
+		this.setNativeSpelling(nativeSpelling);
+	}
+
+	public String getNativeSpelling() {
+		return nativeSpelling;
+	}
+
+	public void setNativeSpelling(String nativeSpelling) {
+		this.nativeSpelling = nativeSpelling;
+	}
+
+	public String getStandardTransliteration() {
+		return standardTransliteration;
+	}
+
+	public void setStandardTransliteration(String standardTransliteration) {
+		this.standardTransliteration = standardTransliteration;
 	}
 	
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 }

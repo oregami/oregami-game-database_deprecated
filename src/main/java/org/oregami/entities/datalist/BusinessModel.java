@@ -1,14 +1,21 @@
 package org.oregami.entities.datalist;
 
+import javax.persistence.Entity;
+
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+27+-+Release+Business+Models
  */
+@Entity
 public class BusinessModel extends BaseList {
 
 	private static final long serialVersionUID = 8648455079483420964L;
 	
 	public BusinessModel(String value) {
 		super(value);
+	}
+	
+	public BusinessModel() {
+		super("");
 	}
 	
 	public static final int COMMERCIAL_FULL_PRICE = 1;

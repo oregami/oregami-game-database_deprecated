@@ -4,6 +4,7 @@ import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.TitleType;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -25,6 +26,9 @@ public class BaseListFiller {
 	
 	@Inject
 	private DemoContentTypeDao demoContentTypeDao;	
+
+	@Inject
+	private TitleTypeDao titleTypeDao;	
 	
 	public static BaseListFiller instance() {
 		if (instance==null) {
@@ -42,6 +46,7 @@ public class BaseListFiller {
 			initGameEntryType();
 			initDemoContentType();
 			initReleaseType();
+			initTitleType();
 			initialized=true;
 		}
 	}
@@ -71,6 +76,16 @@ public class BaseListFiller {
 		releaseTypeDao.save(new ReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
 		releaseTypeDao.save(new ReleaseType(ReleaseType.EMULATOR_RELEASE));
 		releaseTypeDao.save(new ReleaseType(ReleaseType.PORT));
-	}		
+	}
+	
+	private void initTitleType() {
+		titleTypeDao.save(new TitleType(TitleType.MAIN_TITLE));
+		titleTypeDao.save(new TitleType(TitleType.ABBREVIATION));
+		titleTypeDao.save(new TitleType(TitleType.BUDGET_RELEASE_TITLE));
+		titleTypeDao.save(new TitleType(TitleType.DEVELOPMENT_TITLE));
+		titleTypeDao.save(new TitleType(TitleType.INOFFICIAL_TITLE));
+		titleTypeDao.save(new TitleType(TitleType.RE_RELEASE_TITLE));
+		
+	}
 	
 }

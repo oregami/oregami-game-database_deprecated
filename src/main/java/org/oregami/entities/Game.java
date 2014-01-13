@@ -30,6 +30,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.oregami.entities.datalist.GameEntryType;
+import org.oregami.entities.datalist.TitleType;
 
 @Entity
 @NamedQueries({
@@ -44,40 +45,20 @@ public class Game extends BaseEntity {
 	private GameEntryType gameEntryType;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
-	@JoinColumn(name="GameId", referencedColumnName="id")
-	private final Set<GameTitle> gameTitleList = new HashSet<GameTitle>();
-	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	@JoinColumn
 	private final Set<ReleaseGroup> releaseGroupList = new HashSet<ReleaseGroup>();
 
-	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+	@JoinColumn
+	private final Set<GameToGameTitleConnection> gameToGameTitleConnectionList = new HashSet<GameToGameTitleConnection>();
+
 	public void addReleaseGroup(ReleaseGroup vog) {
 		this.releaseGroupList.add(vog);
 		vog.setGame(this);
 	}
 
-	public void addGameTitle(GameTitle t) {
-		this.gameTitleList.add(t);
-	}
-
 	public Collection<ReleaseGroup> getReleaseGroupList() {
 		return releaseGroupList;
-	}
-
-	public Set<GameTitle> getGameTitleList() {
-		return gameTitleList;
-	}
-
-	public String getMainTitle() {
-		String ret = "[missing title for game with id " + getId() + "!]";
-		Collection<GameTitle> list = getGameTitleList();
-		if (list!=null && !list.isEmpty()) {
-			ret = 
-//					"mt: " + 
-				((GameTitle)list.toArray()[0]).getTitle();
-		}
-		return ret;
 	}
 
 	public GameEntryType getGameEntryType() {
@@ -86,6 +67,17 @@ public class Game extends BaseEntity {
 
 	public void setGameEntryType(GameEntryType gameEntryType) {
 		this.gameEntryType = gameEntryType;
+	}
+
+	public Set<GameToGameTitleConnection> getGameToGameTitleConnectionList() {
+		return gameToGameTitleConnectionList;
+	}
+	
+	public void connectGameTitle(GameTitle gt, TitleType titleType) {
+		GameToGameTitleConnection conn = new GameToGameTitleConnection();
+		conn.setTitleType(titleType);
+		gameToGameTitleConnectionList.add(conn);
+		
 	}
 
 }

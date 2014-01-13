@@ -1,6 +1,7 @@
 package org.oregami.test;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -11,11 +12,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.oregami.data.GameDao;
 import org.oregami.data.GameEntryTypeDao;
+import org.oregami.data.GameTitleDao;
+import org.oregami.data.TitleTypeDao;
+import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
+import org.oregami.entities.GameToGameTitleConnection;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.TitleType;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -33,7 +39,7 @@ public class PersistenceTest {
 	
 	@BeforeClass
 	public static void init() {
-		JpaPersistModule jpaPersistModule = new JpaPersistModule("data");
+		JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiService.JPA_UNIT);
 		injector = Guice.createInjector(jpaPersistModule);
 		injector.getInstance(PersistenceTest.class);
 		PersistService persistService = injector.getInstance(PersistService.class);
@@ -46,6 +52,10 @@ public class PersistenceTest {
 			entityManager = injector.getInstance(EntityManager.class);
 		}
 		entityManager.getTransaction().begin();
+		
+		//deletes are not necessary, because of the Rollback after every Test
+//		DatabaseFiller.getInstance().deleteGameData();
+//		DatabaseFiller.getInstance().deleteBaseListData();
 	}
 	
 	@After
@@ -53,12 +63,16 @@ public class PersistenceTest {
 		entityManager.getTransaction().rollback();
 	}
 	
+	private <T> T getInstance(Class<T> c) {
+		return injector.getInstance(c);
+	}
+	
 	@Test
 	public void testSaveGame() {
 		Game game = new Game();
-		game.addGameTitle(new GameTitle("Monkey Island"));
+		game.connectGameTitle(new GameTitle("The Secret of Monkey Island"), new TitleType(TitleType.MAIN_TITLE));
 		
-		GameDao gameDao = injector.getInstance(GameDao.class);
+		GameDao gameDao = getInstance(GameDao.class);
 		Long gameId = gameDao.save(game);
 		Assert.assertNotNull(gameId);
 		
@@ -67,21 +81,22 @@ public class PersistenceTest {
 		Assert.assertEquals(game.getGameEntryType(), loadedGame.getGameEntryType());
 	}
 	
-//	@Test
-//	public void testSaveGameEntryType() {
-//		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
-//		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
-//		gameEntryTypeDao.save(gameEntryType);
-//		
-//		GameEntryType loadedGameEntryType = gameEntryTypeDao.findOne(gameEntryType.getId());
-//		Assert.assertNotNull(loadedGameEntryType);
-//		Assert.assertEquals(loadedGameEntryType.getValue(), gameEntryType.getValue());
-//	}
+	@Test
+	public void testSaveGameEntryType() {
+		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
+		GameEntryTypeDao gameEntryTypeDao = getInstance(GameEntryTypeDao.class);
+		gameEntryTypeDao.save(gameEntryType);
+		
+		GameEntryType loadedGameEntryType = gameEntryTypeDao.findOne(gameEntryType.getId());
+		Assert.assertNotNull(loadedGameEntryType);
+		Assert.assertEquals(loadedGameEntryType.getValue(), gameEntryType.getValue());
+	}
+	
 	
 	
 	@Test
 	public void testSaveMultipleGameEntryTypes() {
-		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
+		GameEntryTypeDao gameEntryTypeDao = getInstance(GameEntryTypeDao.class);
 
 		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
 		gameEntryTypeDao.save(gameEntryType);
@@ -104,8 +119,16 @@ public class PersistenceTest {
 	 */
 	@Test
 	public void testSaveAndDeleteGameWithMultipleGameEntryTypes() {
-		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
-		GameDao gameDao = injector.getInstance(GameDao.class);
+		GameEntryTypeDao gameEntryTypeDao = getInstance(GameEntryTypeDao.class);
+		GameDao gameDao = getInstance(GameDao.class);
+		GameTitleDao gameTitleDao = getInstance(GameTitleDao.class);
+		
+		GameTitle gameTitle = new GameTitle("The Secret of Monkey Island");
+		gameTitleDao.save(gameTitle);
+		
+		TitleTypeDao titleTypeDao = getInstance(TitleTypeDao.class);
+		TitleType titleType = new TitleType(TitleType.MAIN_TITLE);
+		titleTypeDao.save(titleType);
 		
 		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
 		gameEntryTypeDao.save(gameEntryType);
@@ -117,7 +140,7 @@ public class PersistenceTest {
 		gameEntryTypeDao.save(gameEntryType3);
 		
 		Game game = new Game();
-		game.addGameTitle(new GameTitle("Monkey Island"));
+		game.connectGameTitle(gameTitle, titleType);
 		game.setGameEntryType(gameEntryType);
 		Long gameId = gameDao.save(game);
 		Assert.assertNotNull(gameId);
@@ -146,23 +169,21 @@ public class PersistenceTest {
 	public void testSaveGameWithGameEntryType() {
 		
 		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
-		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
+		GameEntryTypeDao gameEntryTypeDao = getInstance(GameEntryTypeDao.class);
 		gameEntryTypeDao.save(gameEntryType);
 		
 		GameEntryType loadedGameEntryType = gameEntryTypeDao.findOne(gameEntryType.getId());
 		Assert.assertNotNull(loadedGameEntryType);
 		Assert.assertEquals(loadedGameEntryType.getValue(), gameEntryType.getValue());
 		
-		GameDao gameDao = injector.getInstance(GameDao.class);
+		GameDao gameDao = getInstance(GameDao.class);
 		
 		Game game = new Game();
-		game.addGameTitle(new GameTitle("Monkey Island"));
 		game.setGameEntryType(gameEntryType);
 		Long gameId = gameDao.save(game);
 		Assert.assertNotNull(gameId);
 
 		Game game2 = new Game();
-		game2.addGameTitle(new GameTitle("Street Fighter"));
 		game2.setGameEntryType(gameEntryType);
 		Long gameId2 = gameDao.save(game2);
 		Assert.assertNotNull(gameId2);
@@ -180,6 +201,7 @@ public class PersistenceTest {
 		
 		
 	}
+	
 	
 	@Test
 	public void testSaveReleaseGroup() {
@@ -200,6 +222,96 @@ public class PersistenceTest {
 		
 	}
 	
+	@Test
+	public void testSaveGameTitle() {
+		GameTitleDao titleDao = getInstance(GameTitleDao.class);
+		GameTitle title = new GameTitle("The Secret of Monkey Island");
+		titleDao.save(title);
+		
+		Assert.assertEquals(titleDao.findAll().size(), 1);
+		
+		GameTitle title2 = new GameTitle("Le Secret de L'Ile aux Singes");
+		titleDao.save(title2);
+		
+		Assert.assertEquals(titleDao.findAll().size(), 2);
+		
+	}
 	
+	
+	@Test
+	public void testSaveGameWithGameTitle() {
+		GameTitleDao titleDao = getInstance(GameTitleDao.class);
+		GameTitle title = new GameTitle("The Secret of Monkey Island");
+		titleDao.save(title);
+		GameTitle title2 = new GameTitle("Monkey Island");
+		titleDao.save(title2);
+		Assert.assertEquals(titleDao.findAll().size(), 2);
+		
+		TitleTypeDao titleTypeDao = getInstance(TitleTypeDao.class);
+		TitleType titleType = new TitleType(TitleType.MAIN_TITLE);
+		TitleType titleType2 = new TitleType(TitleType.ABBREVIATION);
+		titleTypeDao.save(titleType);
+		titleTypeDao.save(titleType2);
+		
+		Assert.assertEquals(titleTypeDao.findAll().size(), 2);
+
+		GameDao gameDao = getInstance(GameDao.class);
+		Game game = new Game();
+		game.connectGameTitle(title, titleType);
+		game.connectGameTitle(title2, titleType2);
+		Long gameId = gameDao.save(game);
+		
+		Game gameLoaded = gameDao.findOne(gameId);
+		Set<GameToGameTitleConnection> connectionList = gameLoaded.getGameToGameTitleConnectionList();
+		Assert.assertEquals(connectionList.size(), 2);
+		
+		GameToGameTitleConnection gameTitleConnectionLoaded = connectionList.iterator().next();
+		Assert.assertNotNull(gameTitleConnectionLoaded);
+		
+		Assert.assertEquals(titleTypeDao.findAll().size(), 2);
+		
+		//delete Game an test if GameTitle objects stay in the database
+		gameDao.delete(game);
+		List<Game> allGames = gameDao.findAll();
+		Assert.assertNotNull(allGames);
+		Assert.assertEquals(allGames.size(), 0);
+		Assert.assertEquals(titleTypeDao.findAll().size(), 2);
+		
+	}
+	
+	@Test
+	public void testSaveGameWithGameTitle2() {
+		GameTitleDao titleDao = getInstance(GameTitleDao.class);
+		GameTitle title = new GameTitle("The Secret of Monkey Island");
+		titleDao.save(title);
+		GameTitle title2 = new GameTitle("Monkey Island");
+		titleDao.save(title2);
+		Assert.assertEquals(titleDao.findAll().size(), 2);
+		
+		TitleTypeDao titleTypeDao = getInstance(TitleTypeDao.class);
+		TitleType titleType = new TitleType(TitleType.MAIN_TITLE);
+		TitleType titleType2 = new TitleType(TitleType.ABBREVIATION);
+		titleTypeDao.save(titleType);
+		titleTypeDao.save(titleType2);
+		
+		Assert.assertEquals(titleTypeDao.findAll().size(), 2);
+
+		GameDao gameDao = getInstance(GameDao.class);
+		Game game = new Game();
+		game.connectGameTitle(title, titleType);
+		game.connectGameTitle(title2, titleType2);
+		Long gameId = gameDao.save(game);
+		
+		Game gameLoaded = gameDao.findOne(gameId);
+		Set<GameToGameTitleConnection> connectionList = gameLoaded.getGameToGameTitleConnectionList();
+		Assert.assertEquals(connectionList.size(), 2);
+		
+		GameToGameTitleConnection gameTitleConnectionLoaded = connectionList.iterator().next();
+		Assert.assertNotNull(gameTitleConnectionLoaded);
+		//Assert.assertEquals(gameTitleConnectionLoaded.getTitleType(), titleType2);
+		
+		Assert.assertEquals(titleTypeDao.findAll().size(), 2);
+		
+	}	
 	
 }

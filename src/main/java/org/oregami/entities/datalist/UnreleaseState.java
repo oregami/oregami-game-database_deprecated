@@ -9,8 +9,14 @@ import javax.persistence.Entity;
 @Entity
 public class UnreleaseState extends BaseList {
 
+	private static final long serialVersionUID = -6903953989551086371L;
+	
 	public UnreleaseState(String value) {
 		super(value);
+	}
+	
+	public UnreleaseState() {
+		super("");
 	}
 	
 	public static final String IN_DEVELOPMENT = "IN_DEVELOPMENT";
