@@ -107,7 +107,7 @@ public class BaseEntityTest {
 		GameDao gameDao = injector.getInstance(GameDao.class);
 		
 		Game game2 = new Game();
-		game2.connectGameTitle(new GameTitle("Street Fighter"), BaseListFinder.instance().getTitleType(TitleType.MAIN_TITLE));
+		game2.connectGameTitle(new GameTitle("Street Fighter"), BaseListFinder.instance().getTitleType(TitleType.ORIGINAL_TITLE));
 		Long gameId2 = gameDao.save(game2);
 		
 

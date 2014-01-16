@@ -70,7 +70,7 @@ public class PersistenceTest {
 	@Test
 	public void testSaveGame() {
 		Game game = new Game();
-		game.connectGameTitle(new GameTitle("The Secret of Monkey Island"), new TitleType(TitleType.MAIN_TITLE));
+		game.connectGameTitle(new GameTitle("The Secret of Monkey Island"), new TitleType(TitleType.ORIGINAL_TITLE));
 		
 		GameDao gameDao = getInstance(GameDao.class);
 		Long gameId = gameDao.save(game);
@@ -127,7 +127,7 @@ public class PersistenceTest {
 		gameTitleDao.save(gameTitle);
 		
 		TitleTypeDao titleTypeDao = getInstance(TitleTypeDao.class);
-		TitleType titleType = new TitleType(TitleType.MAIN_TITLE);
+		TitleType titleType = new TitleType(TitleType.ORIGINAL_TITLE);
 		titleTypeDao.save(titleType);
 		
 		GameEntryType gameEntryType = new GameEntryType(GameEntryType.GAME);
@@ -248,7 +248,7 @@ public class PersistenceTest {
 		Assert.assertEquals(titleDao.findAll().size(), 2);
 		
 		TitleTypeDao titleTypeDao = getInstance(TitleTypeDao.class);
-		TitleType titleType = new TitleType(TitleType.MAIN_TITLE);
+		TitleType titleType = new TitleType(TitleType.ORIGINAL_TITLE);
 		TitleType titleType2 = new TitleType(TitleType.ABBREVIATION);
 		titleTypeDao.save(titleType);
 		titleTypeDao.save(titleType2);
@@ -289,7 +289,7 @@ public class PersistenceTest {
 		Assert.assertEquals(titleDao.findAll().size(), 2);
 		
 		TitleTypeDao titleTypeDao = getInstance(TitleTypeDao.class);
-		TitleType titleType = new TitleType(TitleType.MAIN_TITLE);
+		TitleType titleType = new TitleType(TitleType.ORIGINAL_TITLE);
 		TitleType titleType2 = new TitleType(TitleType.ABBREVIATION);
 		titleTypeDao.save(titleType);
 		titleTypeDao.save(titleType2);

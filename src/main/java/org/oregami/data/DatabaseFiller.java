@@ -81,12 +81,12 @@ public class DatabaseFiller {
 		gameTitleDao.save(gameTitle);
 		
 		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
-		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.MAIN_TITLE));
+		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
 		gameToGameTitleConnection.setGameTitle(gameTitleDao.findByExactName("The Secret of Monkey Island").get(0));
 		gameMonkeyIsland.getGameToGameTitleConnectionList().add(gameToGameTitleConnection);
 		
 		GameToGameTitleConnection gameToGameTitleConnection1 = new GameToGameTitleConnection();
-		gameToGameTitleConnection1.setTitleType(baseListFinder.getTitleType(TitleType.MAIN_TITLE));
+		gameToGameTitleConnection1.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
 		gameToGameTitleConnection1.setGameTitle(gameTitleDao.findByExactName("猴島小英雄").get(0));
 		gameMonkeyIsland.getGameToGameTitleConnectionList().add(gameToGameTitleConnection1);
 		
@@ -151,7 +151,7 @@ public class DatabaseFiller {
 		gameTitleDao.save(new GameTitle("Resident Evil: Director's Cut"));
 
 		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
-		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.MAIN_TITLE));
+		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
 		gameToGameTitleConnection.setGameTitle(gameTitleDao.findByExactName("Resident Evil").get(0));
 		gameResidentEvil.getGameToGameTitleConnectionList().add(gameToGameTitleConnection);
 		
@@ -176,7 +176,7 @@ public class DatabaseFiller {
 		gameTitleDao.save(new GameTitle("Star Wars - X-Wing: Space Combat Simulator"));
 		
 		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
-		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.MAIN_TITLE));
+		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
 		gameToGameTitleConnection.setGameTitle(gameTitleDao.findByExactName("Star Wars - X-Wing: Space Combat Simulator").get(0));
 		gameXWing.getGameToGameTitleConnectionList().add(gameToGameTitleConnection);
 

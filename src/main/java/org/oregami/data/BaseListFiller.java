@@ -79,7 +79,7 @@ public class BaseListFiller {
 	}
 	
 	private void initTitleType() {
-		titleTypeDao.save(new TitleType(TitleType.MAIN_TITLE));
+		titleTypeDao.save(new TitleType(TitleType.ORIGINAL_TITLE));
 		titleTypeDao.save(new TitleType(TitleType.ABBREVIATION));
 		titleTypeDao.save(new TitleType(TitleType.BUDGET_RELEASE_TITLE));
 		titleTypeDao.save(new TitleType(TitleType.DEVELOPMENT_TITLE));

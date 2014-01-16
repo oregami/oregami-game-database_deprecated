@@ -23,7 +23,7 @@ public class TitleType extends BaseList {
 		super("");
 	}
 	
-	public static final String MAIN_TITLE = "MAIN_TITLE";
+	public static final String ORIGINAL_TITLE = "ORIGINAL_TITLE";
 	public static final String ABBREVIATION = "ABBREVIATION";
 	public static final String DEVELOPMENT_TITLE = "DEVELOPMENT_TITLE";
 	public static final String INOFFICIAL_TITLE = "INOFFICIAL_TITLE";
