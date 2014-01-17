@@ -13,11 +13,13 @@ import org.junit.Test;
 import org.oregami.data.GameDao;
 import org.oregami.data.GameEntryTypeDao;
 import org.oregami.data.GameTitleDao;
+import org.oregami.data.LanguageDao;
 import org.oregami.data.TitleTypeDao;
 import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
+import org.oregami.entities.Language;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
@@ -313,5 +315,35 @@ public class PersistenceTest {
 		Assert.assertEquals(titleTypeDao.findAll().size(), 2);
 		
 	}	
+	
+	
+	@Test
+	public void testLanguage() {
+		LanguageDao languageDao = injector.getInstance(LanguageDao.class);
+		
+		Language german = new Language(Language.GERMAN);
+		Long langId = languageDao.save(german);
+		Assert.assertNotNull("ID expected", langId);
+		
+		List<Language> all = languageDao.findAll();
+		Assert.assertTrue("1 message expected", all.size()==1);
+		
+		Language english = new Language(Language.ENGLISH);
+		Long langId2 = languageDao.save(english);
+		
+		all = languageDao.findAll();
+		Assert.assertTrue("2 message expected", all.size()==2);
+		
+		Language loadedGerman = languageDao.findByExactName(Language.GERMAN);
+		Assert.assertNotNull(loadedGerman);
+		Assert.assertEquals(loadedGerman.getId(), langId);
+		Assert.assertEquals(loadedGerman, german);
+		
+		Language loadedEnglish = languageDao.findByExactName(Language.ENGLISH);
+		Assert.assertNotNull(loadedEnglish);
+		Assert.assertEquals(loadedEnglish.getId(), langId2);
+		Assert.assertEquals(loadedEnglish, english);
+		
+	}
 	
 }

@@ -11,6 +11,7 @@ import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
 import org.oregami.entities.KeyObjects.SystemKey;
+import org.oregami.entities.Language;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
@@ -220,12 +221,35 @@ public class DatabaseFiller {
 //	@Transactional
 	public void initData() {
 		baseListFiller.initBaseLists();
+		addLanguages();
 		addGames();
-//		addVideoGamesDatabase1991();
-//		addVideoGamesDatabase1992();
-//		addVideoGamesDatabase1993();
 	}
 	
+	private void addLanguages() {
+		LanguageDao languageDao = injector.getInstance(LanguageDao.class);
+		languageDao.save(new Language(Language.ARABIC));
+		languageDao.save(new Language(Language.BENGALI));
+		languageDao.save(new Language(Language.CANTONESE));
+		languageDao.save(new Language(Language.DUTCH));
+		languageDao.save(new Language(Language.ENGLISH));
+		languageDao.save(new Language(Language.FRENCH));
+		languageDao.save(new Language(Language.GERMAN));
+		languageDao.save(new Language(Language.GREEK));
+		languageDao.save(new Language(Language.HINDI));
+		languageDao.save(new Language(Language.ITALIAN));
+		languageDao.save(new Language(Language.JAPANESE));
+		languageDao.save(new Language(Language.KOREAN));
+		languageDao.save(new Language(Language.MANDARIN));
+		languageDao.save(new Language(Language.PERSIAN));
+		languageDao.save(new Language(Language.POLISH));
+		languageDao.save(new Language(Language.PORTUGUESE));
+		languageDao.save(new Language(Language.PUNJABI));
+		languageDao.save(new Language(Language.RUSSIAN));
+		languageDao.save(new Language(Language.SPANISH));
+		languageDao.save(new Language(Language.TURKISH));
+		
+	}
+
 	@Transactional
 	public void deleteGameData() {
 		EntityManager em = injector.getInstance(EntityManager.class);
