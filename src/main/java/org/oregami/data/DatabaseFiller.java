@@ -12,6 +12,7 @@ import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
 import org.oregami.entities.KeyObjects.SystemKey;
 import org.oregami.entities.Language;
+import org.oregami.entities.Region;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
@@ -39,7 +40,7 @@ public class DatabaseFiller {
 	Logger logger = Logger.getLogger(DatabaseFiller.class);
 	
 	private static List<String> dataTables = 
-			Arrays.asList("GameTitle", "GameToGameTitleConnection", "Game",  "Release", "ReleaseGroup");
+			Arrays.asList("GameTitle", "GameToGameTitleConnection", "Game",  "Release", "ReleaseGroup", "Language", "Region");
 	
 	private static List<String> baseListDataTables = 
 			Arrays.asList("BusinessModel", "CensorshipType", "DemoContentType", "GameEntryType", "ReleaseGroupReason", "ReleaseType", "RemakeEnhancementType", "TitleType", "UnreleaseState");
@@ -222,9 +223,25 @@ public class DatabaseFiller {
 	public void initData() {
 		baseListFiller.initBaseLists();
 		addLanguages();
+		addRegions();
 		addGames();
 	}
 	
+	private void addRegions() {
+		//countries:
+		RegionDao regionDao = injector.getInstance(RegionDao.class);
+		regionDao.save(new Region(Region.GERMANY, true, false, null));
+		regionDao.save(new Region(Region.UNITED_STATES, true, false, null));
+		regionDao.save(new Region(Region.UNITED_KINGDOM, true, false, null));
+		regionDao.save(new Region(Region.FRANCE, true, false, null));
+		regionDao.save(new Region(Region.JAPAN, true, false, null));
+		regionDao.save(new Region(Region.CHINA, true, false, null));
+		
+		//regions:
+		regionDao.save(new Region(Region.EUROPE, false, false, null));
+		regionDao.save(new Region(Region.NORTH_AMERICA, false, false, null));
+		
+	}
 	private void addLanguages() {
 		LanguageDao languageDao = injector.getInstance(LanguageDao.class);
 		languageDao.save(new Language(Language.ARABIC));

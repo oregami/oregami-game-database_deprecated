@@ -14,12 +14,14 @@ import org.oregami.data.GameDao;
 import org.oregami.data.GameEntryTypeDao;
 import org.oregami.data.GameTitleDao;
 import org.oregami.data.LanguageDao;
+import org.oregami.data.RegionDao;
 import org.oregami.data.TitleTypeDao;
 import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
 import org.oregami.entities.Language;
+import org.oregami.entities.Region;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
@@ -326,13 +328,13 @@ public class PersistenceTest {
 		Assert.assertNotNull("ID expected", langId);
 		
 		List<Language> all = languageDao.findAll();
-		Assert.assertTrue("1 message expected", all.size()==1);
+		Assert.assertTrue("1 language expected", all.size()==1);
 		
 		Language english = new Language(Language.ENGLISH);
 		Long langId2 = languageDao.save(english);
 		
 		all = languageDao.findAll();
-		Assert.assertTrue("2 message expected", all.size()==2);
+		Assert.assertTrue("2 languages expected", all.size()==2);
 		
 		Language loadedGerman = languageDao.findByExactName(Language.GERMAN);
 		Assert.assertNotNull(loadedGerman);
@@ -344,6 +346,35 @@ public class PersistenceTest {
 		Assert.assertEquals(loadedEnglish.getId(), langId2);
 		Assert.assertEquals(loadedEnglish, english);
 		
+	}
+	
+	
+	@Test
+	public void testRegion() {
+		RegionDao regionDao = injector.getInstance(RegionDao.class);
+		
+		Region germany = new Region(Region.GERMANY);
+		Long long1 = regionDao.save(germany);
+		Assert.assertNotNull("ID expected", long1);
+		
+		List<Region> all = regionDao.findAll();
+		Assert.assertTrue("1 Region expected", all.size()==1);
+		
+		Region europe = new Region(Region.EUROPE);
+		Long long2 = regionDao.save(europe);
+		
+		all = regionDao.findAll();
+		Assert.assertTrue("2 Regions expected", all.size()==2);
+		
+		Region loadedGermany = regionDao.findByExactName(Region.GERMANY);
+		Assert.assertNotNull(loadedGermany);
+		Assert.assertEquals(loadedGermany.getId(), long1);
+		Assert.assertEquals(loadedGermany, germany);
+		
+		Region loadedEurope = regionDao.findByExactName(Region.EUROPE);
+		Assert.assertNotNull(loadedEurope);
+		Assert.assertEquals(loadedEurope.getId(), long2);
+		Assert.assertEquals(loadedEurope, europe);		
 	}
 	
 }
