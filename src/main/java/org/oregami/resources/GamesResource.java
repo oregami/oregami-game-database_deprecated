@@ -29,9 +29,6 @@ public class GamesResource {
 	public GameDao gameRepository;
 	
 	@Inject
-	private DatabaseFiller databaseFiller;
-	
-	@Inject
 	public GamesResource(GameDao gameRepository) {
 		this.gameRepository = gameRepository;
 	}
@@ -86,7 +83,7 @@ public class GamesResource {
 	
 	
 	private DatabaseFiller getDatabaseFiller() {
-		return databaseFiller;
+		return DatabaseFiller.getInstance();
 	}	
 	
 }
