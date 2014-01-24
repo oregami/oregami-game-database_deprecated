@@ -2,6 +2,7 @@ package org.oregami.dropwizard;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.oregami.resources.AdminResource;
+import org.oregami.resources.GameTitleResource;
 import org.oregami.resources.GamesResource;
 import org.oregami.resources.HomeResource;
 
@@ -51,11 +52,15 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		FilterBuilder fconfig = environment.addFilter(CrossOriginFilter.class, "/*");
 		fconfig.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");	
 		fconfig.setInitParam(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
+		
+		fconfig.setInitParam(CrossOriginFilter.ALLOWED_METHODS_PARAM, "PUT,GET,POST,DELETE");
+		
 		environment.addFilter(guiceBundle.getInjector().getInstance(PersistFilter.class), "/*");
 
 		environment.addResource(guiceBundle.getInjector().getInstance(GamesResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(HomeResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(AdminResource.class));
+		environment.addResource(guiceBundle.getInjector().getInstance(GameTitleResource.class));
 	}
 
 	public static JpaPersistModule createJpaModule() {
