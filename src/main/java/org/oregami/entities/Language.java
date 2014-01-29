@@ -30,6 +30,7 @@ public class Language extends BaseEntity {
 
 	public static final String GERMAN = "GERMAN";
 	public static final String MANDARIN = "MANDARIN";
+	public static final String CHINESE = "CHINESE";
 	public static final String SPANISH = "SPANISH";
 	public static final String ENGLISH = "ENGLISH";
 	public static final String HINDI = "HINDI";
