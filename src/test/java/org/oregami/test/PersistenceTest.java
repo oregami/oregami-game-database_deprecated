@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.oregami.data.DatabaseFiller;
 import org.oregami.data.GameDao;
 import org.oregami.data.GameEntryTypeDao;
 import org.oregami.data.GameTitleDao;
@@ -228,9 +229,16 @@ public class PersistenceTest {
 	
 	@Test
 	public void testSaveGameTitle() {
+		
+		DatabaseFiller.getInstance().addLanguages();
+		
+		LanguageDao languageDao = getInstance(LanguageDao.class);
+		Language languageEn = languageDao.findByExactName(Language.ENGLISH);
+		
 		GameTitleDao titleDao = getInstance(GameTitleDao.class);
 		GameTitle title = new GameTitle("The Secret of Monkey Island");
-		titleDao.save(title);
+		title.setLanguage(languageEn);
+		Long long1 = titleDao.save(title);
 		
 		Assert.assertEquals(titleDao.findAll().size(), 1);
 		
@@ -238,6 +246,11 @@ public class PersistenceTest {
 		titleDao.save(title2);
 		
 		Assert.assertEquals(titleDao.findAll().size(), 2);
+		
+		GameTitle loadedGameTitle = titleDao.findOne(long1);
+		Assert.assertEquals(loadedGameTitle.getLanguage(), languageEn);
+		
+		System.out.println(loadedGameTitle);
 		
 	}
 	

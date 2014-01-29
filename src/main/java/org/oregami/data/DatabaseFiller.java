@@ -50,8 +50,9 @@ public class DatabaseFiller {
 	
 	@Inject 
 	private GameTitleDao gameTitleDao;
-	
-	
+
+	@Inject 
+	private LanguageDao languageDao;
 	
 	BaseListFinder baseListFinder = BaseListFinder.instance();
 	
@@ -73,12 +74,12 @@ public class DatabaseFiller {
 		
 		gameMonkeyIsland.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
 		
-		gameTitleDao.save(new GameTitle("The Secret of Monkey Island"));
-		gameTitleDao.save(new GameTitle("Le Secret de L'Ile aux Singes"));
-		gameTitleDao.save(new GameTitle("El Secreto de Monkey Island"));
-		gameTitleDao.save(new GameTitle("Monkey Island"));
-		gameTitleDao.save(new GameTitle("Monkey Island 1"));
-		GameTitle gameTitle = new GameTitle("猴島小英雄");
+		gameTitleDao.save(new GameTitle("The Secret of Monkey Island", languageDao.findByExactName(Language.ENGLISH)));
+		gameTitleDao.save(new GameTitle("Le Secret de L'Ile aux Singes", languageDao.findByExactName(Language.FRENCH)));
+		gameTitleDao.save(new GameTitle("El Secreto de Monkey Island", languageDao.findByExactName(Language.SPANISH)));
+		gameTitleDao.save(new GameTitle("Monkey Island", languageDao.findByExactName(Language.ENGLISH)));
+		gameTitleDao.save(new GameTitle("Monkey Island 1", languageDao.findByExactName(Language.ENGLISH)));
+		GameTitle gameTitle = new GameTitle("猴島小英雄", languageDao.findByExactName(Language.CHINESE));
 		gameTitle.setStandardTransliteration("The Secret of Monkey Island");
 		gameTitleDao.save(gameTitle);
 		
@@ -149,8 +150,8 @@ public class DatabaseFiller {
 		Game gameResidentEvil = new Game();
 		gameResidentEvil.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
 
-		gameTitleDao.save(new GameTitle("Resident Evil"));
-		gameTitleDao.save(new GameTitle("Resident Evil: Director's Cut"));
+		gameTitleDao.save(new GameTitle("Resident Evil", languageDao.findByExactName(Language.ENGLISH)));
+		gameTitleDao.save(new GameTitle("Resident Evil: Director's Cut", languageDao.findByExactName(Language.ENGLISH)));
 
 		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
 		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
@@ -173,9 +174,9 @@ public class DatabaseFiller {
 	private void addXWingGame() {
 		Game gameXWing = new Game();
 
-		gameTitleDao.save(new GameTitle("Star Wars - X-Wing"));
-		gameTitleDao.save(new GameTitle("X-Wing"));
-		gameTitleDao.save(new GameTitle("Star Wars - X-Wing: Space Combat Simulator"));
+		gameTitleDao.save(new GameTitle("Star Wars - X-Wing", languageDao.findByExactName(Language.ENGLISH)));
+		gameTitleDao.save(new GameTitle("X-Wing", languageDao.findByExactName(Language.ENGLISH)));
+		gameTitleDao.save(new GameTitle("Star Wars - X-Wing: Space Combat Simulator", languageDao.findByExactName(Language.ENGLISH)));
 		
 		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
 		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
@@ -242,11 +243,12 @@ public class DatabaseFiller {
 		regionDao.save(new Region(Region.NORTH_AMERICA, false, false, null));
 		
 	}
-	private void addLanguages() {
+	public void addLanguages() {
 		LanguageDao languageDao = injector.getInstance(LanguageDao.class);
 		languageDao.save(new Language(Language.ARABIC));
 		languageDao.save(new Language(Language.BENGALI));
 		languageDao.save(new Language(Language.CANTONESE));
+		languageDao.save(new Language(Language.CHINESE));
 		languageDao.save(new Language(Language.DUTCH));
 		languageDao.save(new Language(Language.ENGLISH));
 		languageDao.save(new Language(Language.FRENCH));

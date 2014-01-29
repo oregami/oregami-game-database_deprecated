@@ -1,6 +1,7 @@
 package org.oregami.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
@@ -17,12 +18,20 @@ public class GameTitle extends BaseEntity {
 	private String nativeSpelling;
 	
 	private String standardTransliteration;
+	
+	@ManyToOne
+	private Language language;
 
 	public GameTitle() {
 	}
 	
 	public GameTitle(String nativeSpelling) {
 		this.setNativeSpelling(nativeSpelling);
+	}
+	
+	public GameTitle(String nativeSpelling, Language language) {
+		this.setNativeSpelling(nativeSpelling);
+		this.setLanguage(language);
 	}
 
 	public String getNativeSpelling() {
@@ -39,6 +48,14 @@ public class GameTitle extends BaseEntity {
 
 	public void setStandardTransliteration(String standardTransliteration) {
 		this.standardTransliteration = standardTransliteration;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 	
 }
