@@ -1,6 +1,7 @@
 package org.oregami.dropwizard;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.oregami.data.DatabaseFiller;
 import org.oregami.resources.AdminResource;
 import org.oregami.resources.GameTitleResource;
 import org.oregami.resources.GamesResource;
@@ -61,6 +62,8 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		environment.addResource(guiceBundle.getInjector().getInstance(HomeResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(AdminResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(GameTitleResource.class));
+		
+		DatabaseFiller.getInstance().initData();
 	}
 
 	public static JpaPersistModule createJpaModule() {
