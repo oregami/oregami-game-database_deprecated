@@ -1,10 +1,12 @@
 package org.oregami.test;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 
+import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,6 +17,7 @@ import org.oregami.data.GameDao;
 import org.oregami.data.GameEntryTypeDao;
 import org.oregami.data.GameTitleDao;
 import org.oregami.data.LanguageDao;
+import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.data.RegionDao;
 import org.oregami.data.TitleTypeDao;
 import org.oregami.dropwizard.OregamiService;
@@ -22,6 +25,9 @@ import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
 import org.oregami.entities.Language;
+import org.oregami.entities.Publication;
+import org.oregami.entities.PublicationFranchise;
+import org.oregami.entities.PublicationIssue;
 import org.oregami.entities.Region;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.GameEntryType;
@@ -388,6 +394,55 @@ public class PersistenceTest {
 		Assert.assertNotNull(loadedEurope);
 		Assert.assertEquals(loadedEurope.getId(), long2);
 		Assert.assertEquals(loadedEurope, europe);		
+	}
+	
+	@Test
+	public void testPublication() {
+		PublicationFranchiseDao publicationFranchiseDao = injector.getInstance(PublicationFranchiseDao.class);
+		PublicationFranchise pf = new PublicationFranchise("Power Play");
+		
+		Publication publicationPowerPlay = new Publication("Power Play");
+		pf.getPublicationList().add(publicationPowerPlay);
+		
+		PublicationIssue issue = new PublicationIssue();
+		issue.setIssueNameYear(1990);
+		issue.setIssueNameNumber(1);
+		publicationPowerPlay.getPublicationIssueList().add(issue);
+		PublicationIssue issue2 = new PublicationIssue();
+		issue2.setIssueNameYear(1990);
+		issue2.setIssueNameNumber(2);
+		issue2.setReleaseDate(new LocalDate(1990,3,16));
+		
+		
+		publicationPowerPlay.getPublicationIssueList().add(issue2);		
+		
+		Publication publicationChipPowerPlay = new Publication("CHIP Power Play");
+		pf.getPublicationList().add(publicationChipPowerPlay);
+		
+		publicationFranchiseDao.save(pf);
+		
+		List<PublicationFranchise> findAll = publicationFranchiseDao.findAll();
+		Assert.assertNotNull(findAll);
+		Assert.assertTrue(findAll.size()==1);
+		
+		PublicationFranchise franchiseLoaded = findAll.get(0);
+		Assert.assertEquals(franchiseLoaded.getId(), pf.getId());
+		Assert.assertEquals(franchiseLoaded.getName(), pf.getName());
+		
+		Publication publication = franchiseLoaded.getPublicationList().iterator().next();
+		Iterator<PublicationIssue> issueIterator = publication.getPublicationIssueList().iterator();
+		boolean releaseDateFound = false;
+		LocalDate localDate = new LocalDate(1990,3,16);
+		while (issueIterator.hasNext()) {
+			PublicationIssue publicationIssue = issueIterator.next();
+			if (localDate.equals(publicationIssue.getReleaseDate())) {
+				releaseDateFound=true;
+			}
+		}
+		Assert.assertTrue("release date not found", releaseDateFound);
+		
+		
+		System.out.println(pf);
 	}
 	
 }

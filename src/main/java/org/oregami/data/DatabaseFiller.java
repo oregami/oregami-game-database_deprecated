@@ -6,12 +6,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
+import org.joda.time.LocalDate;
 import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
 import org.oregami.entities.KeyObjects.SystemKey;
 import org.oregami.entities.Language;
+import org.oregami.entities.Publication;
+import org.oregami.entities.PublicationFranchise;
+import org.oregami.entities.PublicationIssue;
 import org.oregami.entities.Region;
 import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.datalist.GameEntryType;
@@ -40,7 +44,7 @@ public class DatabaseFiller {
 	Logger logger = Logger.getLogger(DatabaseFiller.class);
 	
 	private static List<String> dataTables = 
-			Arrays.asList("GameTitle", "GameToGameTitleConnection", "Game",  "Release", "ReleaseGroup", "Language", "Region");
+			Arrays.asList("GameTitle", "GameToGameTitleConnection", "Game",  "Release", "ReleaseGroup", "Language", "Region", "PublicationFranchise", "Publication", "PublicationIssue");
 	
 	private static List<String> baseListDataTables = 
 			Arrays.asList("BusinessModel", "CensorshipType", "DemoContentType", "GameEntryType", "ReleaseGroupReason", "ReleaseType", "RemakeEnhancementType", "TitleType", "UnreleaseState");
@@ -53,6 +57,9 @@ public class DatabaseFiller {
 
 	@Inject 
 	private LanguageDao languageDao;
+	
+	@Inject
+	private PublicationFranchiseDao publicationFranchiseDao;
 	
 	BaseListFinder baseListFinder = BaseListFinder.instance();
 	
@@ -67,6 +74,59 @@ public class DatabaseFiller {
 			persistService.start();
 		}
 		return instance;
+	}
+	
+	public void addPublications() {
+		addPublicationPowerPlay();
+		addPublicationVideoGames();
+	}
+
+
+	private void addPublicationVideoGames() {
+		PublicationFranchise pf = new PublicationFranchise("Video Games");
+		
+		Publication publicationVideoGames = new Publication("Video Games");
+		publicationVideoGames.setLanguage(languageDao.findByExactName(Language.GERMAN));
+		pf.getPublicationList().add(publicationVideoGames);
+		
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1991,1));
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1991,2));
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1991,3));
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1992,1));
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1992,2));
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1992,3));
+		
+		publicationFranchiseDao.save(pf);
+		
+	}
+
+	private void addPublicationPowerPlay() {
+		PublicationFranchise pf = new PublicationFranchise("Power Play");
+		
+		Publication publicationPowerPlay = new Publication("Power Play");
+		publicationPowerPlay.setLanguage(languageDao.findByExactName(Language.GERMAN));
+		pf.getPublicationList().add(publicationPowerPlay);
+		
+		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1990,1));
+		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1990,2));
+		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1990,3));
+		PublicationIssue issue_1990_4 = new PublicationIssue(1990,4);
+		issue_1990_4.setReleaseDate(new LocalDate(1990,3,16));
+		publicationPowerPlay.getPublicationIssueList().add(issue_1990_4);
+		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1990,5));
+		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1989,1));
+		
+		Publication publicationChipPowerPlay = new Publication("CHIP Power Play");
+		pf.getPublicationList().add(publicationChipPowerPlay);
+		publicationChipPowerPlay.setLanguage(languageDao.findByExactName(Language.GERMAN));
+		
+		publicationChipPowerPlay.getPublicationIssueList().add(new PublicationIssue(2013,1));
+		publicationChipPowerPlay.getPublicationIssueList().add(new PublicationIssue(2013,2));
+		publicationChipPowerPlay.getPublicationIssueList().add(new PublicationIssue(2013,3));
+		publicationChipPowerPlay.getPublicationIssueList().add(new PublicationIssue(2013,4));
+		
+		publicationFranchiseDao.save(pf);
+		
 	}
 
 	private void addMonkeyIsland() {
@@ -142,7 +202,6 @@ public class DatabaseFiller {
 		
 		gameDao.save(gameMonkeyIsland);
 		
-		gameDao.update(gameMonkeyIsland);
 	}
 
 	private void addResidentEvilGame() {
@@ -226,6 +285,8 @@ public class DatabaseFiller {
 		addLanguages();
 		addRegions();
 		addGames();
+		
+		addPublications();
 	}
 	
 	private void addRegions() {
