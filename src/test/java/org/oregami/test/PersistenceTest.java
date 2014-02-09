@@ -428,17 +428,24 @@ public class PersistenceTest {
 		PublicationFranchise franchiseLoaded = findAll.get(0);
 		Assert.assertEquals(franchiseLoaded.getId(), pf.getId());
 		Assert.assertEquals(franchiseLoaded.getName(), pf.getName());
-		
-		Publication publication = franchiseLoaded.getPublicationList().iterator().next();
-		Iterator<PublicationIssue> issueIterator = publication.getPublicationIssueList().iterator();
+
 		boolean releaseDateFound = false;
 		LocalDate localDate = new LocalDate(1990,3,16);
-		while (issueIterator.hasNext()) {
-			PublicationIssue publicationIssue = issueIterator.next();
-			if (localDate.equals(publicationIssue.getReleaseDate())) {
-				releaseDateFound=true;
+		
+		Iterator<Publication> publicationIterator = franchiseLoaded.getPublicationList().iterator();
+		while (publicationIterator.hasNext()) {
+			Publication publication = publicationIterator.next();
+		
+			Iterator<PublicationIssue> issueIterator = publication.getPublicationIssueList().iterator();
+	
+			while (issueIterator.hasNext()) {
+				PublicationIssue publicationIssue = issueIterator.next();
+				if (localDate.equals(publicationIssue.getReleaseDate())) {
+					releaseDateFound=true;
+				}
 			}
 		}
+		
 		Assert.assertTrue("release date not found", releaseDateFound);
 		
 		
