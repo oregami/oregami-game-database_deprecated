@@ -7,6 +7,9 @@ import org.oregami.resources.GameTitleResource;
 import org.oregami.resources.GamesResource;
 import org.oregami.resources.HomeResource;
 import org.oregami.resources.PublicationFranchiseResource;
+import org.oregami.resources.UserResource;
+import org.oregami.resources.WebsiteResource;
+import org.oregami.util.WebsiteHelper;
 
 import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
@@ -64,8 +67,12 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		environment.addResource(guiceBundle.getInjector().getInstance(AdminResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(GameTitleResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(PublicationFranchiseResource.class));
+		environment.addResource(guiceBundle.getInjector().getInstance(WebsiteResource.class));
+		environment.addResource(guiceBundle.getInjector().getInstance(UserResource.class));
+		
 		
 		DatabaseFiller.getInstance().initData();
+		WebsiteHelper.init(config.getPhantomJSConfiguration().getPhantomjsCommandLocation(), config.getPhantomJSConfiguration().getRasterizeJSFileLocation());
 	}
 
 	public static JpaPersistModule createJpaModule() {

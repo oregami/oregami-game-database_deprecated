@@ -20,6 +20,8 @@ import org.oregami.data.LanguageDao;
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.data.RegionDao;
 import org.oregami.data.TitleTypeDao;
+import org.oregami.data.UserDao;
+import org.oregami.data.WebsiteDao;
 import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
@@ -30,9 +32,11 @@ import org.oregami.entities.PublicationFranchise;
 import org.oregami.entities.PublicationIssue;
 import org.oregami.entities.Region;
 import org.oregami.entities.ReleaseGroup;
+import org.oregami.entities.Website;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
 import org.oregami.entities.datalist.TitleType;
+import org.oregami.entities.user.User;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -450,6 +454,45 @@ public class PersistenceTest {
 		
 		
 		System.out.println(pf);
+	}
+	
+	@Test
+	public void testUser() {
+		UserDao userDao = injector.getInstance(UserDao.class);
+		User user = new User();
+		user.setUsername("gene");
+		user.setEmail("gene@kultpower.de");
+		
+		Long long1 = userDao.save(user);
+		
+		Assert.assertNotNull(long1);
+		
+		User userLoaded = userDao.findOne(long1);
+		Assert.assertNotNull(userLoaded);
+		Assert.assertEquals(userLoaded.getUsername(), user.getUsername());
+		
+	}
+	
+	
+	@Test
+	public void testWebsite() {
+		WebsiteDao websiteDao = injector.getInstance(WebsiteDao.class);
+		
+		Website website = new Website();
+		website.setImage(new byte[0]);
+		website.setThumbnail(new byte[0]);
+		
+		System.out.println(website);
+		
+		String id = websiteDao.save(website);
+		
+		System.out.println(id);
+		System.out.println(website);
+		
+		List<Website> findAll = websiteDao.findAll();
+		
+		Assert.assertTrue(findAll.size()==1);
+		
 	}
 	
 }
