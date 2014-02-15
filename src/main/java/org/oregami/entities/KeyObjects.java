@@ -50,5 +50,12 @@ public class KeyObjects {
 		FMTowns
 		
 	};
+	
+	
+	public enum RoleKey {Admin, User};
+	
+	public enum UserStatusKey {
+		Registration, PasswordReset
+	};	
  
 }
