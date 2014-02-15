@@ -41,7 +41,9 @@ public class WebsiteHelper {
 	
 	public Map<String, String> createWebsite(String url, String size) throws IOException {
 		
-		if (!url.startsWith("http://www.oregami.org")) {
+		if (!url.startsWith("http://www.oregami.org")
+				&& !url.startsWith("http://www.mobygames.com")
+		) {
 			throw new RuntimeException("url_not_allowed");
 		}
 		if (size==null) {
