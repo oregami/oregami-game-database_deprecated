@@ -55,8 +55,9 @@ public class GamesResource {
 	
 	
 	@PUT
-	public Response updateGame(Game updatedGame) {
-		if (updatedGame.getId()==null) {
+	@Path("{id}")
+	public Response updateGame(@PathParam("id") long id, Game updatedGame) {
+		if (updatedGame.getId()==null || id==0) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		try {
