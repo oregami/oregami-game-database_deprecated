@@ -107,17 +107,16 @@
 			<version>2.3</version>
 		</dependency>
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time-hibernate</artifactId>
-			<version>1.3</version>
-		</dependency>
-		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
 			<version>3.1.0.CR10</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.mortennobel</groupId>
+			<artifactId>java-image-scaling</artifactId>
+			<version>0.8.5</version>
+		</dependency>
 
 	</dependencies>
 
