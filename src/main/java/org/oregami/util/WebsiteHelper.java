@@ -9,6 +9,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -46,13 +49,19 @@ public class WebsiteHelper {
 		) {
 			throw new RuntimeException("url_not_allowed");
 		}
+		List<String> forbiddenCharacters = new ArrayList<String>(Arrays.asList("\"", " "));
+		for (String string : forbiddenCharacters) {
+			if (url.indexOf(string)>0) {
+				throw new RuntimeException("url_security_error_unallowed_characters");
+			}
+		}
 		if (size==null) {
 			size = " 1280px*1024px";
 		}
 		File temp = File.createTempFile("website-screenshot", ".png"); 
 		
 		String command = phantomjsLocation + " " + rasterizeLocation + " "
-				+ url + " " + temp.getAbsolutePath() + size;
+			 + url + " " + temp.getAbsolutePath() + size;
 		
 		System.out.println("Executing:\n" + command);
 
