@@ -33,6 +33,7 @@ public class WebsiteResource {
 		WebsiteHelper websiteHelper = WebsiteHelper.instance();
 		try {
 			Map<String, String> result = websiteHelper.createWebsite(url, size);
+			System.out.println("result: " + result);
 			Website website = new Website();
 			byte[] image = WebsiteHelper.instance().readFile(result.get("filename"));
 			website.setImage(image);

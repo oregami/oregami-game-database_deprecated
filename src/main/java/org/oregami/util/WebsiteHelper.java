@@ -76,8 +76,8 @@ public class WebsiteHelper {
 
 		Map<String, String> ret = new TreeMap<String, String>();
 		ret.put("output", output.toString());
-//		ret.put("command", command);
-//		ret.put("filename", temp.getAbsolutePath());
+		ret.put("command", command);
+		ret.put("filename", temp.getAbsolutePath());
 		
 		return ret;
 
@@ -108,7 +108,7 @@ public class WebsiteHelper {
 	
 
 	public byte[] readFile(String filename) {
-
+		System.out.println("readFile: " + filename);
 		File file = new File(filename);
 		byte[] bFile = new byte[(int) file.length()];
 
