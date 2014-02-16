@@ -41,6 +41,7 @@ public class WebsiteResource {
 			result.put("id", id.toString());
 			return Response.ok(result).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.status(Status.NOT_ACCEPTABLE).type("text/plain").entity(e.getMessage()).build();
 		}
 
