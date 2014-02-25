@@ -1,7 +1,12 @@
 package org.oregami.dropwizard;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.oregami.data.DatabaseFiller;
+import org.oregami.entities.CustomLocalDateSerializer;
+import org.oregami.entities.CustomLocalDateTimeSerializer;
+import org.oregami.entities.user.User;
 import org.oregami.resources.AdminResource;
 import org.oregami.resources.GameTitleResource;
 import org.oregami.resources.GamesResource;
@@ -9,12 +14,15 @@ import org.oregami.resources.HomeResource;
 import org.oregami.resources.PublicationFranchiseResource;
 import org.oregami.resources.UserResource;
 import org.oregami.resources.WebsiteResource;
+import org.oregami.util.MailHelper;
 import org.oregami.util.WebsiteHelper;
 
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.yammer.dropwizard.Service;
+import com.yammer.dropwizard.auth.basic.BasicAuthProvider;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.config.FilterBuilder;
@@ -46,6 +54,11 @@ public class OregamiService extends Service<OregamiConfiguration> {
 				.setConfigClass(OregamiConfiguration.class)
 				.build();
 		bootstrap.addBundle(guiceBundle);
+		
+		SimpleModule module = new SimpleModule();
+		module.addSerializer(LocalDateTime.class, new CustomLocalDateTimeSerializer());
+		module.addSerializer(LocalDate.class, new CustomLocalDateSerializer());
+		bootstrap.getObjectMapperFactory().registerModule(module);
 				
 	}
 
@@ -53,6 +66,13 @@ public class OregamiService extends Service<OregamiConfiguration> {
 	@Override
 	public void run(OregamiConfiguration config, Environment environment)
 			throws Exception {
+
+		environment.addProvider(new BasicAuthProvider<User>(new OregamiAuthenticator(),
+                "only visible with valid user/password"));
+		
+		DatabaseFiller.getInstance().initData();
+		WebsiteHelper.init(config.getPhantomJSConfiguration().getPhantomjsCommandLocation(), config.getPhantomJSConfiguration().getRasterizeJSFileLocation());
+		MailHelper.init(config.getMailConfiguration());
 		
 		FilterBuilder fconfig = environment.addFilter(CrossOriginFilter.class, "/*");
 		fconfig.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");	
@@ -70,9 +90,6 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		environment.addResource(guiceBundle.getInjector().getInstance(WebsiteResource.class));
 		environment.addResource(guiceBundle.getInjector().getInstance(UserResource.class));
 		
-		
-		DatabaseFiller.getInstance().initData();
-		WebsiteHelper.init(config.getPhantomJSConfiguration().getPhantomjsCommandLocation(), config.getPhantomJSConfiguration().getRasterizeJSFileLocation());
 	}
 
 	public static JpaPersistModule createJpaModule() {

@@ -10,7 +10,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.oregami.data.WebsiteDao;
 import org.oregami.dropwizard.OregamiService;
@@ -22,7 +21,7 @@ import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
-@Ignore
+//@Ignore
 public class WebsiteHelperTest {
 
 	private static Injector injector;

@@ -46,6 +46,7 @@ public class WebsiteHelper {
 		
 		if (!url.startsWith("http://www.oregami.org")
 				&& !url.startsWith("http://www.mobygames.com")
+				&& !url.startsWith("http://www.kultpower.de")
 		) {
 			throw new RuntimeException("url_not_allowed");
 		}
@@ -56,12 +57,12 @@ public class WebsiteHelper {
 			}
 		}
 		if (size==null) {
-			size = " 1280px*1024px";
+			size = "1280px*1024px";
 		}
 		File temp = File.createTempFile("website-screenshot", ".png"); 
 		
 		String command = phantomjsLocation + " " + rasterizeLocation + " "
-			 + url + " " + temp.getAbsolutePath() + size;
+			 + url + " " + temp.getAbsolutePath() + " " + size;
 		
 		System.out.println("Executing:\n" + command);
 

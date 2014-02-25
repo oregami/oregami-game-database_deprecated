@@ -6,3 +6,10 @@ http:
 phantomJSConfiguration:
  phantomjsCommandLocation : /usr/local/bin/phantomjs
  rasterizeJSFileLocation : /usr/local/bin/rasterize.js
+ 
+mailConfiguration:
+ host : smtp.oregami.org
+ username : demo@oregami.org
+ password : XxxxXxxx
+ port: 25
+ 

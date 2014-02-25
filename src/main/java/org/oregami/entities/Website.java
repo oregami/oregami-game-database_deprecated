@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.joda.time.LocalDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @NamedQueries({@NamedQuery(name="Website.GetAll", query = "from Website w")})
@@ -12,6 +15,32 @@ public class Website extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -8912197072050937329L;
 	
+	public Website() {
+		this.createTime = new LocalDateTime();
+	}
+	
+	@Column
+	private String url;
+	
+	@Column
+	private String createSize;
+	
+	public String getCreateSize() {
+		return createSize;
+	}
+
+	public void setCreateSize(String createSize) {
+		this.createSize = createSize;
+	}
+
+	@Column
+	private final LocalDateTime createTime;
+	
+	@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+	public LocalDateTime getCreateTime() {
+		return createTime;
+	}
+
 	@Column(name = "DATA", unique = false, nullable = false, length = 10000000)
 	private byte[] image;
 
@@ -45,5 +74,13 @@ public class Website extends BaseEntityUUID {
 		this.approved = approved;
 	}
 	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	
 }

@@ -16,6 +16,14 @@ public class OregamiConfiguration extends Configuration {
 	public PhantomJSConfiguration getPhantomJSConfiguration() {
 		return phantomJSConfiguration;
 	}
-
+	
+    @Valid
+    @NotNull
+    @JsonProperty
+	private MailConfiguration mailConfiguration;
     
+    public MailConfiguration getMailConfiguration() {
+		return mailConfiguration;
+	};
+	
 }
