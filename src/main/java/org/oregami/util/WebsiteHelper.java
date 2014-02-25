@@ -57,7 +57,7 @@ public class WebsiteHelper {
 			}
 		}
 		if (size==null) {
-			size = "1280px*1024px";
+			size = "1200px";
 		}
 		File temp = File.createTempFile("website-screenshot", ".png"); 
 		
