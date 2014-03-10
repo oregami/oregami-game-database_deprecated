@@ -27,4 +27,26 @@ public class ServiceErrorContext {
 	public String toString() {
 		return field;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        ServiceErrorContext context = (ServiceErrorContext) obj;
+        return (field == context.field
+                || (field != null && field.equals(context.field))
+                );
+	}
+	
+	@Override
+	public int hashCode() {
+		if (field==null) {
+			return 0;
+		}
+		return field.hashCode();
+	}
 }

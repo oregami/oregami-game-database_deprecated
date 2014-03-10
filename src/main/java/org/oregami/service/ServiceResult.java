@@ -3,6 +3,8 @@ package org.oregami.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.oregami.entities.BaseEntity;
 
 /**
@@ -54,8 +56,31 @@ public class ServiceResult<T extends BaseEntity> {
         return !wasSuccessful();
     }
 
-    public void addMessage(String error) {
-        errors.add(new ServiceError(error));
+    public void addMessage(ServiceErrorContext context, ServiceErrorMessage message) {
+        errors.add(new ServiceError(context, message));
     }
+    
+    @Override
+    public String toString() {
+    	return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+    
+//    public boolean containsErrorMessage(ServiceErrorContext serviceErrorContext, ServiceErrorMessage message) {
+//    	for (ServiceError error : errors) {
+//			if (serviceErrorContext.equals(error.getContext()) && error.getMessageName().equals(message)) {
+//				return true;
+//			}
+//		}
+//    	return false;
+//    }
+    
+    public boolean containsError(ServiceError searchError) {
+    	for (ServiceError error : errors) {
+			if (error.equals(searchError)) {
+				return true;
+			}
+		}
+    	return false;
+    }    
 
 }

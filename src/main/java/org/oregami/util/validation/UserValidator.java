@@ -6,8 +6,10 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.oregami.data.UserDao;
 import org.oregami.entities.user.User;
+import org.oregami.service.FieldNames;
 import org.oregami.service.ServiceError;
 import org.oregami.service.ServiceErrorContext;
+import org.oregami.service.ServiceErrorMessage;
 import org.oregami.util.exception.OregamiRuntimeException;
 
 public class UserValidator {
@@ -33,7 +35,7 @@ public class UserValidator {
         errors.addAll(validateRequiredFields());
 
         if (userDao.findOneByUsername(userData.getUsername())!=null) {
-            errors.add(new ServiceError(new ServiceErrorContext("user.username"),"org.oregami.user.username.alreadyExists"));
+            errors.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_USERNAME),ServiceErrorMessage.USER_USERNAME_ALREADY_EXISTS));
         }
 
         return errors;
@@ -44,17 +46,17 @@ public class UserValidator {
         List<ServiceError> errorMessages = new ArrayList<ServiceError>();
 
         if (org.apache.commons.lang.StringUtils.isEmpty(userData.getUsername())) {
-            errorMessages.add(new ServiceError(new ServiceErrorContext("user.username"), "org.oregami.user.username.isEmpty"));
+            errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_USERNAME), ServiceErrorMessage.USER_USERNAME_EMPTY));
         }
 
         if (StringUtils.isEmpty(userData.getEmail())) {
-        	errorMessages.add(new ServiceError(new ServiceErrorContext("user.email"), "org.oregami.user.email.isEmpty"));
+        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_EMAIL), ServiceErrorMessage.USER_EMAIL_EMPTY));
         }
 
         if (StringUtils.isEmpty(userData.getPassword())) {
-        	errorMessages.add(new ServiceError(new ServiceErrorContext("user.password"), "org.oregami.user.password.isEmpty"));        	
+        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_PASSWORD), ServiceErrorMessage.USER_PASSWORD_EMPTY));        	
         } else if (StringUtils.length(userData.getPassword())<6) {
-        	errorMessages.add(new ServiceError(new ServiceErrorContext("user.password"), "org.oregami.user.password.tooShort"));
+        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_PASSWORD), ServiceErrorMessage.USER_PASSWORD_TOO_SHORT));
         }
 
         return errorMessages;

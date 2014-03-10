@@ -1,7 +1,5 @@
 package org.oregami.service;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class that represents errors that occur during service layer calls. 
@@ -13,36 +11,18 @@ import java.util.List;
  */
 public class ServiceError {
 
-    private String messageName;
+    private final ServiceErrorMessage messageName;
     
-    private ServiceErrorContext context;
+	private ServiceErrorContext context;
 
-    public ServiceError(ServiceErrorContext context, String messageName) {
+    public ServiceError(ServiceErrorContext context, ServiceErrorMessage messageName) {
     	this.context = context;
         this.messageName = messageName;
-    }
+    }    
     
-    public ServiceError(String messageName) {
-        this.messageName = messageName;
-    }
-
-    public String getMessageName() {
-        return messageName;
-    }
-
-    public void setMessageName(String messageName) {
-        this.messageName = messageName;
-    }
-
-    public static List<ServiceError> buildServiceErrors(String... errors) {
-        List<ServiceError> serviceErrors = new ArrayList<ServiceError>();
-
-        for (String error : errors) {
-            serviceErrors.add(new ServiceError(error));
-        }
-
-        return serviceErrors;
-    }
+//    public ServiceError(ServiceErrorMessage message) {
+//        this.messageName = message;
+//    }
 
 	public ServiceErrorContext getContext() {
 		return context;
@@ -56,5 +36,38 @@ public class ServiceError {
 	public String toString() {
 		return context + ":" + messageName;
 	}
+	
+    public ServiceErrorMessage getMessageName() {
+		return messageName;
+	}
+    
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        ServiceError error = (ServiceError) obj;
+        return (context == error.context
+                     || (context != null && context.equals(error.context)))
+                && 
+                (messageName == error.messageName
+                || (messageName != null && messageName.equals(error.messageName))
+                );
+
+
+    }
+    
+    
+    @Override
+    public int hashCode() {
+    	return (context.getField() + ":" + messageName.name()).hashCode();
+    }
+    
+    
 
 }
