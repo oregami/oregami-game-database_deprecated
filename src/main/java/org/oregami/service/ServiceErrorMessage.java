@@ -1,0 +1,11 @@
+package org.oregami.service;
+
+public enum ServiceErrorMessage {
+
+	USER_USERNAME_ALREADY_EXISTS,
+	USER_USERNAME_EMPTY,
+	USER_EMAIL_EMPTY, 
+	USER_PASSWORD_EMPTY, 
+	USER_PASSWORD_TOO_SHORT
+	
+}
