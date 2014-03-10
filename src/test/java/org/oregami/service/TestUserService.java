@@ -11,6 +11,7 @@ import org.oregami.dropwizard.DropwizardJunitRunner;
 import org.oregami.dropwizard.DropwizardTestConfig;
 import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.user.User;
+import org.oregami.util.MailHelper;
 
 @RunWith(DropwizardJunitRunner.class)
 @DropwizardTestConfig(serviceClass=OregamiService.class, yamlFile = "/oregami.yml")
@@ -51,6 +52,8 @@ public class TestUserService {
         user.setUsername("username@example.com");
         user.setPassword("password");
 
+        userService.setMailhelper(Mockito.mock(MailHelper.class));
+        
         ServiceResult<User> result = userService.register(user);
         Assert.assertEquals(true, result.wasSuccessful());
         Assert.assertEquals(false, result.hasErrors());

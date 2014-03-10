@@ -18,7 +18,7 @@ public class UserServiceImpl implements IUserService {
 	@Inject
     private UserDao userDao;
 	
-	MailHelper mailhelper = MailHelper.instance();
+	private MailHelper mailhelper = MailHelper.instance();
 	
     public void uponSuccessfulRegistration(User user){
  
@@ -73,6 +73,10 @@ public class UserServiceImpl implements IUserService {
 	public User loadUserByUsername(String username) {
 		User user = userDao.findOneByUsername(username);
 		return user;
+	}
+
+	public void setMailhelper(MailHelper mailhelper) {
+		this.mailhelper = mailhelper;
 	}
 
 	
