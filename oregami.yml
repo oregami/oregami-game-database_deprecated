@@ -13,3 +13,5 @@ mailConfiguration:
  password : XxxxXxxx
  port: 25
  
+initBaseLists: true
+initGames: true

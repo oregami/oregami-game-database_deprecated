@@ -279,14 +279,21 @@ public class DatabaseFiller {
 		
 	}
 	
-//	@Transactional
-	public void initData() {
+	public void initBaseLists() {
 		baseListFiller.initBaseLists();
+	}
+	
+	public void initGameData() {
 		addLanguages();
 		addRegions();
 		addGames();
-		
 		addPublications();
+	}
+	
+//	@Transactional
+	public void initData() {
+		initBaseLists();
+		initGameData();
 	}
 	
 	private void addRegions() {

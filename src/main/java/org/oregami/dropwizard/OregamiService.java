@@ -69,8 +69,14 @@ public class OregamiService extends Service<OregamiConfiguration> {
 
 		environment.addProvider(new BasicAuthProvider<User>(new OregamiAuthenticator(),
                 "only visible with valid user/password"));
+	
+		if (config.isInitBaseLists()) {
+			DatabaseFiller.getInstance().initBaseLists();
+		}		
+		if (config.isInitGames()) {
+			DatabaseFiller.getInstance().initGameData();
+		}
 		
-		DatabaseFiller.getInstance().initData();
 		WebsiteHelper.init(config.getPhantomJSConfiguration().getPhantomjsCommandLocation(), config.getPhantomJSConfiguration().getRasterizeJSFileLocation());
 		MailHelper.init(config.getMailConfiguration());
 		
