@@ -10,7 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.oregami.data.DatabaseFiller;
 import org.oregami.data.LanguageDao;
 import org.oregami.entities.Language;
 
@@ -33,10 +32,10 @@ public class LanguageResource {
 	public List<Language> list() {
 		List<Language> ret = null;
 		ret = languageDao.findAll();
-		if (ret.size()==0) {
-			DatabaseFiller.getInstance().initData();
-			ret = languageDao.findAll();
-		}
+//		if (ret.size()==0) {
+//			DatabaseFiller.getInstance().initData();
+//			ret = languageDao.findAll();
+//		}
 		return ret;
 	}
 	

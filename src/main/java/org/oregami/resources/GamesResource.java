@@ -37,9 +37,9 @@ public class GamesResource {
 	@GET
 	public List<Game> list() {
 		List<Game> ret = null;
-		if (gameRepository.findAll().size()==0) {
-			getDatabaseFiller().initData();
-		}		
+//		if (gameRepository.findAll().size()==0) {
+//			getDatabaseFiller().initData();
+//		}		
 		ret = gameRepository.findAll();
 		return ret;
 	}

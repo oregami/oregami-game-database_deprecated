@@ -10,7 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.oregami.data.DatabaseFiller;
 import org.oregami.data.RegionDao;
 import org.oregami.entities.Region;
 
@@ -33,10 +32,10 @@ public class RegionResource {
 	public List<Region> list() {
 		List<Region> ret = null;
 		ret = regionDao.findAll();
-		if (ret.size()==0) {
-			DatabaseFiller.getInstance().initData();
-			ret = regionDao.findAll();
-		}
+//		if (ret.size()==0) {
+//			DatabaseFiller.getInstance().initData();
+//			ret = regionDao.findAll();
+//		}
 		return ret;
 	}
 	

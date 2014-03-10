@@ -8,7 +8,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.oregami.data.DatabaseFiller;
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.entities.PublicationFranchise;
 
@@ -31,10 +30,10 @@ public class PublicationFranchiseResource {
 	public List<PublicationFranchise> list() {
 		List<PublicationFranchise> ret = null;
 		ret = publicationFranchiseDao.findAll();
-		if (ret.size()==0) {
-			DatabaseFiller.getInstance().initData();
-			ret = publicationFranchiseDao.findAll();
-		}
+//		if (ret.size()==0) {
+//			DatabaseFiller.getInstance().initData();
+//			ret = publicationFranchiseDao.findAll();
+//		}
 		return ret;
 	}
 	

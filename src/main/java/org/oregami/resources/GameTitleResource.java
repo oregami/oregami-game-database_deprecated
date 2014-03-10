@@ -32,9 +32,9 @@ public class GameTitleResource {
 	@GET
 	public List<GameTitle> list() {
 		List<GameTitle> ret = null;
-		if (gameTitleDao.findAll().size()==0) {
-			getDatabaseFiller().initData();
-		}		
+//		if (gameTitleDao.findAll().size()==0) {
+//			getDatabaseFiller().initData();
+//		}		
 		ret = gameTitleDao.findAll();
 		return ret;
 	}
