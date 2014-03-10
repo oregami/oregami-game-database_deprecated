@@ -1,0 +1,17 @@
+http:
+ port: 8080
+ adminPort: 8081
+# rootPath: /service/*  # Default is /* 
+
+phantomJSConfiguration:
+ phantomjsCommandLocation : /usr/local/bin/phantomjs
+ rasterizeJSFileLocation : /usr/local/bin/rasterize.js
+ 
+mailConfiguration:
+ host : smtp.oregami.org
+ username : demo@oregami.org
+ password : xxx
+ port: 25
+ 
+initBaseLists: true
+initGames: false
