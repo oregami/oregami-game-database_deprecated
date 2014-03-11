@@ -34,7 +34,7 @@ public class ServiceError {
 	
 	@Override
 	public String toString() {
-		return context + ":" + messageName;
+		return "[" + context + ":" + messageName + "]";
 	}
 	
     public ServiceErrorMessage getMessageName() {
