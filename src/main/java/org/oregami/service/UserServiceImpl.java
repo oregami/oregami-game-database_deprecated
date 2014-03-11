@@ -23,10 +23,10 @@ public class UserServiceImpl implements IUserService {
     public void uponSuccessfulRegistration(User user){
  
     	String recipient = user.getEmail();
-        mailhelper.sendMail(recipient, "Confirm your Oregami account", "Welcome to Oregami.org!\n\nYour username: " + user);
+        mailhelper.sendMail(recipient, "[Development-Test-Mail only] Your Oregami account", "This is only a development mail.\n\nWelcome to Oregami.org!\n\nYour username: " + user.getUsername());
         
         String admin = "gene@kultpower.de";
-        mailhelper.sendMail(admin, "Neuer Benutzer", "Benutzername: " + user);
+        mailhelper.sendMail(admin, "New user account", "username: " + user.getUsername() + "\n" + "email: " + user.getEmail());
         
         
     }    
