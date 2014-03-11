@@ -37,11 +37,11 @@ public class UserResource {
 		try {
 			ServiceResult<User> register = userService.register(user);
 			if (register.hasErrors()) {
-				return Response.status(Status.BAD_REQUEST).type("text/plain")
-		                .entity("Errors: " + register.getErrors()).build();
+				return Response.status(Status.BAD_REQUEST)
+						//.type("text/plain")
+						.type("text/json")
+		                .entity(register.getErrors()).build();
 			}
-//			userDao.save(user);
-//			mailHelper.sendMail("gene@kultpower.de", "test-subject", "Tolle neue Mail!\n" + user);
 			return Response.ok().build();
 		} catch (Exception e) {
 			return Response.status(javax.ws.rs.core.Response.Status.CONFLICT).type("text/plain")
