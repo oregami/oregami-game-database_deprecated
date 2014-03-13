@@ -45,6 +45,9 @@ public class UserValidator {
     public List<ServiceError> validateRequiredFields() {
         List<ServiceError> errorMessages = new ArrayList<ServiceError>();
 
+        if (StringUtils.length(userData.getUsername())<3) {
+        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_USERNAME), ServiceErrorMessage.USER_USERNAME_TOO_SHORT));
+        }
         if (org.apache.commons.lang.StringUtils.isEmpty(userData.getUsername())) {
             errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_USERNAME), ServiceErrorMessage.USER_USERNAME_EMPTY));
         }
