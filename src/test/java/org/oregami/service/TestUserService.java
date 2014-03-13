@@ -41,7 +41,8 @@ public class TestUserService {
         Assert.assertTrue(result.containsError(new ServiceError(new ServiceErrorContext("user.email"), ServiceErrorMessage.USER_EMAIL_EMPTY)));
         Assert.assertTrue(result.containsError(new ServiceError(new ServiceErrorContext("user.password"), ServiceErrorMessage.USER_PASSWORD_EMPTY)));
         Assert.assertTrue(result.containsError(new ServiceError(new ServiceErrorContext("user.username"), ServiceErrorMessage.USER_USERNAME_EMPTY)));
-        Assert.assertEquals(3,  result.getErrors().size());
+        Assert.assertTrue(result.containsError(new ServiceError(new ServiceErrorContext("user.username"), ServiceErrorMessage.USER_USERNAME_TOO_SHORT)));
+        Assert.assertEquals(4,  result.getErrors().size());
         
     }
 
