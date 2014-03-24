@@ -4,6 +4,7 @@ import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.Script;
 import org.oregami.entities.datalist.TitleType;
 
 import com.google.inject.Guice;
@@ -29,6 +30,9 @@ public class BaseListFiller {
 
 	@Inject
 	private TitleTypeDao titleTypeDao;	
+
+	@Inject
+	private ScriptDao scriptDao;
 	
 	public static BaseListFiller instance() {
 		if (instance==null) {
@@ -47,6 +51,7 @@ public class BaseListFiller {
 			initDemoContentType();
 			initReleaseType();
 			initTitleType();
+			initScript();
 			initialized=true;
 		}
 	}
@@ -85,7 +90,18 @@ public class BaseListFiller {
 		titleTypeDao.save(new TitleType(TitleType.DEVELOPMENT_TITLE));
 		titleTypeDao.save(new TitleType(TitleType.INOFFICIAL_TITLE));
 		titleTypeDao.save(new TitleType(TitleType.RE_RELEASE_TITLE));
-		
 	}
+	
+	private void initScript() {
+		scriptDao.save(new Script(Script.LATIN));
+		scriptDao.save(new Script(Script.ARABIC));
+		scriptDao.save(new Script(Script.CHINESE));
+		scriptDao.save(new Script(Script.CYRILLIC));
+		scriptDao.save(new Script(Script.GREEK));
+		scriptDao.save(new Script(Script.HEBREW));
+		scriptDao.save(new Script(Script.JAPANESE));
+		scriptDao.save(new Script(Script.KOREAN));
+	}
+	
 	
 }

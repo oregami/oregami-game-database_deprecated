@@ -16,9 +16,11 @@ import org.oregami.data.DatabaseFiller;
 import org.oregami.data.GameDao;
 import org.oregami.data.GameEntryTypeDao;
 import org.oregami.data.GameTitleDao;
+import org.oregami.data.GamingEnvironmentDao;
 import org.oregami.data.LanguageDao;
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.data.RegionDao;
+import org.oregami.data.ScriptDao;
 import org.oregami.data.TitleTypeDao;
 import org.oregami.data.UserDao;
 import org.oregami.data.WebsiteDao;
@@ -26,6 +28,7 @@ import org.oregami.dropwizard.OregamiService;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
+import org.oregami.entities.GamingEnvironment;
 import org.oregami.entities.Language;
 import org.oregami.entities.Publication;
 import org.oregami.entities.PublicationFranchise;
@@ -35,6 +38,7 @@ import org.oregami.entities.ReleaseGroup;
 import org.oregami.entities.Website;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.Script;
 import org.oregami.entities.datalist.TitleType;
 import org.oregami.entities.user.User;
 
@@ -494,5 +498,57 @@ public class PersistenceTest {
 		Assert.assertTrue(findAll.size()==1);
 		
 	}
+	
+	
+	
+	@Test
+	public void testGamingEnvironment() {
+		GamingEnvironmentDao geDao = injector.getInstance(GamingEnvironmentDao.class);
+		
+		GamingEnvironment g = new GamingEnvironment("SONY_PLAYSTATION");
+		
+		Long long1 = geDao.save(g);
+		
+		List<GamingEnvironment> findAll = geDao.findAll();
+		Assert.assertNotNull(findAll);
+		Assert.assertEquals(findAll.size(), 1);
+		
+		Assert.assertNotNull(long1);
+		
+		GamingEnvironment gLoaded = geDao.findOne(long1);
+		Assert.assertNotNull(gLoaded);
+		Assert.assertEquals(gLoaded.getTitle(), g.getTitle());
+		
+	}
+	
+	
+	@Test
+	public void testScript() {
+		ScriptDao dao = injector.getInstance(ScriptDao.class);
+		
+		Script s = new Script(Script.LATIN);
+		Long id = dao.save(s);
+		Assert.assertNotNull("ID expected", id);
+		
+		List<Script> all = dao.findAll();
+		Assert.assertTrue("1 script expected", all.size()==1);
+		
+		Script s2 = new Script(Script.ARABIC);
+		Long id2 = dao.save(s2);
+		
+		all = dao.findAll();
+		Assert.assertTrue("2 scripts expected", all.size()==2);
+		
+		Script loadedObject = dao.findByExactName(Script.LATIN);
+		Assert.assertNotNull(dao);
+		Assert.assertEquals(loadedObject.getId(), id);
+		Assert.assertEquals(loadedObject, s);
+		
+		Script loadedObject2 = dao.findByExactName(Script.ARABIC);
+		Assert.assertNotNull(loadedObject2);
+		Assert.assertEquals(loadedObject2.getId(), id2);
+		Assert.assertEquals(loadedObject2, s2);
+		
+	}	
 	
 }
