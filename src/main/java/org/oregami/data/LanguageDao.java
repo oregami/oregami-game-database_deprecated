@@ -16,7 +16,6 @@ public class LanguageDao extends GenericDAOImpl<Language, Long>{
 	}
 	
 	
-    @SuppressWarnings("unchecked")
 	public Language findByExactName(String name) {
         Language l = (Language) getEntityManager()
         		.createNativeQuery("SELECT * FROM Language t where lower(t.name) = :value ", Language.class).setParameter("value", name.toLowerCase()).getSingleResult(); 

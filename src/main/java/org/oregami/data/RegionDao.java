@@ -16,7 +16,6 @@ public class RegionDao extends GenericDAOImpl<Region, Long>{
 	}
 	
 	
-    @SuppressWarnings("unchecked")
 	public Region findByExactName(String name) {
     	Region r = (Region) getEntityManager()
         		.createNativeQuery("SELECT * FROM Region r where lower(r.name) = :value ", Region.class).setParameter("value", name.toLowerCase()).getSingleResult(); 
