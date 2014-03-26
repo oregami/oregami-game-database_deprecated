@@ -49,7 +49,7 @@ public class GameTitleResource {
 	
 	@PUT
 	@Path("{id}")
-	public Response updateGame(@PathParam("id") long id, GameTitle updatedGameTitle) {
+	public Response updateGame(@PathParam("id") String id, GameTitle updatedGameTitle) {
 		if (updatedGameTitle.getId()==null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -65,7 +65,7 @@ public class GameTitleResource {
 
     @GET
     @Path("/{id}")
-	public Response getGameTitle(@PathParam("id") long id) {
+	public Response getGameTitle(@PathParam("id") String id) {
     	GameTitle gameTite = gameTitleDao.findOne(id);
     	if (gameTite!=null) {
     		return Response.ok(gameTite).build();

@@ -9,7 +9,7 @@ import org.oregami.entities.GameTitle;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class GameTitleDao extends GenericDAOImpl<GameTitle, Long>{
+public class GameTitleDao extends GenericDAOUUIDImpl<GameTitle, String>{
 
 	@Inject
 	public GameTitleDao(Provider<EntityManager> emf) {

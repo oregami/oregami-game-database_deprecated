@@ -252,7 +252,7 @@ public class PersistenceTest {
 		GameTitleDao titleDao = getInstance(GameTitleDao.class);
 		GameTitle title = new GameTitle("The Secret of Monkey Island");
 		title.setLanguage(languageEn);
-		Long long1 = titleDao.save(title);
+		String id1 = titleDao.save(title);
 		
 		Assert.assertEquals(titleDao.findAll().size(), 1);
 		
@@ -261,7 +261,7 @@ public class PersistenceTest {
 		
 		Assert.assertEquals(titleDao.findAll().size(), 2);
 		
-		GameTitle loadedGameTitle = titleDao.findOne(long1);
+		GameTitle loadedGameTitle = titleDao.findOne(id1);
 		Assert.assertEquals(loadedGameTitle.getLanguage(), languageEn);
 		
 		System.out.println(loadedGameTitle);

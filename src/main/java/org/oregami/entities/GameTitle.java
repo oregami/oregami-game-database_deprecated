@@ -11,7 +11,7 @@ import org.hibernate.annotations.NamedQuery;
 	@NamedQuery(name="GameTitle.GetAll", query = 
 			"from GameTitle t")
 })
-public class GameTitle extends BaseEntity {
+public class GameTitle extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -4693647736354542489L;
 	
