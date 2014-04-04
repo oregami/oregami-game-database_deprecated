@@ -10,7 +10,7 @@ import org.hibernate.annotations.NamedQuery;
 	@NamedQuery(name="GamingEnvironment.GetAll", query = 
 			"from GamingEnvironment t")
 })
-public class GamingEnvironment extends BaseEntity {
+public class GamingEnvironment extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -4567292842284849726L;
 

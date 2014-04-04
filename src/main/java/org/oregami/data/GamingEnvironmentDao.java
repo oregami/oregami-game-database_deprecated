@@ -9,7 +9,7 @@ import org.oregami.entities.GamingEnvironment;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class GamingEnvironmentDao extends GenericDAOImpl<GamingEnvironment, Long>{
+public class GamingEnvironmentDao extends GenericDAOUUIDImpl<GamingEnvironment, String>{
 
 	@Inject
 	public GamingEnvironmentDao(Provider<EntityManager> emf) {

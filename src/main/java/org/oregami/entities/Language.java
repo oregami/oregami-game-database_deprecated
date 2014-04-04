@@ -7,7 +7,7 @@ import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @NamedQueries({@NamedQuery(name="Language.GetAll", query = "from Language l")})
-public class Language extends BaseEntity {
+public class Language extends BaseEntityUUID {
 
 	private static final long serialVersionUID = 8596032241189706765L;
 	

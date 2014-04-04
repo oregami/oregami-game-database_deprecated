@@ -61,7 +61,7 @@ public class GamingEnvironmentResource {
 
     @GET
     @Path("/{id}")
-	public Response getGamingEnvironment(@PathParam("id") long id) {
+	public Response getGamingEnvironment(@PathParam("id") String id) {
     	GamingEnvironment gameTite = gamingEnvironmentDao.findOne(id);
     	if (gameTite!=null) {
     		return Response.ok(gameTite).build();

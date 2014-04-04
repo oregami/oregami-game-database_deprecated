@@ -7,7 +7,7 @@ import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @NamedQueries({@NamedQuery(name="Region.GetAll", query = "from Region r")})
-public class Region extends BaseEntity {
+public class Region extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -6689057258957874499L;
 

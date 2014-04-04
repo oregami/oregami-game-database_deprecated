@@ -7,7 +7,7 @@ import org.oregami.entities.Region;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class RegionDao extends GenericDAOImpl<Region, Long>{
+public class RegionDao extends GenericDAOUUIDImpl<Region, String>{
 
 	@Inject
 	public RegionDao(Provider<EntityManager> emf) {

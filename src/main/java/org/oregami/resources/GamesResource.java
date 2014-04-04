@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.oregami.data.DatabaseFiller;
 import org.oregami.data.GameDao;
 import org.oregami.entities.Game;
 
@@ -73,7 +72,7 @@ public class GamesResource {
 
     @GET
     @Path("/{id}")
-	public Response getGame(@PathParam("id") long id) {
+	public Response getGame(@PathParam("id") String id) {
     	Game game = gameRepository.findOne(id);
     	if (game!=null) {
     		return Response.ok(game).build();
@@ -82,9 +81,5 @@ public class GamesResource {
     	}
 	}
 	
-	
-	private DatabaseFiller getDatabaseFiller() {
-		return DatabaseFiller.getInstance();
-	}	
 	
 }

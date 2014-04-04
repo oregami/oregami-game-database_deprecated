@@ -8,7 +8,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 @Entity
-public class PublicationIssue extends BaseEntity {
+public class PublicationIssue extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -6611241084584031299L;
 

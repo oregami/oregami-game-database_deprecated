@@ -2,13 +2,13 @@ package org.oregami.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.oregami.entities.BaseEntity;
+import org.oregami.entities.BaseEntityUUID;
 
 public class TestServiceResult {
 	
 	@Test
 	public void testContainsErrorMessage() {
-		ServiceResult<BaseEntity> result = new ServiceResult<BaseEntity>();
+		ServiceResult<BaseEntityUUID> result = new ServiceResult<BaseEntityUUID>();
 		result.addMessage(new ServiceErrorContext(FieldNames.USER_EMAIL),ServiceErrorMessage.USER_EMAIL_EMPTY);
 		
 		Assert.assertTrue(result.containsError(new ServiceError(new ServiceErrorContext(FieldNames.USER_EMAIL), ServiceErrorMessage.USER_EMAIL_EMPTY)));
@@ -18,7 +18,7 @@ public class TestServiceResult {
 	
 	@Test
 	public void testContainsErrorMessage2() {
-		ServiceResult<BaseEntity> result = new ServiceResult<BaseEntity>();
+		ServiceResult<BaseEntityUUID> result = new ServiceResult<BaseEntityUUID>();
 		result.addMessage(new ServiceErrorContext(FieldNames.USER_EMAIL), ServiceErrorMessage.USER_EMAIL_EMPTY);
 		result.addMessage(new ServiceErrorContext(FieldNames.USER_PASSWORD), ServiceErrorMessage.USER_PASSWORD_EMPTY);
 		result.addMessage(new ServiceErrorContext(FieldNames.USER_PASSWORD), ServiceErrorMessage.USER_PASSWORD_TOO_SHORT);

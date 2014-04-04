@@ -8,7 +8,7 @@ import org.oregami.entities.user.User;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class UserDao extends GenericDAOImpl<User, Long>{
+public class UserDao extends GenericDAOUUIDImpl<User, String>{
 
 	@Inject
 	public UserDao(Provider<EntityManager> emf) {

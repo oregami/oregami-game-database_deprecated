@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.oregami.entities.BaseEntity;
+import org.oregami.entities.BaseEntityUUID;
 
 /**
  * 
@@ -13,7 +13,7 @@ import org.oregami.entities.BaseEntity;
  * 
  * @param <T>
  */
-public class ServiceResult<T extends BaseEntity> {
+public class ServiceResult<T extends BaseEntityUUID> {
 
     private T result;
 

@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 import org.oregami.entities.datalist.TitleType;
 
 @Entity
-public class GameToGameTitleConnection extends BaseEntity {
+public class GameToGameTitleConnection extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -1883224144643128402L;
 	

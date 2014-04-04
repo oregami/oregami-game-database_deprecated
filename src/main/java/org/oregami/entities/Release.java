@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="GameRelease")
-public class Release extends BaseEntity {
+public class Release extends BaseEntityUUID {
 
 	/**
 	 * 

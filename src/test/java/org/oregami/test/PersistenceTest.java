@@ -92,7 +92,7 @@ public class PersistenceTest {
 		game.connectGameTitle(new GameTitle("The Secret of Monkey Island"), new TitleType(TitleType.ORIGINAL_TITLE));
 		
 		GameDao gameDao = getInstance(GameDao.class);
-		Long gameId = gameDao.save(game);
+		String gameId = gameDao.save(game);
 		Assert.assertNotNull(gameId);
 		
 		Game loadedGame = gameDao.findOne(gameId);
@@ -161,7 +161,7 @@ public class PersistenceTest {
 		Game game = new Game();
 		game.connectGameTitle(gameTitle, titleType);
 		game.setGameEntryType(gameEntryType);
-		Long gameId = gameDao.save(game);
+		String gameId = gameDao.save(game);
 		Assert.assertNotNull(gameId);
 		
 		List<GameEntryType> allGameEntryTypes = gameEntryTypeDao.findAll();
@@ -199,12 +199,12 @@ public class PersistenceTest {
 		
 		Game game = new Game();
 		game.setGameEntryType(gameEntryType);
-		Long gameId = gameDao.save(game);
+		String gameId = gameDao.save(game);
 		Assert.assertNotNull(gameId);
 
 		Game game2 = new Game();
 		game2.setGameEntryType(gameEntryType);
-		Long gameId2 = gameDao.save(game2);
+		String gameId2 = gameDao.save(game2);
 		Assert.assertNotNull(gameId2);
 		
 		Game loadedGame = gameDao.findOne(gameId);
@@ -231,7 +231,7 @@ public class PersistenceTest {
 		ReleaseGroup releaseGroup = new ReleaseGroup();
 		releaseGroup.setReleaseType(releaseType);
 		entityManager.persist(releaseGroup);
-		Long id = releaseGroup.getId();
+		String id = releaseGroup.getId();
 		Assert.assertNotNull(id);
 		
 		ReleaseGroup rgLoaded = entityManager.find(ReleaseGroup.class, id);
@@ -290,7 +290,7 @@ public class PersistenceTest {
 		Game game = new Game();
 		game.connectGameTitle(title, titleType);
 		game.connectGameTitle(title2, titleType2);
-		Long gameId = gameDao.save(game);
+		String gameId = gameDao.save(game);
 		
 		Game gameLoaded = gameDao.findOne(gameId);
 		Set<GameToGameTitleConnection> connectionList = gameLoaded.getGameToGameTitleConnectionList();
@@ -331,7 +331,7 @@ public class PersistenceTest {
 		Game game = new Game();
 		game.connectGameTitle(title, titleType);
 		game.connectGameTitle(title2, titleType2);
-		Long gameId = gameDao.save(game);
+		String gameId = gameDao.save(game);
 		
 		Game gameLoaded = gameDao.findOne(gameId);
 		Set<GameToGameTitleConnection> connectionList = gameLoaded.getGameToGameTitleConnectionList();
@@ -351,26 +351,26 @@ public class PersistenceTest {
 		LanguageDao languageDao = injector.getInstance(LanguageDao.class);
 		
 		Language german = new Language(Language.GERMAN);
-		Long langId = languageDao.save(german);
-		Assert.assertNotNull("ID expected", langId);
+		String id = languageDao.save(german);
+		Assert.assertNotNull("ID expected", id);
 		
 		List<Language> all = languageDao.findAll();
 		Assert.assertTrue("1 language expected", all.size()==1);
 		
 		Language english = new Language(Language.ENGLISH);
-		Long langId2 = languageDao.save(english);
+		String id2 = languageDao.save(english);
 		
 		all = languageDao.findAll();
 		Assert.assertTrue("2 languages expected", all.size()==2);
 		
 		Language loadedGerman = languageDao.findByExactName(Language.GERMAN);
 		Assert.assertNotNull(loadedGerman);
-		Assert.assertEquals(loadedGerman.getId(), langId);
+		Assert.assertEquals(loadedGerman.getId(), id);
 		Assert.assertEquals(loadedGerman, german);
 		
 		Language loadedEnglish = languageDao.findByExactName(Language.ENGLISH);
 		Assert.assertNotNull(loadedEnglish);
-		Assert.assertEquals(loadedEnglish.getId(), langId2);
+		Assert.assertEquals(loadedEnglish.getId(), id2);
 		Assert.assertEquals(loadedEnglish, english);
 		
 	}
@@ -381,26 +381,26 @@ public class PersistenceTest {
 		RegionDao regionDao = injector.getInstance(RegionDao.class);
 		
 		Region germany = new Region(Region.GERMANY);
-		Long long1 = regionDao.save(germany);
-		Assert.assertNotNull("ID expected", long1);
+		String id1 = regionDao.save(germany);
+		Assert.assertNotNull("ID expected", id1);
 		
 		List<Region> all = regionDao.findAll();
 		Assert.assertTrue("1 Region expected", all.size()==1);
 		
 		Region europe = new Region(Region.EUROPE);
-		Long long2 = regionDao.save(europe);
+		String id2 = regionDao.save(europe);
 		
 		all = regionDao.findAll();
 		Assert.assertTrue("2 Regions expected", all.size()==2);
 		
 		Region loadedGermany = regionDao.findByExactName(Region.GERMANY);
 		Assert.assertNotNull(loadedGermany);
-		Assert.assertEquals(loadedGermany.getId(), long1);
+		Assert.assertEquals(loadedGermany.getId(), id1);
 		Assert.assertEquals(loadedGermany, germany);
 		
 		Region loadedEurope = regionDao.findByExactName(Region.EUROPE);
 		Assert.assertNotNull(loadedEurope);
-		Assert.assertEquals(loadedEurope.getId(), long2);
+		Assert.assertEquals(loadedEurope.getId(), id2);
 		Assert.assertEquals(loadedEurope, europe);		
 	}
 	
@@ -467,11 +467,11 @@ public class PersistenceTest {
 		user.setUsername("gene");
 		user.setEmail("gene@kultpower.de");
 		
-		Long long1 = userDao.save(user);
+		String id1 = userDao.save(user);
 		
-		Assert.assertNotNull(long1);
+		Assert.assertNotNull(id1);
 		
-		User userLoaded = userDao.findOne(long1);
+		User userLoaded = userDao.findOne(id1);
 		Assert.assertNotNull(userLoaded);
 		Assert.assertEquals(userLoaded.getUsername(), user.getUsername());
 		
@@ -507,15 +507,15 @@ public class PersistenceTest {
 		
 		GamingEnvironment g = new GamingEnvironment("SONY_PLAYSTATION");
 		
-		Long long1 = geDao.save(g);
+		String id1 = geDao.save(g);
 		
 		List<GamingEnvironment> findAll = geDao.findAll();
 		Assert.assertNotNull(findAll);
 		Assert.assertEquals(findAll.size(), 1);
 		
-		Assert.assertNotNull(long1);
+		Assert.assertNotNull(id1);
 		
-		GamingEnvironment gLoaded = geDao.findOne(long1);
+		GamingEnvironment gLoaded = geDao.findOne(id1);
 		Assert.assertNotNull(gLoaded);
 		Assert.assertEquals(gLoaded.getTitle(), g.getTitle());
 		

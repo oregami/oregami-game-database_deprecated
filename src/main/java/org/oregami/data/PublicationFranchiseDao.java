@@ -10,7 +10,7 @@ import org.oregami.entities.PublicationFranchise;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class PublicationFranchiseDao extends GenericDAOImpl<PublicationFranchise, Long>{
+public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranchise, String>{
 
 	@Inject
 	public PublicationFranchiseDao(Provider<EntityManager> emf) {

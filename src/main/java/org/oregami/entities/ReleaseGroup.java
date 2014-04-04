@@ -33,7 +33,7 @@ import org.oregami.entities.datalist.UnreleaseState;
 
 
 @Entity
-public class ReleaseGroup extends BaseEntity {
+public class ReleaseGroup extends BaseEntityUUID {
 
 	private static final long serialVersionUID = 1L;
 

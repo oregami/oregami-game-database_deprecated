@@ -6,11 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import org.oregami.entities.BaseEntity;
+import org.oregami.entities.BaseEntityUUID;
 import org.oregami.entities.KeyObjects.UserStatusKey;
 
 @Entity
-public class UserStatus extends BaseEntity {
+public class UserStatus extends BaseEntityUUID {
 	
 	private static final long serialVersionUID = -5022685871866053210L;
 

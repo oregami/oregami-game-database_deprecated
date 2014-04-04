@@ -7,7 +7,7 @@ import org.oregami.entities.Language;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class LanguageDao extends GenericDAOImpl<Language, Long>{
+public class LanguageDao extends GenericDAOUUIDImpl<Language, String>{
 
 	@Inject
 	public LanguageDao(Provider<EntityManager> emf) {

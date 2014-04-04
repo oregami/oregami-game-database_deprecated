@@ -37,7 +37,7 @@ import org.oregami.entities.datalist.TitleType;
 	@NamedQuery(name="Game.GetAll", query = 
 			"from Game g")
 })
-public class Game extends BaseEntity {
+public class Game extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -2362683596950421365L;
 

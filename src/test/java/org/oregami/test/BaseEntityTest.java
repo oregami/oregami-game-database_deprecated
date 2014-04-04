@@ -108,7 +108,7 @@ public class BaseEntityTest {
 		
 		Game game2 = new Game();
 		game2.connectGameTitle(new GameTitle("Street Fighter"), BaseListFinder.instance().getTitleType(TitleType.ORIGINAL_TITLE));
-		Long gameId2 = gameDao.save(game2);
+		String gameId2 = gameDao.save(game2);
 		
 
 		int sizeBeforeDelete = gameDao.findAll().size();

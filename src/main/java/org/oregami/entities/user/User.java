@@ -27,13 +27,13 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
-import org.oregami.entities.BaseEntity;
+import org.oregami.entities.BaseEntityUUID;
 import org.oregami.entities.KeyObjects.RoleKey;
 import org.oregami.util.Sha;
 
 @Entity
 @NamedQueries({@NamedQuery(name="User.GetAll", query = "from User u")})
-public class User extends BaseEntity {
+public class User extends BaseEntityUUID {
 
 	private static final long serialVersionUID = 4594670372719416989L;
 
