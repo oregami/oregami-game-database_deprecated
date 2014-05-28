@@ -5,6 +5,12 @@
 	<artifactId>oregami-dropwizard</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<!-- use UTF-8 for everything -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<dropwizard.version>0.7.0</dropwizard.version>
+	</properties>
 
 	<dependencies>
 
@@ -15,17 +21,31 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.yammer.dropwizard</groupId>
+			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-core</artifactId>
-			<version>0.6.2</version>
+			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.yammer.dropwizard</groupId>
-			<artifactId>dropwizard-auth</artifactId>
-			<version>0.6.2</version>
+			<groupId>com.hubspot.dropwizard</groupId>
+			<artifactId>dropwizard-guice</artifactId>
+			<version>${dropwizard.version}</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-auth</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-persist</artifactId>
+			<version>3.0</version>
+		</dependency>		
+		
+		
+		
+		
+		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -38,23 +58,6 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>com.hubspot.dropwizard</groupId>
-			<artifactId>dropwizard-guice</artifactId>
-			<version>0.6.2</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javassist</groupId>
-					<artifactId>javassist</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-persist</artifactId>
-			<version>3.0</version>
-		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assisted-inject</artifactId>
@@ -74,7 +77,6 @@
 			<version>4.3.0.Final</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
@@ -90,15 +92,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.bazaarvoice.dropwizard</groupId>
-			<artifactId>dropwizard-configurable-assets-bundle</artifactId>
-			<version>0.1.11</version>
+		    <groupId>com.federecio</groupId>
+		    <artifactId>dropwizard-junit</artifactId>
+		    <version>0.3</version>
+		    <scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-servlets</artifactId>
-			<version>8.1.12.v20130726</version>
-		</dependency>
+
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -140,11 +139,7 @@
 
 
 
-	<properties>
-		<!-- use UTF-8 for everything -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -211,5 +206,12 @@
 
 		</plugins>
 	</build>
+	
+	<repositories>
+		<repository>
+		    <id>federecio-releases</id>
+		    <url>https://repository-federecio1.forge.cloudbees.com/release/</url>
+		</repository>	
+	</repositories>
 
 </project>

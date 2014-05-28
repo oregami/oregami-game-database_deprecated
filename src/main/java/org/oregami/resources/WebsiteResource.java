@@ -1,5 +1,7 @@
 package org.oregami.resources;
 
+import io.dropwizard.auth.Auth;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,6 @@ import org.oregami.entities.user.User;
 import org.oregami.util.WebsiteHelper;
 
 import com.google.inject.Inject;
-import com.yammer.dropwizard.auth.Auth;
 
 @Path("/website")
 @Produces(MediaType.APPLICATION_JSON)

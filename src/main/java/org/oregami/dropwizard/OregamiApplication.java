@@ -1,5 +1,15 @@
 package org.oregami.dropwizard;
 
+import io.dropwizard.Application;
+import io.dropwizard.auth.basic.BasicAuthProvider;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration.Dynamic;
+
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -21,16 +31,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
-import com.yammer.dropwizard.Service;
-import com.yammer.dropwizard.auth.basic.BasicAuthProvider;
-import com.yammer.dropwizard.config.Bootstrap;
-import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.config.FilterBuilder;
-//import com.yammer.dropwizard.db.DatabaseConfiguration;
-//import com.yammer.dropwizard.hibernate.HibernateBundle;
 
 
-public class OregamiService extends Service<OregamiConfiguration> {
+public class OregamiApplication extends Application<OregamiConfiguration> {
 
 	public static final String JPA_UNIT = 
 			"data"; 
@@ -40,12 +43,11 @@ public class OregamiService extends Service<OregamiConfiguration> {
 	private static final JpaPersistModule jpaPersistModule = new JpaPersistModule(JPA_UNIT);
 	
 	public static void main(String[] args) throws Exception {
-		new OregamiService().run(args);
+		new OregamiApplication().run(args);
 	}
 	
 	@Override
 	public void initialize(Bootstrap<OregamiConfiguration> bootstrap) {
-		bootstrap.setName("oregami-server");
 		
 		guiceBundle = GuiceBundle.<OregamiConfiguration>newBuilder()
 				.addModule(new OregamiGuiceModule())
@@ -58,7 +60,7 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		SimpleModule module = new SimpleModule();
 		module.addSerializer(LocalDateTime.class, new CustomLocalDateTimeSerializer());
 		module.addSerializer(LocalDate.class, new CustomLocalDateSerializer());
-		bootstrap.getObjectMapperFactory().registerModule(module);
+		bootstrap.getObjectMapper().registerModule(module);
 				
 	}
 
@@ -67,7 +69,7 @@ public class OregamiService extends Service<OregamiConfiguration> {
 	public void run(OregamiConfiguration config, Environment environment)
 			throws Exception {
 
-		environment.addProvider(new BasicAuthProvider<User>(new OregamiAuthenticator(),
+		environment.jersey().register(new BasicAuthProvider<User>(new OregamiAuthenticator(),
                 "only visible with valid user/password"));
 	
 		if (config.isInitBaseLists()) {
@@ -80,21 +82,26 @@ public class OregamiService extends Service<OregamiConfiguration> {
 		WebsiteHelper.init(config.getPhantomJSConfiguration().getPhantomjsCommandLocation(), config.getPhantomJSConfiguration().getRasterizeJSFileLocation());
 		MailHelper.init(config.getMailConfiguration());
 		
-		FilterBuilder fconfig = environment.addFilter(CrossOriginFilter.class, "/*");
-		fconfig.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");	
-		fconfig.setInitParam(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
+		Dynamic filter = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+	    filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+	    filter.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,PUT,POST,DELETE,OPTIONS");
+	    filter.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
+	    filter.setInitParameter(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
+	    filter.setInitParameter("allowedHeaders", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin");
+	    filter.setInitParameter("allowCredentials", "true");
+//	    
+//	    filter.setInitParameter("allow", "GET,PUT,POST,DELETE,OPTIONS");
+//	    filter.setInitParameter("preflightMaxAge", "5184000"); // 2 months
 		
-		fconfig.setInitParam(CrossOriginFilter.ALLOWED_METHODS_PARAM, "PUT,GET,POST,DELETE");
-		
-		environment.addFilter(guiceBundle.getInjector().getInstance(PersistFilter.class), "/*");
-
-		environment.addResource(guiceBundle.getInjector().getInstance(GamesResource.class));
-		environment.addResource(guiceBundle.getInjector().getInstance(HomeResource.class));
-		environment.addResource(guiceBundle.getInjector().getInstance(AdminResource.class));
-		environment.addResource(guiceBundle.getInjector().getInstance(GameTitleResource.class));
-		environment.addResource(guiceBundle.getInjector().getInstance(PublicationFranchiseResource.class));
-		environment.addResource(guiceBundle.getInjector().getInstance(WebsiteResource.class));
-		environment.addResource(guiceBundle.getInjector().getInstance(UserResource.class));
+	    environment.servlets().addFilter("persistFilter", guiceBundle.getInjector().getInstance(PersistFilter.class)).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+	    
+		environment.jersey().register(guiceBundle.getInjector().getInstance(GamesResource.class));
+		environment.jersey().register(guiceBundle.getInjector().getInstance(HomeResource.class));
+		environment.jersey().register(guiceBundle.getInjector().getInstance(AdminResource.class));
+		environment.jersey().register(guiceBundle.getInjector().getInstance(GameTitleResource.class));
+		environment.jersey().register(guiceBundle.getInjector().getInstance(PublicationFranchiseResource.class));
+		environment.jersey().register(guiceBundle.getInjector().getInstance(WebsiteResource.class));
+		environment.jersey().register(guiceBundle.getInjector().getInstance(UserResource.class));
 		
 	}
 

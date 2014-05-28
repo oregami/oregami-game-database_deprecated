@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.oregami.data.WebsiteDao;
-import org.oregami.dropwizard.OregamiService;
+import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.Website;
 import org.oregami.util.WebsiteHelper;
 
@@ -34,7 +34,7 @@ public class WebsiteHelperTest {
 	
 	@BeforeClass
 	public static void init() {
-		JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiService.JPA_UNIT);
+		JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiApplication.JPA_UNIT);
 		injector = Guice.createInjector(jpaPersistModule);
 		injector.getInstance(WebsiteHelperTest.class);
 		PersistService persistService = injector.getInstance(PersistService.class);

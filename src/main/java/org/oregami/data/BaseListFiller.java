@@ -1,6 +1,6 @@
 package org.oregami.data;
 
-import org.oregami.dropwizard.OregamiService;
+import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
@@ -36,7 +36,7 @@ public class BaseListFiller {
 	
 	public static BaseListFiller instance() {
 		if (instance==null) {
-			JpaPersistModule jpaPersistModule = OregamiService.createJpaModule();
+			JpaPersistModule jpaPersistModule = OregamiApplication.createJpaModule();
 			Injector injector = Guice.createInjector(jpaPersistModule);
 			instance = injector.getInstance(BaseListFiller.class);
 			PersistService persistService = injector.getInstance(PersistService.class);

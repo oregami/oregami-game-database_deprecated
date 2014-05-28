@@ -7,14 +7,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.oregami.data.UserDao;
-import org.oregami.dropwizard.DropwizardJunitRunner;
-import org.oregami.dropwizard.DropwizardTestConfig;
-import org.oregami.dropwizard.OregamiService;
+import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.user.User;
 import org.oregami.util.MailHelper;
 
+import com.federecio.dropwizard.junitrunner.DropwizardJunitRunner;
+import com.federecio.dropwizard.junitrunner.DropwizardTestConfig;
+
 @RunWith(DropwizardJunitRunner.class)
-@DropwizardTestConfig(serviceClass=OregamiService.class, yamlFile = "/oregami.yml")
+@DropwizardTestConfig(applicationClass = OregamiApplication.class, yamlFile = "/oregami.yml")
 public class TestUserService {
 
     private UserServiceImpl userService;
