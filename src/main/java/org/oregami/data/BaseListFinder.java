@@ -1,6 +1,6 @@
 package org.oregami.data;
 
-import org.oregami.dropwizard.OregamiService;
+import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseGroupReason;
@@ -19,7 +19,7 @@ public class BaseListFinder {
 	
 	public static BaseListFinder instance() {
 		if (instance==null) {
-			JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiService.JPA_UNIT);
+			JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiApplication.JPA_UNIT);
 			Injector injector = Guice.createInjector(jpaPersistModule);
 			instance = injector.getInstance(BaseListFinder.class);
 			PersistService persistService = injector.getInstance(PersistService.class);

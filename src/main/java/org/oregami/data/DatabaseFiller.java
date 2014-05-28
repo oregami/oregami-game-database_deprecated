@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
-import org.oregami.dropwizard.OregamiService;
+import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
@@ -67,7 +67,7 @@ public class DatabaseFiller {
 	
 	public static DatabaseFiller getInstance() {
 		if (instance==null) {
-			JpaPersistModule jpaPersistModule = OregamiService.createJpaModule();
+			JpaPersistModule jpaPersistModule = OregamiApplication.createJpaModule();
 			injector = Guice.createInjector(jpaPersistModule);
 			instance = injector.getInstance(DatabaseFiller.class);
 			PersistService persistService = injector.getInstance(PersistService.class);

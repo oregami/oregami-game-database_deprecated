@@ -24,7 +24,7 @@ import org.oregami.data.ScriptDao;
 import org.oregami.data.TitleTypeDao;
 import org.oregami.data.UserDao;
 import org.oregami.data.WebsiteDao;
-import org.oregami.dropwizard.OregamiService;
+import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.GameToGameTitleConnection;
@@ -58,7 +58,7 @@ public class PersistenceTest {
 	
 	@BeforeClass
 	public static void init() {
-		JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiService.JPA_UNIT);
+		JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiApplication.JPA_UNIT);
 		injector = Guice.createInjector(jpaPersistModule);
 		injector.getInstance(PersistenceTest.class);
 		PersistService persistService = injector.getInstance(PersistService.class);

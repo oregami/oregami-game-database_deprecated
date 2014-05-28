@@ -1,9 +1,10 @@
 package org.oregami.dropwizard;
 
+import io.dropwizard.Configuration;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.yammer.dropwizard.config.Configuration;
 
 public class MailConfiguration extends Configuration {
 	
