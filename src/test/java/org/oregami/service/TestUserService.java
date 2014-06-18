@@ -1,22 +1,24 @@
 package org.oregami.service;
 
+import io.dropwizard.testing.junit.DropwizardAppRule;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.oregami.data.UserDao;
 import org.oregami.dropwizard.OregamiApplication;
+import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.entities.user.User;
 import org.oregami.util.MailHelper;
 
-import com.federecio.dropwizard.junitrunner.DropwizardJunitRunner;
-import com.federecio.dropwizard.junitrunner.DropwizardTestConfig;
-
-@RunWith(DropwizardJunitRunner.class)
-@DropwizardTestConfig(applicationClass = OregamiApplication.class, yamlFile = "/oregami.yml")
 public class TestUserService {
+
+    @ClassRule
+    public static final DropwizardAppRule<OregamiConfiguration> RULE =
+            new DropwizardAppRule<OregamiConfiguration>(OregamiApplication.class, "src/test/resources/oregami.yml");
 
     private UserServiceImpl userService;
 
