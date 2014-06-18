@@ -71,10 +71,6 @@ public class PersistenceTest {
 			entityManager = injector.getInstance(EntityManager.class);
 		}
 		entityManager.getTransaction().begin();
-		
-		//deletes are not necessary, because of the Rollback after every Test
-//		DatabaseFiller.getInstance().deleteGameData();
-//		DatabaseFiller.getInstance().deleteBaseListData();
 	}
 	
 	@After
@@ -128,7 +124,7 @@ public class PersistenceTest {
 		
 		List<GameEntryType> all = gameEntryTypeDao.findAll();
 		Assert.assertNotNull(all);
-		Assert.assertEquals(all.size(), 3);
+		Assert.assertEquals(3, all.size());
 	}	
 	
 	
