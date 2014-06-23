@@ -6,3 +6,5 @@
 .settings/org.eclipse.m2e.core.prefs
 /bin
 /target
+.idea
+oregami-dropwizard.iml
