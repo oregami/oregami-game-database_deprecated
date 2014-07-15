@@ -47,7 +47,7 @@ public class DatabaseFiller {
 			Arrays.asList("GameTitle", "GameToGameTitleConnection", "Game",  "Release", "ReleaseGroup", "Language", "Region", "PublicationFranchise", "Publication", "PublicationIssue");
 	
 	private static List<String> baseListDataTables = 
-			Arrays.asList("BusinessModel", "CensorshipType", "DemoContentType", "GameEntryType", "ReleaseGroupReason", "ReleaseType", "RemakeEnhancementType", "TitleType", "UnreleaseState");
+			Arrays.asList("Script", "BusinessModel", "CensorshipType", "DemoContentType", "GameEntryType", "ReleaseGroupReason", "ReleaseType", "RemakeEnhancementType", "TitleType", "UnreleaseState");
 	
 	@Inject 
 	private GameDao gameDao;

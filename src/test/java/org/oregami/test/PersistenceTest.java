@@ -520,6 +520,7 @@ public class PersistenceTest {
 	
 	@Test
 	public void testScript() {
+
 		ScriptDao dao = injector.getInstance(ScriptDao.class);
 		
 		Script s = new Script(Script.LATIN);
@@ -527,13 +528,13 @@ public class PersistenceTest {
 		Assert.assertNotNull("ID expected", id);
 		
 		List<Script> all = dao.findAll();
-		Assert.assertTrue("1 script expected", all.size()==1);
+		Assert.assertEquals("1 script expected", 1, all.size());
 		
 		Script s2 = new Script(Script.ARABIC);
 		Long id2 = dao.save(s2);
 		
 		all = dao.findAll();
-		Assert.assertTrue("2 scripts expected", all.size()==2);
+		Assert.assertEquals("2 scripts expected", 2, all.size());
 		
 		Script loadedObject = dao.findByExactName(Script.LATIN);
 		Assert.assertNotNull(dao);

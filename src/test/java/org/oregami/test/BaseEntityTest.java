@@ -33,6 +33,8 @@ public class BaseEntityTest {
 
 	private static Injector injector;
 
+    private static EntityManager entityManager;
+
 	public BaseEntityTest() {
 	}
 
@@ -43,13 +45,15 @@ public class BaseEntityTest {
 		injector.getInstance(PersistenceTest.class);
 		PersistService persistService = injector.getInstance(PersistService.class);
 		persistService.start();
-		initBaseLists();
+        entityManager = injector.getInstance(EntityManager.class);
 	}
 	
 
 	@Test
-	@Transactional
 	public void testEquals() {
+
+		entityManager.getTransaction().begin();
+
 		ReleaseGroup releaseGroup = new ReleaseGroup();
 		Game game = new Game();
 		Game game2 = new Game();
@@ -58,11 +62,10 @@ public class BaseEntityTest {
 
 		assertThat("identical objects are equal", game, is(game));
 
-		EntityManager entityManager = injector.getInstance(EntityManager.class);
-		entityManager.getTransaction().begin();
+
 		entityManager.persist(game);
 		entityManager.flush();
-		entityManager.getTransaction().commit();
+
 
 		assertThat("persisted objects are not equal to non-persisted objects", game, is(not(game2)));
 
@@ -70,46 +73,19 @@ public class BaseEntityTest {
 
 		assertThat("two objects that refer to the same entity are equal", game, is(gameFromDb));
 
+        entityManager.getTransaction().rollback();
 	}
-	
-	@Test
-	@Transactional
-	public void testGeneric() {
-		GameEntryType compilationLoaded = BaseListFinder.instance().getGameEntryType(GameEntryType.EPISODE);
-		System.out.println("gameEntryDao: " + compilationLoaded);
-		Assert.assertNotNull(compilationLoaded);
-		
-		DemoContentType demoContentType = BaseListFinder.instance().getDemoContentType(DemoContentType.ABSOLUTE_PLAY_COUNT_LIMIT);
-		System.out.println(demoContentType);
-		Assert.assertNotNull(demoContentType);
-		
-		ReleaseType releaseType = BaseListFinder.instance().getReleaseType(ReleaseType.EMULATOR_RELEASE);
-		System.out.println(releaseType);
-		Assert.assertNotNull(releaseType);
-	}
-	
-	@Test
-	@Transactional
-	public void testGenericBaseListDao() {
-		GameEntryTypeDao gameEntryTypeDao = injector.getInstance(GameEntryTypeDao.class);
-		GameEntryType gameEntryType = gameEntryTypeDao.findByName(GameEntryType.COMPILATION);
-		Assert.assertNotNull(gameEntryType);
-		Assert.assertEquals(GameEntryType.COMPILATION,gameEntryType.getValue());
-	}
-	
-	private static void initBaseLists() {
-		BaseListFiller.instance().initBaseLists();
-	}
+
+
 	
 	@Test
 	@Transactional
 	public void testDeleteGameData() {
+
 		GameDao gameDao = injector.getInstance(GameDao.class);
 		
 		Game game2 = new Game();
-		game2.connectGameTitle(new GameTitle("Street Fighter"), BaseListFinder.instance().getTitleType(TitleType.ORIGINAL_TITLE));
-		String gameId2 = gameDao.save(game2);
-		
+        gameDao.save(game2);
 
 		int sizeBeforeDelete = gameDao.findAll().size();
 		Assert.assertTrue(sizeBeforeDelete==1);
@@ -118,6 +94,7 @@ public class BaseEntityTest {
 		
 		int sizeAfterDelete = gameDao.findAll().size();
 		Assert.assertTrue(sizeAfterDelete==0);
-	}	
+
+	}
 	
 }
