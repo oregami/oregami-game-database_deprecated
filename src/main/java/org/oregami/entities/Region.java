@@ -4,9 +4,11 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 
 @Entity
 @NamedQueries({@NamedQuery(name="Region.GetAll", query = "from Region r")})
+@Audited
 public class Region extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -6689057258957874499L;
