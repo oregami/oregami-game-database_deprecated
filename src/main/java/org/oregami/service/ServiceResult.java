@@ -1,18 +1,16 @@
 package org.oregami.service;
 
+import lombok.ToString;
+import org.oregami.entities.BaseEntityUUID;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.oregami.entities.BaseEntityUUID;
-
 /**
- * 
- * @author twendelmuth
  * 
  * @param <T>
  */
+@ToString
 public class ServiceResult<T extends BaseEntityUUID> {
 
     private T result;
@@ -59,20 +57,6 @@ public class ServiceResult<T extends BaseEntityUUID> {
     public void addMessage(ServiceErrorContext context, ServiceErrorMessage message) {
         errors.add(new ServiceError(context, message));
     }
-    
-    @Override
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-    
-//    public boolean containsErrorMessage(ServiceErrorContext serviceErrorContext, ServiceErrorMessage message) {
-//    	for (ServiceError error : errors) {
-//			if (serviceErrorContext.equals(error.getContext()) && error.getMessageName().equals(message)) {
-//				return true;
-//			}
-//		}
-//    	return false;
-//    }
     
     public boolean containsError(ServiceError searchError) {
     	for (ServiceError error : errors) {
