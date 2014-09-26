@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
+import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Assert;
@@ -52,6 +53,8 @@ public class PersistenceTest {
 	private static Injector injector;
 	
 	EntityManager entityManager = null;
+
+    private Logger logger = Logger.getLogger(this.getClass());
 	
 	public PersistenceTest() {
 	}
@@ -233,8 +236,7 @@ public class PersistenceTest {
 		ReleaseGroup rgLoaded = entityManager.find(ReleaseGroup.class, id);
 		Assert.assertNotNull(rgLoaded);
 		Assert.assertEquals(rgLoaded.getReleaseType(), releaseGroup.getReleaseType());
-		System.out.println(rgLoaded);
-		
+
 	}
 	
 	@Test
@@ -260,8 +262,7 @@ public class PersistenceTest {
 		GameTitle loadedGameTitle = titleDao.findOne(id1);
 		Assert.assertEquals(loadedGameTitle.getLanguage(), languageEn);
 		
-		System.out.println(loadedGameTitle);
-		
+
 	}
 	
 	
@@ -452,8 +453,9 @@ public class PersistenceTest {
 		
 		Assert.assertTrue("release date not found", releaseDateFound);
 		
-		
-		System.out.println(pf);
+		if (logger.isDebugEnabled()) {
+            logger.debug(pf);
+        }
 	}
 	
 	@Test
@@ -482,13 +484,8 @@ public class PersistenceTest {
 		website.setImage(new byte[0]);
 		website.setThumbnail(new byte[0]);
 		
-		System.out.println(website);
-		
 		String id = websiteDao.save(website);
-		
-		System.out.println(id);
-		System.out.println(website);
-		
+
 		List<Website> findAll = websiteDao.findAll();
 		
 		Assert.assertTrue(findAll.size()==1);

@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -20,6 +21,8 @@ import org.oregami.entities.datalist.ReleaseType;
 public class FullDataTest {
 
     private static Injector injector;
+
+    private Logger logger = Logger.getLogger(this.getClass());
 
     public FullDataTest() {
     }
@@ -45,15 +48,21 @@ public class FullDataTest {
     @Transactional
     public void testGeneric() {
         GameEntryType compilationLoaded = BaseListFinder.instance().getGameEntryType(GameEntryType.EPISODE);
-        System.out.println("gameEntryDao: " + compilationLoaded);
+        if (logger.isDebugEnabled()) {
+            logger.debug("gameEntryDao: " + compilationLoaded);
+        }
         Assert.assertNotNull(compilationLoaded);
 
         DemoContentType demoContentType = BaseListFinder.instance().getDemoContentType(DemoContentType.ABSOLUTE_PLAY_COUNT_LIMIT);
-        System.out.println(demoContentType);
+        if (logger.isDebugEnabled()) {
+            logger.debug(demoContentType);
+        }
         Assert.assertNotNull(demoContentType);
 
         ReleaseType releaseType = BaseListFinder.instance().getReleaseType(ReleaseType.EMULATOR_RELEASE);
-        System.out.println(releaseType);
+        if (logger.isDebugEnabled()) {
+            logger.debug(releaseType);
+        }
         Assert.assertNotNull(releaseType);
     }
 

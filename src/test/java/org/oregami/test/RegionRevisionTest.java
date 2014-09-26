@@ -91,16 +91,17 @@ public class RegionRevisionTest {
 		entityManager.getTransaction().begin();
 		AuditReader auditReader = AuditReaderFactory.get(entityManager);
 		List<Number> revisionNumbers = auditReader.getRevisions(Region.class, loadedEurope.getId());
-		System.out.println(revisionNumbers + " revisions found.");
+//		System.out.println(revisionNumbers + " revisions found.");
 		for (Number number : revisionNumbers) {
-			System.out.println("RevisionNumber: " + number);
+//			System.out.println("RevisionNumber: " + number);
 			Region regionWithRevision = auditReader.find(Region.class, loadedEurope.getId(), number);
-			try {
-				System.out.println("Region with revision " + number + "\n" 
-						+ new ObjectMapper().writeValueAsString(regionWithRevision));
-			} catch (JsonProcessingException e) {
-				Assert.fail(e.getMessage());
-			}
+//			try {
+//				System.out.println("Region with revision " + number + "\n"
+//						+ new ObjectMapper().writeValueAsString(regionWithRevision));
+//			} catch (JsonProcessingException e) {
+//				Assert.fail(e.getMessage());
+//			}
+            Assert.assertNotNull(regionWithRevision);
 		}
 		entityManager.getTransaction().commit();
 
