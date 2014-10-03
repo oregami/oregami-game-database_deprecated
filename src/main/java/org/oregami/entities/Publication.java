@@ -11,8 +11,11 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Entity
+@Audited
 @NamedQueries({ @NamedQuery(name = "Publication.GetAll", query = "from Publication t") })
 public class Publication extends BaseEntityUUID {
 
@@ -21,9 +24,11 @@ public class Publication extends BaseEntityUUID {
 	private String name;
 
 	@ManyToOne
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private Region region;
 
 	@ManyToOne
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private Language language;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

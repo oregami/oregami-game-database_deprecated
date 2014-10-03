@@ -5,9 +5,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.Audited;
 import org.joda.time.LocalDate;
 
 @Entity
+@Audited
 public class PublicationIssue extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -6611241084584031299L;
