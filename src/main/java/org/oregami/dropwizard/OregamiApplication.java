@@ -58,8 +58,8 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
         bootstrap.addBundle(guiceBundle);
 
         SimpleModule module = new SimpleModule();
-        module.addSerializer(LocalDateTime.class, new CustomLocalDateTimeSerializer());
-        module.addSerializer(LocalDate.class, new CustomLocalDateSerializer());
+        //module.addSerializer(LocalDateTime.class, new CustomLocalDateTimeSerializer());
+        //module.addSerializer(LocalDate.class, new CustomLocalDateSerializer());
         bootstrap.getObjectMapper().registerModule(module);
 
     }
