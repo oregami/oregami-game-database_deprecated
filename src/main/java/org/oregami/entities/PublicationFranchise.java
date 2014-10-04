@@ -8,9 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
+import org.joda.time.LocalDateTime;
 
 @Entity
 @Audited
@@ -18,6 +21,7 @@ import org.hibernate.envers.Audited;
 	@NamedQuery(name="PublicationFranchise.GetAll", query = 
 			"from PublicationFranchise t")
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PublicationFranchise extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -4693647736354542489L;
@@ -26,7 +30,23 @@ public class PublicationFranchise extends BaseEntityUUID {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	private final Set<Publication> publicationList = new HashSet<Publication>();
-	
+
+
+    private LocalDateTime changeTime = null;
+
+    public LocalDateTime getChangeTime() {
+        return changeTime;
+    }
+
+    public void setChangeTime(LocalDateTime changeTime) {
+        this.changeTime = changeTime;
+    }
+
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    public LocalDateTime getChangeTimeGui() {
+        return changeTime;
+    }
+
 	public PublicationFranchise() {
 	}
 	

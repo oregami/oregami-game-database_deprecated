@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.google.inject.persist.Transactional;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.joda.time.LocalDateTime;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.PublicationFranchise;
 
@@ -47,6 +49,20 @@ public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranc
         PublicationFranchise tRev = reader.find(PublicationFranchise.class, id, revision);
         return tRev;
 
+    }
+
+    @Override
+    @Transactional
+    public void update(PublicationFranchise entity) {
+        entity.setChangeTime(new LocalDateTime());
+        super.update(entity);
+    }
+
+    @Override
+    @Transactional
+    public String save(PublicationFranchise entity) {
+        entity.setChangeTime(new LocalDateTime());
+        return super.save(entity);
     }
 
 
