@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.annotations.GenericGenerator;
@@ -35,6 +36,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 @MappedSuperclass
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //see http://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
 public abstract class BaseEntityUUID implements Serializable
 {
     /**
