@@ -41,7 +41,7 @@ public class Website extends BaseEntityUUID {
 		return createTime;
 	}
 
-	@Column(name = "DATA", unique = false, nullable = false, length = 10000000)
+	@Column(name = "DATA", unique = false, nullable = false, length = 90000000)
 	private byte[] image;
 
 	@Column(name = "THUMB", unique = false, nullable = false, length = 1000000)
