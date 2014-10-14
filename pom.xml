@@ -9,7 +9,7 @@
 		<!-- use UTF-8 for everything -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<dropwizard.version>0.7.0</dropwizard.version>
+		<dropwizard.version>0.7.1</dropwizard.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
 	</properties>
 
@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>com.hubspot.dropwizard</groupId>
 			<artifactId>dropwizard-guice</artifactId>
-			<version>${dropwizard.version}</version>
+			<version>0.7.0</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>javassist</artifactId>
