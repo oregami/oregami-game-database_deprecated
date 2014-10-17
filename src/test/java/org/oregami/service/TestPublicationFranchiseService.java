@@ -96,7 +96,7 @@ public class TestPublicationFranchiseService {
         ServiceResult<PublicationFranchise> serviceResult2 = service.updatePublicationFranchise(franchiseLoaded);
 
         Assert.assertTrue(serviceResult2.hasErrors());
-        Assert.assertEquals(2, serviceResult2.getErrors().size());
+        Assert.assertEquals(3, serviceResult2.getErrors().size());
 
         entityManager.getTransaction().rollback();
     }
