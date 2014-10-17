@@ -58,6 +58,9 @@ public abstract class BaseEntityUUID implements Serializable
     @Column(name = "veraenderung_zeitpunkt")
     @Transient
     private Date lastUpdate;
+
+    @Transient
+    private String validationId;
  
     protected void copy(final BaseEntityUUID source)
     {
@@ -128,4 +131,12 @@ public abstract class BaseEntityUUID implements Serializable
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
+
+    public String getValidationId() {
+        return validationId;
+    }
+
+    public void setValidationId(String validationId) {
+        this.validationId = validationId;
+    }
 }
