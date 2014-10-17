@@ -47,11 +47,17 @@ public class PublicationFranchiseValidator {
     public List<ServiceError> validateRequiredFields() {
         List<ServiceError> errorMessages = new ArrayList<ServiceError>();
 
+        String id = publicationFranchise.getId();
+        if (id==null) {
+            id = publicationFranchise.getValidationId();
+        }
+
+
         if (StringUtils.isEmpty(publicationFranchise.getName())) {
-            errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.PUBLICATIONFRANCHISE_NAME), ServiceErrorMessage.NAME_EMPTY));
+            errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.PUBLICATIONFRANCHISE_NAME, id), ServiceErrorMessage.NAME_EMPTY));
         }
         else if (StringUtils.length(publicationFranchise.getName()) < nameMinLenght) {
-        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.PUBLICATIONFRANCHISE_NAME), ServiceErrorMessage.NAME_TOO_SHORT));
+        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.PUBLICATIONFRANCHISE_NAME, id), ServiceErrorMessage.NAME_TOO_SHORT));
         }
 
 
@@ -74,12 +80,17 @@ public class PublicationFranchiseValidator {
 
         for (Publication publication : publicationFranchise.getPublicationList()) {
 
+            String id = publication.getId();
+            if (id==null) {
+                id = publication.getValidationId();
+            }
+
             if (StringUtils.isEmpty(publication.getName())) {
                 errorMessages.add(
                         new ServiceError(
                                 new ServiceErrorContext(
                                         FieldNames.PUBLICATION_NAME,
-                                        publication.getId()
+                                        id
                                 )
                                 , ServiceErrorMessage.NAME_EMPTY
                         )
@@ -87,12 +98,27 @@ public class PublicationFranchiseValidator {
             }
 
             for (PublicationIssue issue : publication.getPublicationIssueList()) {
+                String issueId = issue.getId();
+                if (issueId==null) {
+                    issueId = issue.getValidationId();
+                }
                 if (issue.getIssueNameYear()<=0) {
                     errorMessages.add(
                             new ServiceError(
                                     new ServiceErrorContext(
                                             FieldNames.PUBLICATIONISSUE_NAMEYEAR,
-                                            issue.getId()
+                                            issueId
+                                    )
+                                    , ServiceErrorMessage.FIELD_EMPTY
+                            )
+                    );
+                }
+                if (issue.getIssueNameNumber()<=0) {
+                    errorMessages.add(
+                            new ServiceError(
+                                    new ServiceErrorContext(
+                                            FieldNames.PUBLICATIONISSUE_NAMENUMBER,
+                                            issueId
                                     )
                                     , ServiceErrorMessage.FIELD_EMPTY
                             )
