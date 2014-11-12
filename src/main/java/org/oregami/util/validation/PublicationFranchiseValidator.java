@@ -112,6 +112,18 @@ public class PublicationFranchiseValidator {
                                     , ServiceErrorMessage.FIELD_EMPTY
                             )
                     );
+                } else {
+                    if (issue.getIssueNameYear()<1900 || issue.getIssueNameYear()>2500) {
+                        errorMessages.add(
+                                new ServiceError(
+                                        new ServiceErrorContext(
+                                                FieldNames.PUBLICATIONISSUE_NAMEYEAR,
+                                                issueId
+                                        )
+                                        , ServiceErrorMessage.PUBLICATION_ISSUE_INVALID_YEAR
+                                )
+                        );
+                    }
                 }
                 if (issue.getIssueNameNumber()<=0) {
                     errorMessages.add(

@@ -11,6 +11,8 @@ public enum ServiceErrorMessage {
 
     NAME_EMPTY,
     NAME_TOO_SHORT,
-    FIELD_EMPTY
+    FIELD_EMPTY,
+
+    PUBLICATION_ISSUE_INVALID_YEAR
 	
 }
