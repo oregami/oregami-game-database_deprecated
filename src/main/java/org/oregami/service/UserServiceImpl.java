@@ -70,6 +70,7 @@ public class UserServiceImpl implements IUserService {
         this.userDao = UserDao;
     }
 
+    @Override
 	public User loadUserByUsername(String username) {
 		User user = userDao.findOneByUsername(username);
 		return user;
