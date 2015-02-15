@@ -1,36 +1,35 @@
 package org.oregami.dropwizard;
 
-import io.dropwizard.Application;
-import io.dropwizard.auth.basic.BasicAuthProvider;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-
-import java.util.EnumSet;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration.Dynamic;
-
-import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.oregami.data.DatabaseFiller;
-import org.oregami.entities.CustomLocalDateSerializer;
-import org.oregami.entities.CustomLocalDateTimeSerializer;
-import org.oregami.entities.user.User;
-import org.oregami.resources.AdminResource;
-import org.oregami.resources.GameTitleResource;
-import org.oregami.resources.GamesResource;
-import org.oregami.resources.HomeResource;
-import org.oregami.resources.PublicationFranchiseResource;
-import org.oregami.resources.UserResource;
-import org.oregami.resources.WebsiteResource;
-import org.oregami.util.MailHelper;
-import org.oregami.util.WebsiteHelper;
-
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.github.toastshaman.dropwizard.auth.jwt.JWTAuthProvider;
+import com.github.toastshaman.dropwizard.auth.jwt.JsonWebTokenParser;
+import com.github.toastshaman.dropwizard.auth.jwt.JsonWebTokenValidator;
+import com.github.toastshaman.dropwizard.auth.jwt.exceptions.TokenExpiredException;
+import com.github.toastshaman.dropwizard.auth.jwt.hmac.HmacSHA512Verifier;
+import com.github.toastshaman.dropwizard.auth.jwt.model.JsonWebToken;
+import com.github.toastshaman.dropwizard.auth.jwt.parser.DefaultJsonWebTokenParser;
+import com.github.toastshaman.dropwizard.auth.jwt.validator.ExpiryValidator;
+import com.google.common.base.Optional;
 import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
+import io.dropwizard.Application;
+import io.dropwizard.auth.AuthenticationException;
+import io.dropwizard.auth.Authenticator;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.joda.time.Duration;
+import org.oregami.data.DatabaseFiller;
+import org.oregami.entities.user.User;
+import org.oregami.resources.*;
+import org.oregami.util.AuthHelper;
+import org.oregami.util.MailHelper;
+import org.oregami.util.WebsiteHelper;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration.Dynamic;
+import java.util.EnumSet;
 
 
 public class OregamiApplication extends Application<OregamiConfiguration> {
@@ -71,15 +70,14 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
 
         environment.servlets().addFilter("persistFilter", guiceBundle.getInjector().getInstance(PersistFilter.class)).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 
-        environment.jersey().register(new BasicAuthProvider<User>(new OregamiAuthenticator(),
-                "only visible with valid user/password"));
-
         if (config.isInitBaseLists()) {
             DatabaseFiller.getInstance().initBaseLists();
         }
         if (config.isInitGames()) {
             DatabaseFiller.getInstance().initGameData();
         }
+
+        DatabaseFiller.getInstance().initDemoUser();
 
         WebsiteHelper.init(config.getPhantomJSConfiguration().getPhantomjsCommandLocation(), config.getPhantomJSConfiguration().getRasterizeJSFileLocation());
         MailHelper.init(config.getMailConfiguration());
@@ -89,8 +87,9 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
         filter.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,PUT,POST,DELETE,OPTIONS");
         filter.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
         filter.setInitParameter(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
-        filter.setInitParameter("allowedHeaders", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin");
-        filter.setInitParameter("allowCredentials", "true");
+        filter.setInitParameter(CrossOriginFilter.EXPOSED_HEADERS_PARAM, "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,Location");
+        filter.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,Location");
+        filter.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
 //
 //	    filter.setInitParameter("allow", "GET,PUT,POST,DELETE,OPTIONS");
 //	    filter.setInitParameter("preflightMaxAge", "5184000"); // 2 months
@@ -104,12 +103,42 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
         environment.jersey().register(guiceBundle.getInjector().getInstance(WebsiteResource.class));
         environment.jersey().register(guiceBundle.getInjector().getInstance(UserResource.class));
 
+        environment.jersey().register(createAuthProvider());
+
+        environment.jersey().register(guiceBundle.getInjector().getInstance(SecuredResource.class));
+
     }
 
     public static JpaPersistModule createJpaModule() {
         return jpaPersistModule;
     }
 
+    private JWTAuthProvider<User> createAuthProvider() {
+        JsonWebTokenParser tokenParser = new DefaultJsonWebTokenParser();
+        final HmacSHA512Verifier tokenVerifier = new HmacSHA512Verifier(AuthHelper.authKey);
+        final JsonWebTokenValidator expiryValidator = new ExpiryValidator(Duration.standardSeconds(1));
+
+        final AuthHelper authHelper = guiceBundle.getInjector().getInstance(AuthHelper.class);
+
+        JWTAuthProvider<User> authProvider = new JWTAuthProvider<>(new Authenticator<JsonWebToken, User>() {
+            @Override
+            public Optional<User> authenticate(JsonWebToken token) throws AuthenticationException {
+                //check if token has expired:
+                try {
+                    expiryValidator.validate(token);
+                } catch (TokenExpiredException e) {
+                    throw new AuthenticationException(e.getMessage(), e);
+                }
+                //check if username is present:
+                Object tokenUsername = token.claim().getParameter("username");
+                if (tokenUsername != null) {
+                    return Optional.of(authHelper.getUserByUsername(tokenUsername.toString()));
+                }
+                return Optional.absent();
+            }
+        }, tokenParser, tokenVerifier, "realm");
+        return authProvider;
+    }
 
 
 }
