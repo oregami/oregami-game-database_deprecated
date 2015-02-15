@@ -52,12 +52,12 @@ public class TestUserService {
     @Test
     public void testRegisterUser() {
         User user = new User();
-        user.setEmail("email@example.com");
-        user.setUsername("username@example.com");
-        user.setPassword("password");
+        user.setEmail("testuser@oregami.org");
+        user.setUsername("testuser");
+        user.setPassword("testpassword");
 
         userService.setMailhelper(Mockito.mock(MailHelper.class));
-        
+
         ServiceResult<User> result = userService.register(user);
         Assert.assertEquals(true, result.wasSuccessful());
         Assert.assertEquals(false, result.hasErrors());
