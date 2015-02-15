@@ -28,6 +28,10 @@ import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import org.oregami.entities.user.User;
+import org.oregami.service.IUserService;
+import org.oregami.service.ServiceResult;
+import org.oregami.util.MailHelper;
 
 /**
  * Class to fill the database with some sample entities.
@@ -358,6 +362,18 @@ public class DatabaseFiller {
 			}
 		}
 	}
+
+
+    @Transactional
+    public void initDemoUser() {
+        UserDao userDao = injector.getInstance(UserDao.class);
+        User user = new User();
+        user.setEmail("user1@oregami.org");
+        user.setUsername("user1");
+        user.setPasswordAndEncryptIt("password1");
+        userDao.save(user);
+
+    }
 
 
 }
