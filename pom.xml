@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>com.hubspot.dropwizard</groupId>
 			<artifactId>dropwizard-guice</artifactId>
-			<version>0.7.0</version>
+			<version>${dropwizard.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>javassist</artifactId>
@@ -58,7 +58,8 @@
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
-			<version>3.0</version>
+			<version>4.0-beta5</version>
+            <!-- 4.0-beta5 -->
 		</dependency>		
 		
 		
@@ -163,6 +164,12 @@
 			<version>1.9.5</version>
 			<scope>test</scope>
 		</dependency>
+
+        <dependency>
+            <groupId>com.github.toastshaman</groupId>
+            <artifactId>dropwizard-auth-jwt</artifactId>
+            <version>0.7.1-0</version>
+        </dependency>
 
 
 	</dependencies>
