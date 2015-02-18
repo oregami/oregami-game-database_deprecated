@@ -10,10 +10,8 @@ import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Response;
 import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.*;
+import org.oregami.data.DatabaseFiller;
 import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.dropwizard.OregamiConfiguration;
 
@@ -28,6 +26,7 @@ public class RestTests {
     private static Injector injector;
 
     private static final String URL_LOGIN = "/jwt/login";
+    private static final String URL_SECURED = "/jwt/secured";
 
     static EntityManager entityManager = null;
 
@@ -44,7 +43,19 @@ public class RestTests {
 
     }
 
+    @AfterClass
+    public static void finish() {
+        DatabaseFiller.getInstance().dropAllData();
+        /*deleteGameData();
+        DatabaseFiller.getInstance().deleteBaseListData();
+        DatabaseFiller.getInstance().deleteUserData();
+        */
+    }
 
+
+    /**
+     * get base api url and check return code
+     */
     @Test
 	public void callApiBase() {
         Response response = RestAssured.get("/");
@@ -58,6 +69,9 @@ public class RestTests {
         Assert.assertThat(response.getStatusCode(), Matchers.greaterThanOrEqualTo(400));
     }
 
+    /**
+     * login with correct password => ok, check if auth token is available
+     */
     @Test
     public void authenticateSuccess() {
 
@@ -69,6 +83,9 @@ public class RestTests {
 
     }
 
+    /**
+     * login with wrong password => error
+     */
     @Test
     public void authenticateErrorWrongPassword() {
         //wrong password => no valid status code, no token
@@ -79,6 +96,9 @@ public class RestTests {
 
     }
 
+    /**
+     * login with empty password => error
+     */
     @Test
     public void authenticateErrorEmptyPassword() {
         //empty password => no valid status code, no token
@@ -86,6 +106,45 @@ public class RestTests {
         Response response = RestAssured.given().formParam("username", "user1").header(header).request().post(URL_LOGIN);
         response.then().contentType(ContentType.JSON).statusCode(Matchers.greaterThanOrEqualTo(400));
         response.then().contentType(ContentType.JSON).body(Matchers.isEmptyString());
+
+    }
+
+    /**
+     * load secured page should give an error
+     */
+    @Test
+    public void loadSecuredResourceWithoutAuthentication() {
+
+        Response response = RestAssured.get(URL_SECURED);
+        Assert.assertThat(response.getStatusCode(), Matchers.greaterThanOrEqualTo(400));
+
+    }
+
+    /**
+     * login and get auth token, make request to secured page with auth token => ok
+     */
+    @Test
+    public void loadSecuredResourceWithCorrectAuthentication() {
+
+        Response response = RestAssured.get(URL_SECURED);
+        Assert.assertThat(response.getStatusCode(), Matchers.greaterThanOrEqualTo(400));
+
+        //login:
+        Header header = new Header("Content-Type", "application/x-www-form-urlencoded");
+        response = RestAssured.given().formParam("username", "user1").formParam("password", "password1").header(header).request().post(URL_LOGIN);
+        response.then().contentType(ContentType.JSON).statusCode(200);
+        response.then().contentType(ContentType.JSON).body("token", Matchers.notNullValue());
+        response.then().contentType(ContentType.JSON).body("token", Matchers.containsString("."));
+
+        //get JsonWebToken from response:
+        String token = response.body().jsonPath().get("token");
+
+        //set Header for secured request:
+        header = new Header("Authorization", "bearer " + token);
+        response = RestAssured.given().header(header).get(URL_SECURED);
+        Assert.assertThat(response.getStatusCode(), Matchers.is(200));
+
+
 
     }
 
