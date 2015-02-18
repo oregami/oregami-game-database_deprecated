@@ -1,5 +1,6 @@
 package org.oregami.data;
 
+import com.google.inject.persist.Transactional;
 import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.GameEntryType;
@@ -44,7 +45,8 @@ public class BaseListFiller {
 		}
 		return instance;
 	}	
-	
+
+    @Transactional
 	public void initBaseLists() {
 		if (!initialized) {
 			initGameEntryType();
@@ -102,6 +104,11 @@ public class BaseListFiller {
 		scriptDao.save(new Script(Script.JAPANESE));
 		scriptDao.save(new Script(Script.KOREAN));
 	}
+
+
+    public void reset() {
+        initialized = false;
+    }
 	
 	
 }

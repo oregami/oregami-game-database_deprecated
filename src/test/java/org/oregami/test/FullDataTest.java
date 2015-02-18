@@ -39,8 +39,7 @@ public class FullDataTest {
 
     @AfterClass
     public static void finish() {
-        DatabaseFiller.getInstance().deleteBaseListData();
-        DatabaseFiller.getInstance().deleteGameData();
+        DatabaseFiller.getInstance().dropAllData();
     }
 
 

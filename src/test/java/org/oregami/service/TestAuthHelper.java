@@ -44,6 +44,11 @@ public class TestAuthHelper {
         MailHelper.init(Mockito.mock(MailConfiguration.class));
     }
 
+    @AfterClass
+    public static void finish() {
+        DatabaseFiller.getInstance().dropAllData();
+    }
+
     @Test
     @Transactional
     public void testGeneric() {

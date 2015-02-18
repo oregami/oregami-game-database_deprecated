@@ -48,23 +48,27 @@ public class DatabaseFiller {
 	Logger logger = Logger.getLogger(DatabaseFiller.class);
 	
 	private static List<String> dataTables = 
-			Arrays.asList("GameTitle", "GameToGameTitleConnection", "Game",  "Release", "ReleaseGroup", "Language", "Region", "PublicationFranchise", "Publication", "PublicationIssue");
+			Arrays.asList( "Release", "ReleaseGroup", "GameToGameTitleConnection", "Game",
+                    "GameTitle",
+                    "PublicationIssue",  "Publication",  "PublicationFranchise",
+                    "Language", "Region"
+                    );
 	
 	private static List<String> baseListDataTables = 
 			Arrays.asList("Script", "BusinessModel", "CensorshipType", "DemoContentType", "GameEntryType", "ReleaseGroupReason", "ReleaseType", "RemakeEnhancementType", "TitleType", "UnreleaseState");
 	
-	@Inject 
+	@Inject
 	private GameDao gameDao;
-	
-	@Inject 
+
+	@Inject
 	private GameTitleDao gameTitleDao;
 
-	@Inject 
+	@Inject
 	private LanguageDao languageDao;
-	
+
 	@Inject
 	private PublicationFranchiseDao publicationFranchiseDao;
-	
+
 	BaseListFinder baseListFinder = BaseListFinder.instance();
 	
 	BaseListFiller baseListFiller = BaseListFiller.instance();
@@ -345,6 +349,7 @@ public class DatabaseFiller {
 	public void deleteGameData() {
 		EntityManager em = injector.getInstance(EntityManager.class);
 		for (String tableName : dataTables) {
+            System.out.println("deleting all rows from " + tableName);
 			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
 			if (logger.isDebugEnabled()) {
 				logger.debug("deleted all " + update + " rows from " + tableName);
@@ -357,6 +362,7 @@ public class DatabaseFiller {
 		EntityManager em = injector.getInstance(EntityManager.class);
 		for (String tableName : baseListDataTables) {
 			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
+            System.out.println("deleting all rows from " + tableName);
 			if (logger.isDebugEnabled()) {
 				logger.debug("deleted all " + update + " rows from " + tableName);
 			}
@@ -376,4 +382,10 @@ public class DatabaseFiller {
     }
 
 
+    @Transactional
+    public void dropAllData() {
+        EntityManager em = injector.getInstance(EntityManager.class);
+        em.createNativeQuery("TRUNCATE SCHEMA public AND COMMIT NO CHECK").executeUpdate();
+        BaseListFiller.instance().reset();
+    }
 }

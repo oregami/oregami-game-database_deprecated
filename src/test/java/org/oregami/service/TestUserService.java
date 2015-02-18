@@ -2,12 +2,9 @@ package org.oregami.service;
 
 import io.dropwizard.testing.junit.DropwizardAppRule;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.Mockito;
+import org.oregami.data.DatabaseFiller;
 import org.oregami.data.UserDao;
 import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.dropwizard.OregamiConfiguration;
@@ -21,6 +18,11 @@ public class TestUserService {
             new DropwizardAppRule<OregamiConfiguration>(OregamiApplication.class, "src/test/resources/oregami.yml");
 
     private UserServiceImpl userService;
+
+    @AfterClass
+    public static void beforeClass() {
+        DatabaseFiller.getInstance().dropAllData();
+    }
 
     @Before
     public void setup() {
