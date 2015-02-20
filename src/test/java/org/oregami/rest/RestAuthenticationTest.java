@@ -17,16 +17,13 @@ import org.oregami.dropwizard.OregamiConfiguration;
 
 import javax.persistence.EntityManager;
 
-public class RestTests {
+public class RestAuthenticationTest {
 
     @ClassRule
     public static final DropwizardAppRule<OregamiConfiguration> RULE =
-            new DropwizardAppRule<>(OregamiApplication.class, "oregami.yml");
+            new DropwizardAppRule<>(OregamiApplication.class, "src/test/resources/oregami.yml");
 
     private static Injector injector;
-
-    private static final String URL_LOGIN = "/jwt/login";
-    private static final String URL_SECURED = "/jwt/secured";
 
     static EntityManager entityManager = null;
 
@@ -36,20 +33,13 @@ public class RestTests {
         injector = Guice.createInjector(jpaPersistModule);
         PersistService persistService = injector.getInstance(PersistService.class);
         persistService.start();
-    	RestAssured.baseURI = "http://localhost";
-    	RestAssured.port = 8080;
-    	RestAssured.authentication = RestAssured.basic("username", "password");
         entityManager = injector.getInstance(EntityManager.class);
-
+        RestTestHelper.initRestAssured();
     }
 
     @AfterClass
     public static void finish() {
         DatabaseFiller.getInstance().dropAllData();
-        /*deleteGameData();
-        DatabaseFiller.getInstance().deleteBaseListData();
-        DatabaseFiller.getInstance().deleteUserData();
-        */
     }
 
 
@@ -65,7 +55,7 @@ public class RestTests {
 
     @Test
     public void callSecuredResource() {
-        Response response = RestAssured.get("/jwt/secured");
+        Response response = RestAssured.get(RestTestHelper.URL_SECURED);
         Assert.assertThat(response.getStatusCode(), Matchers.greaterThanOrEqualTo(400));
     }
 
@@ -76,7 +66,7 @@ public class RestTests {
     public void authenticateSuccess() {
 
         Header header = new Header("Content-Type", "application/x-www-form-urlencoded");
-        Response response = RestAssured.given().formParam("username", "user1").formParam("password", "password1").header(header).request().post(URL_LOGIN);
+        Response response = RestAssured.given().formParam("username", "user1").formParam("password", "password1").header(header).request().post(RestTestHelper.URL_LOGIN);
         response.then().contentType(ContentType.JSON).statusCode(200);
         response.then().contentType(ContentType.JSON).body("token", Matchers.notNullValue());
         response.then().contentType(ContentType.JSON).body("token", Matchers.containsString("."));
@@ -90,7 +80,7 @@ public class RestTests {
     public void authenticateErrorWrongPassword() {
         //wrong password => no valid status code, no token
         Header header = new Header("Content-Type", "application/x-www-form-urlencoded");
-        Response response = RestAssured.given().formParam("username", "user1").formParam("password", "nonsense").header(header).request().post(URL_LOGIN);
+        Response response = RestAssured.given().formParam("username", "user1").formParam("password", "nonsense").header(header).request().post(RestTestHelper.URL_LOGIN);
         response.then().contentType(ContentType.JSON).statusCode(Matchers.greaterThanOrEqualTo(400));
         response.then().contentType(ContentType.JSON).body(Matchers.isEmptyString());
 
@@ -103,7 +93,7 @@ public class RestTests {
     public void authenticateErrorEmptyPassword() {
         //empty password => no valid status code, no token
         Header header = new Header("Content-Type", "application/x-www-form-urlencoded");
-        Response response = RestAssured.given().formParam("username", "user1").header(header).request().post(URL_LOGIN);
+        Response response = RestAssured.given().formParam("username", "user1").header(header).request().post(RestTestHelper.URL_LOGIN);
         response.then().contentType(ContentType.JSON).statusCode(Matchers.greaterThanOrEqualTo(400));
         response.then().contentType(ContentType.JSON).body(Matchers.isEmptyString());
 
@@ -115,7 +105,7 @@ public class RestTests {
     @Test
     public void loadSecuredResourceWithoutAuthentication() {
 
-        Response response = RestAssured.get(URL_SECURED);
+        Response response = RestAssured.get(RestTestHelper.URL_SECURED);
         Assert.assertThat(response.getStatusCode(), Matchers.greaterThanOrEqualTo(400));
 
     }
@@ -126,12 +116,12 @@ public class RestTests {
     @Test
     public void loadSecuredResourceWithCorrectAuthentication() {
 
-        Response response = RestAssured.get(URL_SECURED);
+        Response response = RestAssured.get(RestTestHelper.URL_SECURED);
         Assert.assertThat(response.getStatusCode(), Matchers.greaterThanOrEqualTo(400));
 
         //login:
         Header header = new Header("Content-Type", "application/x-www-form-urlencoded");
-        response = RestAssured.given().formParam("username", "user1").formParam("password", "password1").header(header).request().post(URL_LOGIN);
+        response = RestAssured.given().formParam("username", "user1").formParam("password", "password1").header(header).request().post(RestTestHelper.URL_LOGIN);
         response.then().contentType(ContentType.JSON).statusCode(200);
         response.then().contentType(ContentType.JSON).body("token", Matchers.notNullValue());
         response.then().contentType(ContentType.JSON).body("token", Matchers.containsString("."));
@@ -141,7 +131,7 @@ public class RestTests {
 
         //set Header for secured request:
         header = new Header("Authorization", "bearer " + token);
-        response = RestAssured.given().header(header).get(URL_SECURED);
+        response = RestAssured.given().header(header).get(RestTestHelper.URL_SECURED);
         Assert.assertThat(response.getStatusCode(), Matchers.is(200));
 
 
