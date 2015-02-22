@@ -7,11 +7,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.dropwizard.auth.Auth;
 import org.apache.log4j.Logger;
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.entities.PublicationFranchise;
 
 import com.google.inject.Inject;
+import org.oregami.entities.user.User;
 import org.oregami.service.PublicationFranchiseService;
 import org.oregami.service.ServiceResult;
 
@@ -73,7 +75,7 @@ public class PublicationFranchiseResource {
 
     @PUT
     @Path("{id}")
-    public Response update(@PathParam("id") String id, PublicationFranchise t) {
+    public Response update(@Auth User user, @PathParam("id") String id, PublicationFranchise t) {
         if (t.getId()==null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
