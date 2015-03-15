@@ -1,12 +1,10 @@
 package org.oregami.dropwizard;
 
+import com.google.common.base.Optional;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
-
 import org.oregami.entities.user.User;
-
-import com.google.common.base.Optional;
 
 public class OregamiAuthenticator implements Authenticator<BasicCredentials, User> {
     @Override

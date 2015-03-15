@@ -1,8 +1,7 @@
 package org.oregami.dropwizard;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class PhantomJSConfiguration {
 	

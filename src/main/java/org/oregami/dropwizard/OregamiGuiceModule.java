@@ -1,9 +1,8 @@
 package org.oregami.dropwizard;
 
+import com.google.inject.AbstractModule;
 import org.oregami.service.IUserService;
 import org.oregami.service.UserServiceImpl;
-
-import com.google.inject.AbstractModule;
 
 public class OregamiGuiceModule extends AbstractModule {
 

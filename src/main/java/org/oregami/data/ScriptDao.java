@@ -1,11 +1,10 @@
 package org.oregami.data;
 
-import javax.persistence.EntityManager;
-
-import org.oregami.entities.datalist.Script;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.oregami.entities.datalist.Script;
+
+import javax.persistence.EntityManager;
 
 public class ScriptDao extends BaseListDao<Script>{
 

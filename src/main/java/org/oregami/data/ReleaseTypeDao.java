@@ -1,11 +1,10 @@
 package org.oregami.data;
 
-import javax.persistence.EntityManager;
-
-import org.oregami.entities.datalist.ReleaseType;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.oregami.entities.datalist.ReleaseType;
+
+import javax.persistence.EntityManager;
 
 public class ReleaseTypeDao extends GenericDAOImpl<ReleaseType, Long>{
 

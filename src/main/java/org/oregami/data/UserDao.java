@@ -1,12 +1,11 @@
 package org.oregami.data;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-
-import org.oregami.entities.user.User;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.oregami.entities.user.User;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 public class UserDao extends GenericDAOUUIDImpl<User, String>{
 
