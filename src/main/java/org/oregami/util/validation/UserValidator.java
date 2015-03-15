@@ -1,8 +1,5 @@
 package org.oregami.util.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.oregami.data.UserDao;
 import org.oregami.entities.user.User;
@@ -11,6 +8,9 @@ import org.oregami.service.ServiceError;
 import org.oregami.service.ServiceErrorContext;
 import org.oregami.service.ServiceErrorMessage;
 import org.oregami.util.exception.OregamiRuntimeException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserValidator {
 

@@ -1,9 +1,6 @@
 package org.oregami.service;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
-
+import com.google.inject.Inject;
 import org.oregami.data.UserDao;
 import org.oregami.entities.KeyObjects.UserStatusKey;
 import org.oregami.entities.user.User;
@@ -11,7 +8,9 @@ import org.oregami.entities.user.UserStatus;
 import org.oregami.util.MailHelper;
 import org.oregami.util.validation.UserValidator;
 
-import com.google.inject.Inject;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.UUID;
 
 public class UserServiceImpl implements IUserService {
 

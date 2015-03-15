@@ -1,10 +1,10 @@
 package org.oregami.util;
 
-import javax.mail.internet.MimeMessage.RecipientType;
-
 import org.codemonkey.simplejavamail.Email;
 import org.codemonkey.simplejavamail.Mailer;
 import org.oregami.dropwizard.MailConfiguration;
+
+import javax.mail.internet.MimeMessage.RecipientType;
 
 public class MailHelper {
 
