@@ -1,10 +1,10 @@
 package org.oregami.entities;
 
+import org.oregami.entities.datalist.TitleType;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
-import org.oregami.entities.datalist.TitleType;
 
 @Entity
 public class GameToGameTitleConnection extends BaseEntityUUID {

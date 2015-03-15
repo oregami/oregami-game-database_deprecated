@@ -16,23 +16,18 @@
  ******************************************************************************/
 package org.oregami.entities;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.TitleType;
 
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
+@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.GAME)
 @NamedQueries({
 	@NamedQuery(name="Game.GetAll", query = 
 			"from Game g")

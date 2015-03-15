@@ -1,12 +1,12 @@
 package org.oregami.entities;
 
-import javax.annotation.Nullable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.LocalDate;
+
+import javax.annotation.Nullable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
 @Audited

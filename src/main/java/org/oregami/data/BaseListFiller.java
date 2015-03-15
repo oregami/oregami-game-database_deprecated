@@ -1,18 +1,13 @@
 package org.oregami.data;
 
-import com.google.inject.persist.Transactional;
-import org.oregami.dropwizard.OregamiApplication;
-import org.oregami.entities.datalist.DemoContentType;
-import org.oregami.entities.datalist.GameEntryType;
-import org.oregami.entities.datalist.ReleaseType;
-import org.oregami.entities.datalist.Script;
-import org.oregami.entities.datalist.TitleType;
-
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
+import com.google.inject.persist.Transactional;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import org.oregami.dropwizard.OregamiApplication;
+import org.oregami.entities.datalist.*;
 
 public class BaseListFiller {
 
@@ -49,12 +44,14 @@ public class BaseListFiller {
     @Transactional
 	public void initBaseLists() {
 		if (!initialized) {
-			initGameEntryType();
-			initDemoContentType();
-			initReleaseType();
-			initTitleType();
-			initScript();
-			initialized=true;
+            if (BaseListFinder.instance().getTitleType(TitleType.ORIGINAL_TITLE)==null) {
+                initGameEntryType();
+                initDemoContentType();
+                initReleaseType();
+                initTitleType();
+                initScript();
+                initialized = true;
+            }
 		}
 	}
 	

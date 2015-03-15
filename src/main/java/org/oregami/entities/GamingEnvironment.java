@@ -1,11 +1,12 @@
 package org.oregami.entities;
 
-import javax.persistence.Entity;
-
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
+import javax.persistence.Entity;
+
 @Entity
+@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.GAMINGENVIRONMENT)
 @NamedQueries({
 	@NamedQuery(name="GamingEnvironment.GetAll", query = 
 			"from GamingEnvironment t")

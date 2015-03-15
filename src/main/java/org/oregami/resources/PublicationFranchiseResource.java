@@ -1,21 +1,20 @@
 package org.oregami.resources;
 
-import java.util.List;
+import com.google.inject.Inject;
+import io.dropwizard.auth.Auth;
+import org.apache.log4j.Logger;
+import org.oregami.data.PublicationFranchiseDao;
+import org.oregami.entities.PublicationFranchise;
+import org.oregami.entities.user.User;
+import org.oregami.service.PublicationFranchiseService;
+import org.oregami.service.ServiceCallContext;
+import org.oregami.service.ServiceResult;
 
 import javax.persistence.OptimisticLockException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import io.dropwizard.auth.Auth;
-import org.apache.log4j.Logger;
-import org.oregami.data.PublicationFranchiseDao;
-import org.oregami.entities.PublicationFranchise;
-
-import com.google.inject.Inject;
-import org.oregami.entities.user.User;
-import org.oregami.service.PublicationFranchiseService;
-import org.oregami.service.ServiceResult;
+import java.util.List;
 
 
 @Path("/publicationFranchise")
@@ -80,7 +79,8 @@ public class PublicationFranchiseResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         try {
-            ServiceResult<PublicationFranchise> serviceResult = publicationFranchiseervice.updatePublicationFranchise(t);
+            ServiceCallContext context = new ServiceCallContext(user);
+            ServiceResult<PublicationFranchise> serviceResult = publicationFranchiseervice.updatePublicationFranchise(t, context);
             if (serviceResult.hasErrors()) {
                 return Response.status(Response.Status.BAD_REQUEST)
                         .type("text/json")

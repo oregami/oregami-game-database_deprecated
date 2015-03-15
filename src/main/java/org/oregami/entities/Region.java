@@ -1,12 +1,13 @@
 package org.oregami.entities;
 
-import javax.persistence.Entity;
-
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 
+import javax.persistence.Entity;
+
 @Entity
+@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.REGION)
 @NamedQueries({@NamedQuery(name="Region.GetAll", query = "from Region r")})
 @Audited
 public class Region extends BaseEntityUUID {

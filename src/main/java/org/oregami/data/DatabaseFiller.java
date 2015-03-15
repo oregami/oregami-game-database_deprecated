@@ -1,37 +1,24 @@
 package org.oregami.data;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.apache.log4j.Logger;
-import org.joda.time.LocalDate;
-import org.oregami.dropwizard.OregamiApplication;
-import org.oregami.entities.Game;
-import org.oregami.entities.GameTitle;
-import org.oregami.entities.GameToGameTitleConnection;
-import org.oregami.entities.KeyObjects.SystemKey;
-import org.oregami.entities.Language;
-import org.oregami.entities.Publication;
-import org.oregami.entities.PublicationFranchise;
-import org.oregami.entities.PublicationIssue;
-import org.oregami.entities.Region;
-import org.oregami.entities.ReleaseGroup;
-import org.oregami.entities.datalist.GameEntryType;
-import org.oregami.entities.datalist.ReleaseType;
-import org.oregami.entities.datalist.TitleType;
-
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import org.apache.log4j.Logger;
+import org.joda.time.LocalDate;
+import org.oregami.dropwizard.OregamiApplication;
+import org.oregami.entities.*;
+import org.oregami.entities.KeyObjects.SystemKey;
+import org.oregami.entities.datalist.GameEntryType;
+import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.TitleType;
 import org.oregami.entities.user.User;
-import org.oregami.service.IUserService;
-import org.oregami.service.ServiceResult;
-import org.oregami.util.MailHelper;
+
+import javax.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class to fill the database with some sample entities.
@@ -378,6 +365,12 @@ public class DatabaseFiller {
         user.setUsername("user1");
         user.setPasswordAndEncryptIt("password1");
         userDao.save(user);
+
+        User user2 = new User();
+        user2.setEmail("user2@oregami.org");
+        user2.setUsername("user2");
+        user2.setPasswordAndEncryptIt("password2");
+        userDao.save(user2);
 
     }
 

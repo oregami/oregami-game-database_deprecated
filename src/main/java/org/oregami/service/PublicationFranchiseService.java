@@ -2,6 +2,7 @@ package org.oregami.service;
 
 import com.google.inject.Inject;
 import org.oregami.data.PublicationFranchiseDao;
+import org.oregami.entities.CustomRevisionListener;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.util.validation.PublicationFranchiseValidator;
 
@@ -27,7 +28,7 @@ public class PublicationFranchiseService {
         return new ServiceResult<PublicationFranchise>(publicationFranchiseData, errorMessages);
     }
     
-    public ServiceResult<PublicationFranchise> updatePublicationFranchise(PublicationFranchise publicationFranchiseData) {
+    public ServiceResult<PublicationFranchise> updatePublicationFranchise(PublicationFranchise publicationFranchiseData, ServiceCallContext context) {
         PublicationFranchiseValidator validator = buildPublicationFranchiseValidator(publicationFranchiseData);
 
         List<ServiceError> errorMessages = validator.validateForUpdate();
@@ -36,6 +37,7 @@ public class PublicationFranchiseService {
 
         if (errorMessages.size() == 0) {
             publicationFranchise = publicationFranchiseData;
+            CustomRevisionListener.context.set(context);
             publicationFranchiseDao.update(publicationFranchise);
         }
 

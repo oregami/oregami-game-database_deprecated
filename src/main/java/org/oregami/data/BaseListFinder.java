@@ -1,17 +1,12 @@
 package org.oregami.data;
 
-import org.oregami.dropwizard.OregamiApplication;
-import org.oregami.entities.datalist.DemoContentType;
-import org.oregami.entities.datalist.GameEntryType;
-import org.oregami.entities.datalist.ReleaseGroupReason;
-import org.oregami.entities.datalist.ReleaseType;
-import org.oregami.entities.datalist.TitleType;
-
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import org.oregami.dropwizard.OregamiApplication;
+import org.oregami.entities.datalist.*;
 
 public class BaseListFinder {
 

@@ -1,15 +1,15 @@
 package org.oregami.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.joda.time.LocalDateTime;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
+@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.WEBSITE)
 @NamedQueries({@NamedQuery(name="Website.GetAll", query = "from Website w")})
 public class Website extends BaseEntityUUID {
 
@@ -32,6 +32,17 @@ public class Website extends BaseEntityUUID {
 	public void setCreateSize(String createSize) {
 		this.createSize = createSize;
 	}
+
+    private LocalDateTime changeTime = null;
+
+    public LocalDateTime getChangeTime() {
+        return changeTime;
+    }
+
+    public void setChangeTime(LocalDateTime changeTime) {
+        this.changeTime = changeTime;
+    }
+
 
 	@Column
 	private final LocalDateTime createTime;

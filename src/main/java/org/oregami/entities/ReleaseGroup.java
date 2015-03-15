@@ -16,20 +16,15 @@
  ******************************************************************************/
 package org.oregami.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import org.oregami.entities.KeyObjects.SystemKey;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.ReleaseGroupReason;
 import org.oregami.entities.datalist.ReleaseType;
 import org.oregami.entities.datalist.UnreleaseState;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity

@@ -1,13 +1,5 @@
 package org.oregami.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
@@ -15,7 +7,15 @@ import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 import org.joda.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
+@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.PUBLICATIONFRANCHISE)
 @Audited
 @NamedQueries({
 	@NamedQuery(name="PublicationFranchise.GetAll", query = 
