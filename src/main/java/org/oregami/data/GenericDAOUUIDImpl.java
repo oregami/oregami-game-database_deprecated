@@ -7,81 +7,97 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.oregami.entities.BaseEntityUUID;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
+import org.oregami.data.GenericDAOUUID;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.CustomRevisionListener;
+import org.oregami.entities.TopLevelEntity;
+import org.oregami.service.ServiceCallContext;
 
 public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
-		GenericDAOUUID<E, P> {
+        GenericDAOUUID<E, P> {
 
-	private final Provider<EntityManager> emf;
-	
-	@Inject
-	public GenericDAOUUIDImpl(Provider<EntityManager> emf) {
-		this.emf=emf;
-	}
+    private final Provider<EntityManager> emf;
 
-	Class<E> entityClass;
+    @Inject
+    public GenericDAOUUIDImpl(Provider<EntityManager> emf) {
+        this.emf=emf;
+    }
 
-	@Override
-	@Transactional
-	@SuppressWarnings("unchecked")
-	public P save(E entity) {
-		emf.get().persist(entity);
-		return (P) entity.getId();
-	}
+    Class<E> entityClass;
 
-	@Override
-	public E findOne(P id) {
-		return emf.get().find(getEntityClass(), id);
-	}
+    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
+    public P save(E entity) {
+        emf.get().persist(entity);
+        updateRevisionListener(entity);
+        return (P) entity.getId();
+    }
 
-	@Override
-	@Transactional
-	public void update(E entity) {
-		emf.get().merge(entity);
-	}
+    @Override
+    public E findOne(P id) {
+        return emf.get().find(getEntityClass(), id);
+    }
 
-	@Override
-	public void delete(E entity) {
-		emf.get().remove(entity);
-	}
+    @Override
+    @Transactional
+    public void update(E entity) {
+        updateRevisionListener(entity);
+        emf.get().merge(entity);
+    }
 
-	@Override
-	public EntityManager getEntityManager() {
-		return emf.get();
-	}
+    @Override
+    @Transactional
+    public void delete(E entity) {
+        emf.get().remove(entity);
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public Class<E> getEntityClass() {
-		if (entityClass == null) {
-			Type type = getClass().getGenericSuperclass();
-			if (type instanceof ParameterizedType) {
-				ParameterizedType paramType = (ParameterizedType) type;
+    @Override
+    public EntityManager getEntityManager() {
+        return emf.get();
+    }
 
-				entityClass = (Class<E>) paramType.getActualTypeArguments()[0];
+    @Override
+    @SuppressWarnings("unchecked")
+    public Class<E> getEntityClass() {
+        if (entityClass == null) {
+            Type type = getClass().getGenericSuperclass();
+            if (type instanceof ParameterizedType) {
+                ParameterizedType paramType = (ParameterizedType) type;
 
-			} else {
-				throw new IllegalArgumentException(
-						"Could not guess entity class by reflection");
-			}
-		}
-		return entityClass;
-	}
+                entityClass = (Class<E>) paramType.getActualTypeArguments()[0];
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<E> findAll() {
-		return this.emf.get().createNamedQuery(
-				getEntityClass().getSimpleName() + ".GetAll").getResultList();
-	}
-	
-	
-	public EntityTransaction getTransaction() {
-		return getEntityManager().getTransaction();
-	}
+            } else {
+                throw new IllegalArgumentException(
+                        "Could not guess entity class by reflection");
+            }
+        }
+        return entityClass;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<E> findAll() {
+        return this.emf.get().createNamedQuery(
+                getEntityClass().getSimpleName() + ".GetAll").getResultList();
+    }
+
+
+    public EntityTransaction getTransaction() {
+        return getEntityManager().getTransaction();
+    }
+
+    protected void updateRevisionListener(BaseEntityUUID entity) {
+        if (entity.getClass().isAnnotationPresent(TopLevelEntity.class)) {
+            ServiceCallContext context = CustomRevisionListener.context.get();
+            if (context != null) {
+                context.setEntityDiscriminator(entity.getClass().getAnnotation(TopLevelEntity.class).discriminator());
+                context.setEntityId(entity.getId());
+            }
+        }
+    }
 
 }

@@ -1,11 +1,10 @@
 package org.oregami.data;
 
-import javax.persistence.EntityManager;
-
-import org.oregami.entities.Language;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.oregami.entities.Language;
+
+import javax.persistence.EntityManager;
 
 public class LanguageDao extends GenericDAOUUIDImpl<Language, String>{
 

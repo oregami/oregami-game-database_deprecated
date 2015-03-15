@@ -1,17 +1,15 @@
 package org.oregami.data;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
-import org.oregami.entities.BaseEntity;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
+import org.oregami.entities.BaseEntity;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
 
 public abstract class GenericDAOImpl<E extends BaseEntity, P> implements
 		GenericDAO<E, P> {

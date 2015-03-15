@@ -1,13 +1,11 @@
 package org.oregami.data;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.oregami.entities.Game;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.oregami.entities.Game;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 public class GameDao extends GenericDAOUUIDImpl<Game, String>{
 

@@ -1,10 +1,9 @@
 package org.oregami.data;
 
-import java.util.List;
+import org.oregami.entities.BaseEntityUUID;
 
 import javax.persistence.EntityManager;
-
-import org.oregami.entities.BaseEntityUUID;
+import java.util.List;
 
 public interface GenericDAOUUID<E extends BaseEntityUUID, P>
 {

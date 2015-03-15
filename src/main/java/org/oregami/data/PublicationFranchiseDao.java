@@ -1,9 +1,7 @@
 package org.oregami.data;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
@@ -11,8 +9,8 @@ import org.joda.time.LocalDateTime;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.PublicationFranchise;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import javax.persistence.EntityManager;
+import java.util.List;
 
 public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranchise, String>{
 
