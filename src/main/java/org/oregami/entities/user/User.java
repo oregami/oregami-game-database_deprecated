@@ -16,20 +16,19 @@
  ******************************************************************************/
 package org.oregami.entities.user;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.oregami.entities.BaseEntityUUID;
 import org.oregami.entities.KeyObjects.RoleKey;
 import org.oregami.util.Sha;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @NamedQueries({@NamedQuery(name="User.GetAll", query = "from User u")})

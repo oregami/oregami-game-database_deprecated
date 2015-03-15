@@ -1,9 +1,9 @@
 package org.oregami.entities.datalist;
 
-import javax.persistence.Entity;
-
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+
+import javax.persistence.Entity;
 
 /**
  * see http://wiki.oregami.org/display/OR/Tag+List+7+-+Title+Types

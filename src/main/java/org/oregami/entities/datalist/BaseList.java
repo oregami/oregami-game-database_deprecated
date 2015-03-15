@@ -1,8 +1,8 @@
 package org.oregami.entities.datalist;
 
-import javax.persistence.MappedSuperclass;
-
 import org.oregami.entities.BaseEntity;
+
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseList extends BaseEntity {

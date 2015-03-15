@@ -1,13 +1,12 @@
 package org.oregami.entities.user;
 
-import java.sql.Timestamp;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.KeyObjects.UserStatusKey;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
-import org.oregami.entities.BaseEntityUUID;
-import org.oregami.entities.KeyObjects.UserStatusKey;
+import java.sql.Timestamp;
 
 @Entity
 public class UserStatus extends BaseEntityUUID {

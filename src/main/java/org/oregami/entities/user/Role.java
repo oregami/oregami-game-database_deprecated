@@ -1,11 +1,11 @@
 package org.oregami.entities.user;
 
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.KeyObjects.RoleKey;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
-import org.oregami.entities.BaseEntityUUID;
-import org.oregami.entities.KeyObjects.RoleKey;
 
 @Entity
 public class Role extends BaseEntityUUID {
