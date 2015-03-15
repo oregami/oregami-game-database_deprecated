@@ -1,23 +1,17 @@
 package org.oregami.resources;
 
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
+import com.google.inject.Inject;
 import org.oregami.data.UserDao;
 import org.oregami.entities.user.User;
 import org.oregami.service.IUserService;
 import org.oregami.service.ServiceResult;
 import org.oregami.util.MailHelper;
 
-import com.google.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.util.List;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
