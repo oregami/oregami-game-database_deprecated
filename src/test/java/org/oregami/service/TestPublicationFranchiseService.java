@@ -4,11 +4,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.junit.*;
 import org.oregami.data.PublicationFranchiseDao;
-import org.oregami.dropwizard.OregamiApplication;
-import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.entities.*;
 import org.oregami.test.PersistenceTest;
 
@@ -81,7 +78,7 @@ public class TestPublicationFranchiseService {
         PublicationFranchiseService service = injector.getInstance(PublicationFranchiseService.class);
         PublicationFranchise publicationFranchise = dao.findOne(pf.getId());
         publicationFranchise.setName("updated");
-        ServiceResult<PublicationFranchise> serviceResult = service.updatePublicationFranchise(publicationFranchise);
+        ServiceResult<PublicationFranchise> serviceResult = service.updatePublicationFranchise(publicationFranchise, null);
         Assert.assertTrue(serviceResult.getErrors().isEmpty());
 
         PublicationFranchise franchiseLoaded = dao.findOne(pf.getId());
@@ -93,7 +90,7 @@ public class TestPublicationFranchiseService {
         PublicationIssue issue1 = new PublicationIssue();
         publication.getPublicationIssueList().add(issue1);
         franchiseLoaded.getPublicationList().add(publication);
-        ServiceResult<PublicationFranchise> serviceResult2 = service.updatePublicationFranchise(franchiseLoaded);
+        ServiceResult<PublicationFranchise> serviceResult2 = service.updatePublicationFranchise(franchiseLoaded, null);
 
         Assert.assertTrue(serviceResult2.hasErrors());
         Assert.assertEquals(3, serviceResult2.getErrors().size());
