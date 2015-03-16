@@ -13,26 +13,20 @@ import org.oregami.service.ServiceErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PublicationFranchiseValidator {
-
-    private final PublicationFranchiseDao publicationFranchiseDao;
+public class PublicationFranchiseValidator implements IEntityValidator {
 
     private final PublicationFranchise publicationFranchise;
 
     private final int nameMinLenght = 3;
 
-    public PublicationFranchiseValidator(PublicationFranchiseDao publicationFranchiseDao, PublicationFranchise publicationFranchise) {
-        if (publicationFranchiseDao == null) {
-            throw new RuntimeException("org.oregami.publicationFranchiseValidator.NoPublicationFranchiseDaoGiven");
-        }
+    public PublicationFranchiseValidator(PublicationFranchise publicationFranchise) {
         if (publicationFranchise == null) {
             throw new RuntimeException("org.oregami.publicationFranchiseValidator.NoPublicationFranchiseGiven");
         }
-
-        this.publicationFranchiseDao = publicationFranchiseDao;
         this.publicationFranchise = publicationFranchise;
     }
 
+    @Override
     public List<ServiceError> validateForCreation() {
         List<ServiceError> errors = new ArrayList<ServiceError>();
 
@@ -43,7 +37,7 @@ public class PublicationFranchiseValidator {
 
     }
 
-
+    @Override
     public List<ServiceError> validateRequiredFields() {
         List<ServiceError> errorMessages = new ArrayList<ServiceError>();
 
@@ -52,18 +46,16 @@ public class PublicationFranchiseValidator {
             id = publicationFranchise.getValidationId();
         }
 
-
         if (StringUtils.isEmpty(publicationFranchise.getName())) {
             errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.PUBLICATIONFRANCHISE_NAME, id), ServiceErrorMessage.NAME_EMPTY));
         }
         else if (StringUtils.length(publicationFranchise.getName()) < nameMinLenght) {
         	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.PUBLICATIONFRANCHISE_NAME, id), ServiceErrorMessage.NAME_TOO_SHORT));
         }
-
-
         return errorMessages;
     }
 
+    @Override
 	public List<ServiceError> validateForUpdate() {
 		
         List<ServiceError> errors = new ArrayList<ServiceError>();

@@ -80,7 +80,7 @@ public class PublicationFranchiseResource {
         }
         try {
             ServiceCallContext context = new ServiceCallContext(user);
-            ServiceResult<PublicationFranchise> serviceResult = publicationFranchiseervice.updatePublicationFranchise(t, context);
+            ServiceResult<PublicationFranchise> serviceResult = publicationFranchiseervice.updateEntity(t, context);
             if (serviceResult.hasErrors()) {
                 return Response.status(Response.Status.BAD_REQUEST)
                         .type("text/json")

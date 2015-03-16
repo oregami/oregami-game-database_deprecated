@@ -78,7 +78,7 @@ public class TestPublicationFranchiseService {
         PublicationFranchiseService service = injector.getInstance(PublicationFranchiseService.class);
         PublicationFranchise publicationFranchise = dao.findOne(pf.getId());
         publicationFranchise.setName("updated");
-        ServiceResult<PublicationFranchise> serviceResult = service.updatePublicationFranchise(publicationFranchise, null);
+        ServiceResult<PublicationFranchise> serviceResult = service.updateEntity(publicationFranchise, null);
         Assert.assertTrue(serviceResult.getErrors().isEmpty());
 
         PublicationFranchise franchiseLoaded = dao.findOne(pf.getId());
@@ -90,7 +90,7 @@ public class TestPublicationFranchiseService {
         PublicationIssue issue1 = new PublicationIssue();
         publication.getPublicationIssueList().add(issue1);
         franchiseLoaded.getPublicationList().add(publication);
-        ServiceResult<PublicationFranchise> serviceResult2 = service.updatePublicationFranchise(franchiseLoaded, null);
+        ServiceResult<PublicationFranchise> serviceResult2 = service.updateEntity(franchiseLoaded, null);
 
         Assert.assertTrue(serviceResult2.hasErrors());
         Assert.assertEquals(3, serviceResult2.getErrors().size());

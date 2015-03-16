@@ -1,50 +1,27 @@
 package org.oregami.service;
 
 import com.google.inject.Inject;
+import org.oregami.data.GenericDAOUUID;
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.entities.CustomRevisionListener;
 import org.oregami.entities.PublicationFranchise;
+import org.oregami.util.validation.IEntityValidator;
 import org.oregami.util.validation.PublicationFranchiseValidator;
 
 import java.util.List;
 
-public class PublicationFranchiseService {
+public class PublicationFranchiseService extends TopLevelEntityService<PublicationFranchise> {
 
 	@Inject
-	private PublicationFranchiseDao publicationFranchiseDao;
+	private PublicationFranchiseDao dao;
 	
-    public ServiceResult<PublicationFranchise> createNewPublicationFranchise(PublicationFranchise publicationFranchiseData) {
-        PublicationFranchiseValidator validator = buildPublicationFranchiseValidator(publicationFranchiseData);
-
-        List<ServiceError> errorMessages = validator.validateForCreation();
-
-        PublicationFranchise publicationFranchise = null;
-
-        if (errorMessages.size() == 0) {
-            publicationFranchise = publicationFranchiseData;
-            publicationFranchiseDao.save(publicationFranchise);
-        }
-
-        return new ServiceResult<PublicationFranchise>(publicationFranchiseData, errorMessages);
+    @Override
+    public GenericDAOUUID<PublicationFranchise, String> getDao() {
+        return dao;
     }
-    
-    public ServiceResult<PublicationFranchise> updatePublicationFranchise(PublicationFranchise publicationFranchiseData, ServiceCallContext context) {
-        PublicationFranchiseValidator validator = buildPublicationFranchiseValidator(publicationFranchiseData);
 
-        List<ServiceError> errorMessages = validator.validateForUpdate();
-
-        PublicationFranchise publicationFranchise = null;
-
-        if (errorMessages.size() == 0) {
-            publicationFranchise = publicationFranchiseData;
-            CustomRevisionListener.context.set(context);
-            publicationFranchiseDao.update(publicationFranchise);
-        }
-
-        return new ServiceResult<PublicationFranchise>(publicationFranchiseData, errorMessages);
-    }    
-
-	private PublicationFranchiseValidator buildPublicationFranchiseValidator(PublicationFranchise newPublicationFranchise) {
-		return new PublicationFranchiseValidator(this.publicationFranchiseDao, newPublicationFranchise);
-	}
+    @Override
+    public IEntityValidator buildEntityValidator(PublicationFranchise entity) {
+        return new PublicationFranchiseValidator(entity);
+    }
 }

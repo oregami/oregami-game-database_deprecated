@@ -33,7 +33,7 @@ public class PublicationFranchiseValidatorTest {
 
         PublicationFranchise publicationFranchise = new PublicationFranchise();
         publicationFranchise.setName("franchise name");
-        PublicationFranchiseValidator validator = new PublicationFranchiseValidator(dao, publicationFranchise);
+        PublicationFranchiseValidator validator = new PublicationFranchiseValidator(publicationFranchise);
 
         List<ServiceError> errors = validator.validateForCreation();
         System.out.println(errors);
