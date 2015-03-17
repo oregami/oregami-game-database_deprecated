@@ -28,27 +28,6 @@ public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranc
         return gameTitleList;
     }
 
-    public List<Number> findRevisions(String id) {
-
-        AuditReader reader = AuditReaderFactory.get(getEntityManager());
-        List<Number> revisions = reader.getRevisions(PublicationFranchise.class, id);
-        return revisions;
-
-    }
-
-    public PublicationFranchise findRevision(String id, Number revision) {
-
-        AuditReader reader = AuditReaderFactory.get(getEntityManager());
-
-        List<Number> revisions = reader.getRevisions(PublicationFranchise.class, id);
-        if (!revisions.contains(revision)) {
-            return null;
-        }
-        PublicationFranchise tRev = reader.find(PublicationFranchise.class, id, revision);
-        return tRev;
-
-    }
-
     @Override
     @Transactional
     public void update(PublicationFranchise entity) {

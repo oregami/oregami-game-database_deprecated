@@ -2,6 +2,7 @@ package org.oregami.data;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,11 @@ import javax.persistence.EntityTransaction;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import org.oregami.data.GenericDAOUUID;
 import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.CustomRevisionEntity;
 import org.oregami.entities.CustomRevisionListener;
 import org.oregami.entities.TopLevelEntity;
 import org.oregami.service.ServiceCallContext;
@@ -98,6 +102,26 @@ public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
                 context.setEntityId(entity.getId());
             }
         }
+    }
+
+    public List<Number> findRevisions(String id) {
+        List<Number> list = new ArrayList<>();
+        AuditReader reader = AuditReaderFactory.get(getEntityManager());
+        List<Number> revisions = reader.getRevisions(getEntityClass(), id);
+        for (Number n : revisions) {
+            list.add(n);
+        }
+        return list;
+    }
+
+    public E findRevision(String id, Number revision) {
+        AuditReader reader = AuditReaderFactory.get(getEntityManager());
+        List<Number> revisions = reader.getRevisions(getEntityClass(), id);
+        if (!revisions.contains(revision)) {
+            return null;
+        }
+        E entity = reader.find(getEntityClass(), id, revision);
+        return entity;
     }
 
 }
