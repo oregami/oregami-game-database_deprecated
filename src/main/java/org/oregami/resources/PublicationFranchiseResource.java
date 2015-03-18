@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import io.dropwizard.auth.Auth;
 import org.apache.log4j.Logger;
 import org.oregami.data.PublicationFranchiseDao;
+import org.oregami.data.RevisionInfo;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.entities.user.User;
 import org.oregami.service.PublicationFranchiseService;
@@ -53,7 +54,7 @@ public class PublicationFranchiseResource {
     @GET
     @Path("/{id}/revisions")
     public Response getPublicationFranchiseRevisions(@PathParam("id") String id) {
-        List<Number> revisionList = publicationFranchiseDao.findRevisions(id);
+        List<RevisionInfo> revisionList = publicationFranchiseDao.findRevisions(id);
         if (revisionList!=null) {
             return Response.ok(revisionList).build();
         } else {
