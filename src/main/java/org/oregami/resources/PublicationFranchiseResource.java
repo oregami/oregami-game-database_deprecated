@@ -5,6 +5,7 @@ import io.dropwizard.auth.Auth;
 import org.apache.log4j.Logger;
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.data.RevisionInfo;
+import org.oregami.entities.Language;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.entities.user.User;
 import org.oregami.service.PublicationFranchiseService;
@@ -24,10 +25,10 @@ import java.util.List;
 public class PublicationFranchiseResource {
 
 	@Inject
-	private PublicationFranchiseDao publicationFranchiseDao;
+	private PublicationFranchiseDao dao = null;
 
     @Inject
-    private PublicationFranchiseService publicationFranchiseervice;
+    private PublicationFranchiseService service = null;
 
 	public PublicationFranchiseResource() {
 	}
@@ -35,63 +36,43 @@ public class PublicationFranchiseResource {
 	  
 	@GET
 	public List<PublicationFranchise> list() {
-		List<PublicationFranchise> ret = null;
-		ret = publicationFranchiseDao.findAll();
+		List<PublicationFranchise> ret = dao.findAll();
 		return ret;
 	}
 
     @GET
     @Path("/{id}")
-    public Response getPublicationFranchise(@PathParam("id") String id) {
-        PublicationFranchise p = publicationFranchiseDao.findOne(id);
-        if (p!=null) {
-            return Response.ok(p).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    public Response get(@PathParam("id") String id) {
+        return ResourceHelper.get(id, dao);
     }
 
     @GET
     @Path("/{id}/revisions")
-    public Response getPublicationFranchiseRevisions(@PathParam("id") String id) {
-        List<RevisionInfo> revisionList = publicationFranchiseDao.findRevisions(id);
-        if (revisionList!=null) {
-            return Response.ok(revisionList).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    public Response getRevisions(@PathParam("id") String id) {
+        return ResourceHelper.getRevisions(id, dao);
     }
 
     @GET
     @Path("/{id}/revisions/{revision}")
-    public Response getPublicationFranchiseRevision(@PathParam("id") String id, @PathParam("revision") String revision) {
-        PublicationFranchise t = publicationFranchiseDao.findRevision(id, Integer.parseInt(revision));
-        if (t!=null) {
-            return Response.ok(t).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    public Response getRevision(@PathParam("id") String id, @PathParam("revision") String revision) {
+        return ResourceHelper.getRevision(id, revision, dao);
+    }
+
+    @POST
+    public Response create(@Auth User user, PublicationFranchise entity) {
+        return ResourceHelper.create(user, entity, service);
     }
 
     @PUT
     @Path("{id}")
-    public Response update(@Auth User user, @PathParam("id") String id, PublicationFranchise t) {
-        if (t.getId()==null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        try {
-            ServiceCallContext context = new ServiceCallContext(user);
-            ServiceResult<PublicationFranchise> serviceResult = publicationFranchiseervice.updateEntity(t, context);
-            if (serviceResult.hasErrors()) {
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .type("text/json")
-                        .entity(serviceResult.getErrors()).build();
-            }
-        } catch (OptimisticLockException e) {
-            Logger.getLogger(this.getClass()).warn("OptimisticLockException", e);
-            return Response.status(Response.Status.BAD_REQUEST).tag("OptimisticLockException").build();
-        }
-        return Response.status(Response.Status.ACCEPTED).entity(t).build();
+    public Response update(@Auth User user, @PathParam("id") String id, PublicationFranchise entity) {
+        return ResourceHelper.update(user, id, entity, service);
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response delete(@Auth User user, @PathParam("id") String id) {
+        return ResourceHelper.delete(user, id, service);
     }
 
 }
