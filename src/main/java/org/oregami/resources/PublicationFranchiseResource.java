@@ -36,8 +36,7 @@ public class PublicationFranchiseResource {
 	  
 	@GET
 	public List<PublicationFranchise> list() {
-		List<PublicationFranchise> ret = dao.findAll();
-		return ret;
+		return dao.findAll();
 	}
 
     @GET
