@@ -1,11 +1,14 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+1+-+Release+Group+Reasons
  */
 @Entity
+@Audited
 public class ReleaseGroupReason extends BaseList {
 
 	private static final long serialVersionUID = -7611326913084521870L;
@@ -14,7 +17,7 @@ public class ReleaseGroupReason extends BaseList {
 		super(value);
 	}
 	
-	ReleaseGroupReason() {
+	public ReleaseGroupReason() {
 		super("");
 	}
 	

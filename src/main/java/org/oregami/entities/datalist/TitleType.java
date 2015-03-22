@@ -2,6 +2,7 @@ package org.oregami.entities.datalist;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
  * used GameToGameTitleConnection
  */
 @Entity
+@Audited
 @NamedQueries({@NamedQuery(name="TitleType.GetAll", query = "from TitleType tt")})
 public class TitleType extends BaseList {
 
@@ -19,7 +21,7 @@ public class TitleType extends BaseList {
 		super(value);
 	}
 	
-	TitleType() {
+	public TitleType() {
 		super("");
 	}
 	

@@ -33,16 +33,6 @@ public class Website extends BaseEntityUUID {
 		this.createSize = createSize;
 	}
 
-    private LocalDateTime changeTime = null;
-
-    public LocalDateTime getChangeTime() {
-        return changeTime;
-    }
-
-    public void setChangeTime(LocalDateTime changeTime) {
-        this.changeTime = changeTime;
-    }
-
 
 	@Column
 	private final LocalDateTime createTime;

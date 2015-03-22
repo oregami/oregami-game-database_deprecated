@@ -1,5 +1,6 @@
 package org.oregami.entities;
 
+import org.hibernate.envers.Audited;
 import org.oregami.entities.datalist.TitleType;
 
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
+@Audited
 public class GameToGameTitleConnection extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -1883224144643128402L;

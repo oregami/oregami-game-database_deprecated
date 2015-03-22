@@ -32,21 +32,6 @@ public class PublicationFranchise extends BaseEntityUUID {
 	private final Set<Publication> publicationList = new HashSet<Publication>();
 
 
-    private LocalDateTime changeTime = null;
-
-    public LocalDateTime getChangeTime() {
-        return changeTime;
-    }
-
-    public void setChangeTime(LocalDateTime changeTime) {
-        this.changeTime = changeTime;
-    }
-
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-    public LocalDateTime getChangeTimeGui() {
-        return changeTime;
-    }
-
 	public PublicationFranchise() {
 	}
 	

@@ -2,11 +2,13 @@ package org.oregami.entities;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Audited
 @TopLevelEntity(discriminator = TopLevelEntity.Discriminator.GAMETITLE)
 @NamedQueries({
 	@NamedQuery(name="GameTitle.GetAll", query = 

@@ -1,5 +1,7 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
  * used in ReleaseGroup-Entity
  */
 @Entity
+@Audited
 public class ReleaseType extends BaseList {
 
 	private static final long serialVersionUID = -8652320100834691941L;
@@ -15,7 +18,7 @@ public class ReleaseType extends BaseList {
 		super(value);
 	}
 	
-	ReleaseType() {
+	public ReleaseType() {
 		super("");
 	}
 	

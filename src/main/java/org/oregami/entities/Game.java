@@ -18,6 +18,7 @@ package org.oregami.entities;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.TitleType;
 
@@ -28,6 +29,7 @@ import java.util.Set;
 
 @Entity
 @TopLevelEntity(discriminator = TopLevelEntity.Discriminator.GAME)
+@Audited
 @NamedQueries({
 	@NamedQuery(name="Game.GetAll", query = 
 			"from Game g")

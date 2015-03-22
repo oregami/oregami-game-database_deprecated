@@ -1,5 +1,7 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
  * Used in ReleaseGroup-Entity
  */
 @Entity
+@Audited
 public class DemoContentType extends BaseList {
 
 	private static final long serialVersionUID = 3690292173015960083L;
@@ -15,7 +18,7 @@ public class DemoContentType extends BaseList {
 		super(value);
 	}
 	
-	DemoContentType() {
+	public DemoContentType() {
 		super("");
 	}
 	

@@ -1,11 +1,14 @@
 package org.oregami.resources;
 
 import com.google.inject.Inject;
-import org.apache.log4j.Logger;
+import io.dropwizard.auth.Auth;
+import org.oregami.data.GameDao;
 import org.oregami.data.GameDao;
 import org.oregami.entities.Game;
+import org.oregami.entities.user.User;
+import org.oregami.service.GameService;
+import org.oregami.service.GameService;
 
-import javax.persistence.OptimisticLockException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,61 +20,54 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class GamesResource {
 
-	public GameDao gameRepository;
-	
 	@Inject
-	public GamesResource(GameDao gameRepository) {
-		this.gameRepository = gameRepository;
+	private GameDao dao = null;
+
+    @Inject
+    private GameService service = null;
+
+	public GamesResource() {
 	}
 	
 	  
 	@GET
 	public List<Game> list() {
-		List<Game> ret = null;
-//		if (gameRepository.findAll().size()==0) {
-//			getDatabaseFiller().initData();
-//		}		
-		ret = gameRepository.findAll();
-		return ret;
+		return dao.findAll();
 	}
-	
-	@POST
-	public Response addGame(Game newGame) {
-		System.out.println("post: " + newGame);
-		gameRepository.getTransaction().begin();
-		gameRepository.save(newGame);
-		gameRepository.getTransaction().commit();
-		return Response.status(Response.Status.CREATED).entity(newGame).build();
-	}
-	
-	
-	@PUT
-	@Path("{id}")
-	public Response updateGame(@PathParam("id") long id, Game updatedGame) {
-		if (updatedGame.getId()==null || id==0) {
-			return Response.status(Response.Status.BAD_REQUEST).build();
-		}
-		try {
-			System.out.println("put: " + updatedGame);
-			gameRepository.update(updatedGame);
-		} catch (OptimisticLockException e) {
-			Logger.getLogger(this.getClass()).warn("OptimisticLockException", e);
-			return Response.status(Response.Status.BAD_REQUEST).tag("OptimisticLockException").build();
-		}
-		return Response.status(Response.Status.ACCEPTED).entity(updatedGame).build();
-	}	
-
 
     @GET
     @Path("/{id}")
-	public Response getGame(@PathParam("id") String id) {
-    	Game game = gameRepository.findOne(id);
-    	if (game!=null) {
-    		return Response.ok(game).build();
-    	} else {
-    		return Response.status(Response.Status.NOT_FOUND).build();
-    	}
-	}
-	
-	
+    public Response get(@PathParam("id") String id) {
+        return ResourceHelper.get(id, dao);
+    }
+
+    @GET
+    @Path("/{id}/revisions")
+    public Response getRevisions(@PathParam("id") String id) {
+        return ResourceHelper.getRevisions(id, dao);
+    }
+
+    @GET
+    @Path("/{id}/revisions/{revision}")
+    public Response getRevision(@PathParam("id") String id, @PathParam("revision") String revision) {
+        return ResourceHelper.getRevision(id, revision, dao);
+    }
+
+    @POST
+    public Response create(@Auth User user, Game entity) {
+        return ResourceHelper.create(user, entity, service);
+    }
+
+    @PUT
+    @Path("{id}")
+    public Response update(@Auth User user, @PathParam("id") String id, Game entity) {
+        return ResourceHelper.update(user, id, entity, service);
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response delete(@Auth User user, @PathParam("id") String id) {
+        return ResourceHelper.delete(user, id, service);
+    }
+
 }

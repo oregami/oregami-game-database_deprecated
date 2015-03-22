@@ -2,10 +2,12 @@ package org.oregami.entities;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 
 @Entity
+@Audited
 @TopLevelEntity(discriminator = TopLevelEntity.Discriminator.LANGUAGE)
 @NamedQueries({@NamedQuery(name="Language.GetAll", query = "from Language l")})
 public class Language extends BaseEntityUUID {
@@ -18,7 +20,7 @@ public class Language extends BaseEntityUUID {
 		this.setName(name);
 	}
 	
-	Language() {
+	public Language() {
 	}
 	
 	public String getName() {

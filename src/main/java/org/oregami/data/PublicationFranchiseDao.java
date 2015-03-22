@@ -31,14 +31,12 @@ public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranc
     @Override
     @Transactional
     public void update(PublicationFranchise entity) {
-        entity.setChangeTime(new LocalDateTime());
         super.update(entity);
     }
 
     @Override
     @Transactional
     public String save(PublicationFranchise entity) {
-        entity.setChangeTime(new LocalDateTime());
         return super.save(entity);
     }
 

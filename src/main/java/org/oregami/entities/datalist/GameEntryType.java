@@ -2,6 +2,7 @@ package org.oregami.entities.datalist;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
  * Used in Game-Entity
  */
 @Entity
+@Audited
 @NamedQueries({
 	@NamedQuery(name="GameEntryType.GetAll", query = 
 			"from GameEntryType g")
@@ -22,7 +24,7 @@ public class GameEntryType extends BaseList {
 		super(value);
 	}
 	
-	GameEntryType() {
+	public GameEntryType() {
 		super("");
 	}
 	

@@ -13,6 +13,7 @@ import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.joda.time.LocalDateTime;
 import org.oregami.data.GenericDAOUUID;
 import org.oregami.entities.BaseEntityUUID;
 import org.oregami.entities.CustomRevisionEntity;
@@ -38,6 +39,7 @@ public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
     public P save(E entity) {
         emf.get().persist(entity);
         updateRevisionListener(entity);
+        entity.setChangeTime(new LocalDateTime());
         return (P) entity.getId();
     }
 
@@ -50,6 +52,7 @@ public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
     @Transactional
     public void update(E entity) {
         updateRevisionListener(entity);
+        entity.setChangeTime(new LocalDateTime());
         emf.get().merge(entity);
     }
 

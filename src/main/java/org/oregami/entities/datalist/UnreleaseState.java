@@ -1,5 +1,7 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 
 
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
  * see http://wiki.oregami.org/display/OR/Data+List+4+-+Un-release+States
  */
 @Entity
+@Audited
 public class UnreleaseState extends BaseList {
 
 	private static final long serialVersionUID = -6903953989551086371L;

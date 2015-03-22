@@ -16,6 +16,7 @@
  ******************************************************************************/
 package org.oregami.entities;
 
+import org.hibernate.envers.Audited;
 import org.oregami.entities.KeyObjects.SystemKey;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.ReleaseGroupReason;
@@ -28,6 +29,7 @@ import java.util.Set;
 
 
 @Entity
+@Audited
 public class ReleaseGroup extends BaseEntityUUID {
 
 	private static final long serialVersionUID = 1L;
