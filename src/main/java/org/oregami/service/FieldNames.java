@@ -12,6 +12,7 @@ public interface FieldNames {
     public static final String PUBLICATIONISSUE_NAMENUMBER = "publicationIssue.issueNameNumber";
 
     public static final String GAME_GAMEENTRYTYPE = "game.gameEntryType";
-	
-	
+
+
+    public static final String GAMETITLE_NATIVESPELLING = "gameTitle.nativeSpelling";
 }
