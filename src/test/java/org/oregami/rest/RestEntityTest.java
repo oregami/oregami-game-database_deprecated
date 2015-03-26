@@ -95,7 +95,7 @@ public class RestEntityTest {
 
         response = RestAssured.get(location);
         String nativeSpelling = response.body().jsonPath().get("nativeSpelling");
-        Assert.assertThat(nativeSpelling, equalTo(nativeSpelling));
+        Assert.assertThat(nativeSpelling, equalTo(gameTitle.getNativeSpelling()));
 
         Assert.assertThat(location, containsString(response.body().jsonPath().get("id").toString()));
 
