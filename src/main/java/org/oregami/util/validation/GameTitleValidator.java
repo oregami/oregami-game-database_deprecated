@@ -46,7 +46,7 @@ public class GameTitleValidator implements IEntityValidator {
             errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.GAMETITLE_NATIVESPELLING, id), ServiceErrorMessage.FIELD_EMPTY));
         }
         else if (StringUtils.length(entity.getNativeSpelling()) < nameMinLenght) {
-            errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.GAMETITLE_NATIVESPELLING, id), ServiceErrorMessage.NAME_TOO_SHORT));
+            errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.GAMETITLE_NATIVESPELLING, id), ServiceErrorMessage.FIELD_TOO_SHORT));
         }
 
         return errorMessages;
