@@ -1,7 +1,6 @@
 package org.oregami.entities;
 
 import org.hibernate.envers.RevisionListener;
-
 import org.oregami.entities.user.User;
 import org.oregami.service.ServiceCallContext;
 

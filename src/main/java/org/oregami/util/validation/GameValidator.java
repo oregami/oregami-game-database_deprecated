@@ -1,10 +1,6 @@
 package org.oregami.util.validation;
 
-import org.apache.commons.lang.StringUtils;
 import org.oregami.entities.Game;
-import org.oregami.entities.Publication;
-import org.oregami.entities.PublicationFranchise;
-import org.oregami.entities.PublicationIssue;
 import org.oregami.service.FieldNames;
 import org.oregami.service.ServiceError;
 import org.oregami.service.ServiceErrorContext;

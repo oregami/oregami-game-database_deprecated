@@ -1,11 +1,9 @@
 package org.oregami.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
-import org.joda.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,14 +16,14 @@ import java.util.Set;
 @TopLevelEntity(discriminator = TopLevelEntity.Discriminator.PUBLICATIONFRANCHISE)
 @Audited
 @NamedQueries({
-	@NamedQuery(name="PublicationFranchise.GetAll", query = 
+	@NamedQuery(name="PublicationFranchise.GetAll", query =
 			"from PublicationFranchise t")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PublicationFranchise extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -4693647736354542489L;
-	
+
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
@@ -34,15 +32,15 @@ public class PublicationFranchise extends BaseEntityUUID {
 
 	public PublicationFranchise() {
 	}
-	
+
 	public PublicationFranchise(String name) {
 		this.setName(name);
-	}	
-	
+	}
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}

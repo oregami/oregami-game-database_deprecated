@@ -1,27 +1,19 @@
 package org.oregami.resources;
 
+import com.google.inject.Inject;
 import io.dropwizard.auth.Auth;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
 import org.oregami.data.WebsiteDao;
 import org.oregami.entities.Website;
 import org.oregami.entities.user.User;
 import org.oregami.util.WebsiteHelper;
 
-import com.google.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Path("/website")
 @Produces(MediaType.APPLICATION_JSON)
@@ -62,14 +54,14 @@ public class WebsiteResource {
 		if (w==null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
-		
+
 //		if (!w.isApproved()) {
 //			return Response.status(Response.Status.PRECONDITION_FAILED).build();
 //		}
 
 		return Response.ok(w.getImage()).build();
 	}
-	
+
 	@GET
 	@Path("/rawthumb/{id}")
 	@Produces({ "image/png" })
@@ -78,18 +70,18 @@ public class WebsiteResource {
 		if (w==null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
-		
+
 //		if (!w.isApproved()) {
 //			return Response.status(Response.Status.PRECONDITION_FAILED).build();
 //		}
 
 		return Response.ok(w.getThumbnail()).build();
-	}	
-	
+	}
+
 	@GET
 	public Response getList() {
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-		
+
 		List<Website> list = websiteDao.findAll();
 		for (Website website : list) {
 			java.util.HashMap<String, Object> map = new java.util.HashMap<String, Object>();

@@ -3,10 +3,8 @@ package org.oregami.resources;
 import com.google.inject.Inject;
 import io.dropwizard.auth.Auth;
 import org.oregami.data.GameDao;
-import org.oregami.data.GameDao;
 import org.oregami.entities.Game;
 import org.oregami.entities.user.User;
-import org.oregami.service.GameService;
 import org.oregami.service.GameService;
 
 import javax.ws.rs.*;
@@ -28,8 +26,8 @@ public class GamesResource {
 
 	public GamesResource() {
 	}
-	
-	  
+
+
 	@GET
 	public List<Game> list() {
 		return dao.findAll();

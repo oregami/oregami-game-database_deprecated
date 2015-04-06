@@ -1,7 +1,6 @@
 package org.oregami.util.validation;
 
 import org.apache.commons.lang.StringUtils;
-import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.entities.Publication;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.entities.PublicationIssue;
@@ -57,7 +56,7 @@ public class PublicationFranchiseValidator implements IEntityValidator {
 
     @Override
 	public List<ServiceError> validateForUpdate() {
-		
+
         List<ServiceError> errors = new ArrayList<ServiceError>();
 
         errors.addAll(validateRequiredFields());

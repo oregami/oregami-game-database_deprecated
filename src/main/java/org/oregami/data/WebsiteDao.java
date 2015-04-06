@@ -1,11 +1,10 @@
 package org.oregami.data;
 
-import javax.persistence.EntityManager;
-
-import org.oregami.entities.Website;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.oregami.entities.Website;
+
+import javax.persistence.EntityManager;
 
 public class WebsiteDao extends GenericDAOUUIDImpl<Website, String>{
 
@@ -14,6 +13,6 @@ public class WebsiteDao extends GenericDAOUUIDImpl<Website, String>{
 		super(emf);
 		entityClass=Website.class;
 	}
-	
-	
+
+
 }

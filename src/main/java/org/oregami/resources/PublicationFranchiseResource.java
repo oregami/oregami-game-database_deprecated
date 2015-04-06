@@ -2,17 +2,11 @@ package org.oregami.resources;
 
 import com.google.inject.Inject;
 import io.dropwizard.auth.Auth;
-import org.apache.log4j.Logger;
 import org.oregami.data.PublicationFranchiseDao;
-import org.oregami.data.RevisionInfo;
-import org.oregami.entities.Language;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.entities.user.User;
 import org.oregami.service.PublicationFranchiseService;
-import org.oregami.service.ServiceCallContext;
-import org.oregami.service.ServiceResult;
 
-import javax.persistence.OptimisticLockException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,8 +26,8 @@ public class PublicationFranchiseResource {
 
 	public PublicationFranchiseResource() {
 	}
-	
-	  
+
+
 	@GET
 	public List<PublicationFranchise> list() {
 		return dao.findAll();

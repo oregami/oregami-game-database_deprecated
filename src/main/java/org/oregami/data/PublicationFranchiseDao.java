@@ -3,9 +3,6 @@ package org.oregami.data;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
-import org.hibernate.envers.AuditReader;
-import org.hibernate.envers.AuditReaderFactory;
-import org.joda.time.LocalDateTime;
 import org.oregami.entities.GameTitle;
 import org.oregami.entities.PublicationFranchise;
 
@@ -19,12 +16,12 @@ public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranc
 		super(emf);
 		entityClass=PublicationFranchise.class;
 	}
-	
-	
+
+
     @SuppressWarnings("unchecked")
 	public List<GameTitle> findByExactName(String name) {
         List<GameTitle> gameTitleList = getEntityManager()
-        		.createNativeQuery("SELECT * FROM PublicationFranchiseDao t where lower(t.name) = :value ", PublicationFranchiseDao.class).setParameter("value", name.toLowerCase()).getResultList(); 
+        		.createNativeQuery("SELECT * FROM PublicationFranchiseDao t where lower(t.name) = :value ", PublicationFranchiseDao.class).setParameter("value", name.toLowerCase()).getResultList();
         return gameTitleList;
     }
 
