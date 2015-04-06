@@ -1,31 +1,20 @@
 package org.oregami.service;
 
-import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
-import com.google.inject.persist.jpa.JpaPersistModule;
-import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.oregami.data.*;
+import org.oregami.data.DatabaseFiller;
+import org.oregami.data.UserDao;
 import org.oregami.dropwizard.MailConfiguration;
-import org.oregami.dropwizard.OregamiApplication;
-import org.oregami.dropwizard.OregamiGuiceModule;
-import org.oregami.entities.datalist.DemoContentType;
-import org.oregami.entities.datalist.GameEntryType;
-import org.oregami.entities.datalist.ReleaseType;
 import org.oregami.entities.user.User;
-import org.oregami.test.PersistenceTest;
+import org.oregami.rest.RestTestHelper;
 import org.oregami.util.AuthHelper;
 import org.oregami.util.MailHelper;
-
-import javax.activation.MailcapCommandMap;
-import java.security.SecureRandom;
-import java.util.Random;
+import org.oregami.util.StartHelper;
 
 public class TestAuthHelper {
 
@@ -35,18 +24,17 @@ public class TestAuthHelper {
     }
 
     @BeforeClass
-    public static void init() {
-        JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiApplication.JPA_UNIT);
-        injector = Guice.createInjector(jpaPersistModule, new OregamiGuiceModule());
-        injector.getInstance(PersistenceTest.class);
-        PersistService persistService = injector.getInstance(PersistService.class);
-        persistService.start();
+    public static void initClass() {
+        StartHelper.init(StartHelper.CONFIG_FILENAME_TEST);
+        injector = StartHelper.getInjector();
+        RestTestHelper.initRestAssured();
         MailHelper.init(Mockito.mock(MailConfiguration.class));
     }
 
+
     @AfterClass
     public static void finish() {
-        DatabaseFiller.getInstance().dropAllData();
+        StartHelper.getInstance(DatabaseFiller.class).dropAllData();
     }
 
     @Test

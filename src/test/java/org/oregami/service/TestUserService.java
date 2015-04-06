@@ -1,7 +1,6 @@
 package org.oregami.service;
 
 import io.dropwizard.testing.junit.DropwizardAppRule;
-
 import org.junit.*;
 import org.mockito.Mockito;
 import org.oregami.data.DatabaseFiller;
@@ -10,18 +9,19 @@ import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.entities.user.User;
 import org.oregami.util.MailHelper;
+import org.oregami.util.StartHelper;
 
 public class TestUserService {
 
     @ClassRule
     public static final DropwizardAppRule<OregamiConfiguration> RULE =
-            new DropwizardAppRule<OregamiConfiguration>(OregamiApplication.class, "src/test/resources/oregami.yml");
+            new DropwizardAppRule<OregamiConfiguration>(OregamiApplication.class, StartHelper.CONFIG_FILENAME_TEST);
 
     private UserServiceImpl userService;
 
     @AfterClass
     public static void beforeClass() {
-        DatabaseFiller.getInstance().dropAllData();
+        StartHelper.getInstance(DatabaseFiller.class).dropAllData();
     }
 
     @Before
@@ -48,7 +48,7 @@ public class TestUserService {
         Assert.assertTrue(result.containsError(new ServiceError(new ServiceErrorContext("user.username"), ServiceErrorMessage.USER_USERNAME_EMPTY)));
         Assert.assertTrue(result.containsError(new ServiceError(new ServiceErrorContext("user.username"), ServiceErrorMessage.USER_USERNAME_TOO_SHORT)));
         Assert.assertEquals(4,  result.getErrors().size());
-        
+
     }
 
     @Test
@@ -66,7 +66,7 @@ public class TestUserService {
 
         //        Assert.assertNotNull(user.getRegistrationTime());
     }
-    
-    
+
+
 
 }

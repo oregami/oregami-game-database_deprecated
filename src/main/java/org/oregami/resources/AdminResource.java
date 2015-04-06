@@ -1,6 +1,7 @@
 package org.oregami.resources;
 
 import org.oregami.data.DatabaseFiller;
+import org.oregami.util.StartHelper;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -23,10 +24,10 @@ public class AdminResource {
     	getDatabaseFiller().initData();
     	return Response.ok().build();
 	}
-	
-	
+
+
 	private DatabaseFiller getDatabaseFiller() {
-		return DatabaseFiller.getInstance();
-	}	
-	
+		return StartHelper.getInjector().getInstance(DatabaseFiller.class);
+	}
+
 }

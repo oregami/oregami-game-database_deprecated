@@ -1,9 +1,5 @@
 package org.oregami.rest;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.persist.PersistService;
-import com.google.inject.persist.jpa.JpaPersistModule;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Header;
@@ -12,8 +8,10 @@ import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.hamcrest.Matchers;
 import org.junit.*;
 import org.oregami.data.DatabaseFiller;
+import org.oregami.dropwizard.OregamiAppRule;
 import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.dropwizard.OregamiConfiguration;
+import org.oregami.util.StartHelper;
 
 import javax.persistence.EntityManager;
 
@@ -21,25 +19,15 @@ public class RestAuthenticationTest {
 
     @ClassRule
     public static final DropwizardAppRule<OregamiConfiguration> RULE =
-            new DropwizardAppRule<>(OregamiApplication.class, "src/test/resources/oregami.yml");
-
-    private static Injector injector;
-
-    static EntityManager entityManager = null;
+            new OregamiAppRule(OregamiApplication.class, StartHelper.CONFIG_FILENAME_TEST);
 
     @BeforeClass
-    public static void init() {
-        JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiApplication.JPA_UNIT);
-        injector = Guice.createInjector(jpaPersistModule);
-        PersistService persistService = injector.getInstance(PersistService.class);
-        persistService.start();
-        entityManager = injector.getInstance(EntityManager.class);
-        RestTestHelper.initRestAssured();
+    public static void initClass() {
     }
 
     @AfterClass
     public static void finish() {
-        DatabaseFiller.getInstance().dropAllData();
+        StartHelper.getInstance(DatabaseFiller.class).dropAllData();
     }
 
 

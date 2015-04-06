@@ -9,9 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.oregami.data.GameTitleDao;
 import org.oregami.entities.GameTitle;
-import org.oregami.entities.Publication;
-import org.oregami.entities.GameTitle;
-import org.oregami.entities.PublicationIssue;
 import org.oregami.test.PersistenceTest;
 
 import javax.persistence.EntityManager;

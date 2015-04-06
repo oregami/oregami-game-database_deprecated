@@ -11,6 +11,7 @@ import com.github.toastshaman.dropwizard.auth.jwt.parser.DefaultJsonWebTokenPars
 import com.github.toastshaman.dropwizard.auth.jwt.validator.ExpiryValidator;
 import com.google.common.base.Optional;
 import com.google.inject.persist.PersistFilter;
+import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
@@ -25,28 +26,36 @@ import org.oregami.entities.user.User;
 import org.oregami.resources.*;
 import org.oregami.util.AuthHelper;
 import org.oregami.util.MailHelper;
+import org.oregami.util.StartHelper;
 import org.oregami.util.WebsiteHelper;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration.Dynamic;
 import java.util.EnumSet;
+import java.util.Properties;
 
 
 public class OregamiApplication extends Application<OregamiConfiguration> {
 
-    public static final String JPA_UNIT =
-            "data";
-    //"dataMysql";
-
     private GuiceBundle<OregamiConfiguration> guiceBundle;
-    private static final JpaPersistModule jpaPersistModule = new JpaPersistModule(JPA_UNIT);
 
     public static void main(String[] args) throws Exception {
+        for (int i=0; i<args.length; i++) {
+            if (args[i].endsWith(".yml")) {
+                StartHelper.setConfigFilename(args[i]);
+            }
+        }
         new OregamiApplication().run(args);
     }
 
     @Override
     public void initialize(Bootstrap<OregamiConfiguration> bootstrap) {
+
+        OregamiConfiguration configuration = StartHelper.createConfiguration(StartHelper.getConfigFilename());
+        Properties jpaProperties = StartHelper.createPropertiesFromConfiguration(configuration);
+
+        JpaPersistModule jpaPersistModule = new JpaPersistModule(StartHelper.JPA_UNIT);
+        jpaPersistModule.properties(jpaProperties);
 
         guiceBundle = GuiceBundle.<OregamiConfiguration>newBuilder()
                 .addModule(new OregamiGuiceModule())
@@ -68,16 +77,21 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
     public void run(OregamiConfiguration config, Environment environment)
             throws Exception {
 
+        //StartHelper.setConfiguration(config);
         environment.servlets().addFilter("persistFilter", guiceBundle.getInjector().getInstance(PersistFilter.class)).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 
+        //guiceBundle.getInjector().getInstance(PersistService.class).start();
+
+        StartHelper.init(StartHelper.getConfigFilename());
+
+        DatabaseFiller databaseFiller = StartHelper.getInjector().getInstance(DatabaseFiller.class);
         if (config.isInitBaseLists()) {
-            DatabaseFiller.getInstance().initBaseLists();
+            databaseFiller.initBaseLists();
         }
         if (config.isInitGames()) {
-            DatabaseFiller.getInstance().initGameData();
+            databaseFiller.initGameData();
         }
-
-        DatabaseFiller.getInstance().initDemoUser();
+        databaseFiller.initDemoUser();
 
         WebsiteHelper.init(config.getPhantomJSConfiguration().getPhantomjsCommandLocation(), config.getPhantomJSConfiguration().getRasterizeJSFileLocation());
         MailHelper.init(config.getMailConfiguration());
@@ -107,10 +121,6 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
 
         environment.jersey().register(guiceBundle.getInjector().getInstance(SecuredResource.class));
 
-    }
-
-    public static JpaPersistModule createJpaModule() {
-        return jpaPersistModule;
     }
 
     private JWTAuthProvider<User> createAuthProvider() {

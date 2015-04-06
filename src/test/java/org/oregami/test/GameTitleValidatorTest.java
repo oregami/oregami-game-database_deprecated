@@ -3,15 +3,12 @@ package org.oregami.test;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.oregami.entities.Game;
 import org.oregami.entities.GameTitle;
-import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.service.FieldNames;
 import org.oregami.service.ServiceError;
 import org.oregami.service.ServiceErrorContext;
 import org.oregami.service.ServiceErrorMessage;
 import org.oregami.util.validation.GameTitleValidator;
-import org.oregami.util.validation.GameValidator;
 
 import java.util.List;
 

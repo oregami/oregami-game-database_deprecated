@@ -3,10 +3,6 @@ package org.oregami.rest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.persist.PersistService;
-import com.google.inject.persist.jpa.JpaPersistModule;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.path.json.JsonPath;
@@ -16,11 +12,12 @@ import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.hamcrest.Matchers;
 import org.junit.*;
 import org.oregami.data.DatabaseFiller;
+import org.oregami.dropwizard.OregamiAppRule;
 import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.entities.GameTitle;
+import org.oregami.util.StartHelper;
 
-import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,27 +28,18 @@ public class RestEntityTest {
 
     @ClassRule
     public static final DropwizardAppRule<OregamiConfiguration> RULE =
-            new DropwizardAppRule<>(OregamiApplication.class, "src/test/resources/oregami.yml");
+            new OregamiAppRule(OregamiApplication.class, StartHelper.CONFIG_FILENAME_TEST);
 
-    private static Injector injector;
-
-    static EntityManager entityManager = null;
     private static ObjectMapper mapper;
 
     @BeforeClass
-    public static void init() {
-        JpaPersistModule jpaPersistModule = new JpaPersistModule(OregamiApplication.JPA_UNIT);
-        injector = Guice.createInjector(jpaPersistModule);
-        PersistService persistService = injector.getInstance(PersistService.class);
-        persistService.start();
-        entityManager = injector.getInstance(EntityManager.class);
-        RestTestHelper.initRestAssured();
-        DatabaseFiller.getInstance().initData();
+    public static void initClass() {
+        StartHelper.getInstance(DatabaseFiller.class).initData();
     }
 
     @AfterClass
     public static void finish() {
-        DatabaseFiller.getInstance().dropAllData();
+        StartHelper.getInstance(DatabaseFiller.class).dropAllData();
     }
 
 

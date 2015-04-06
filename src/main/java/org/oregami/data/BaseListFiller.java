@@ -1,50 +1,36 @@
 package org.oregami.data;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
-import com.google.inject.persist.jpa.JpaPersistModule;
-import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.entities.datalist.*;
+import org.oregami.util.StartHelper;
 
 public class BaseListFiller {
 
 	private static BaseListFiller instance;
-	
+
 	private boolean initialized;
-	
+
 	@Inject
 	private GameEntryTypeDao gameEntryTypeDao;
 
 	@Inject
 	private ReleaseTypeDao releaseTypeDao;
-	
-	@Inject
-	private DemoContentTypeDao demoContentTypeDao;	
 
 	@Inject
-	private TitleTypeDao titleTypeDao;	
+	private DemoContentTypeDao demoContentTypeDao;
+
+	@Inject
+	private TitleTypeDao titleTypeDao;
 
 	@Inject
 	private ScriptDao scriptDao;
-	
-	public static BaseListFiller instance() {
-		if (instance==null) {
-			JpaPersistModule jpaPersistModule = OregamiApplication.createJpaModule();
-			Injector injector = Guice.createInjector(jpaPersistModule);
-			instance = injector.getInstance(BaseListFiller.class);
-			PersistService persistService = injector.getInstance(PersistService.class);
-			persistService.start();
-		}
-		return instance;
-	}	
+
 
     @Transactional
 	public void initBaseLists() {
 		if (!initialized) {
-            if (BaseListFinder.instance().getTitleType(TitleType.ORIGINAL_TITLE)==null) {
+            if (StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE)==null) {
                 initGameEntryType();
                 initDemoContentType();
                 initReleaseType();
@@ -54,8 +40,8 @@ public class BaseListFiller {
             }
 		}
 	}
-	
-	
+
+
 	private void initGameEntryType() {
 		gameEntryTypeDao.save(new GameEntryType(GameEntryType.ADD_ON_NOT_SIGNIFICANT));
 		gameEntryTypeDao.save(new GameEntryType(GameEntryType.ADD_ON_SIGNIFICANT));
@@ -64,7 +50,7 @@ public class BaseListFiller {
 		gameEntryTypeDao.save(new GameEntryType(GameEntryType.EPISODIC_GAME));
 		gameEntryTypeDao.save(new GameEntryType(GameEntryType.GAME));
 	}
-	
+
 	private void initDemoContentType() {
 		demoContentTypeDao.save(new DemoContentType(DemoContentType.ABSOLUTE_PLAY_COUNT_LIMIT));
 		demoContentTypeDao.save(new DemoContentType(DemoContentType.ABSOLUTE_PLAY_TIME_LIMIT));
@@ -75,13 +61,13 @@ public class BaseListFiller {
 		demoContentTypeDao.save(new DemoContentType(DemoContentType.TECH_DEMO));
 		demoContentTypeDao.save(new DemoContentType(DemoContentType.TIME_LIMIT));
 	}
-	
+
 	private void initReleaseType() {
 		releaseTypeDao.save(new ReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
 		releaseTypeDao.save(new ReleaseType(ReleaseType.EMULATOR_RELEASE));
 		releaseTypeDao.save(new ReleaseType(ReleaseType.PORT));
 	}
-	
+
 	private void initTitleType() {
 		titleTypeDao.save(new TitleType(TitleType.ORIGINAL_TITLE));
 		titleTypeDao.save(new TitleType(TitleType.ABBREVIATION));
@@ -90,7 +76,7 @@ public class BaseListFiller {
 		titleTypeDao.save(new TitleType(TitleType.INOFFICIAL_TITLE));
 		titleTypeDao.save(new TitleType(TitleType.RE_RELEASE_TITLE));
 	}
-	
+
 	private void initScript() {
 		scriptDao.save(new Script(Script.LATIN));
 		scriptDao.save(new Script(Script.ARABIC));
@@ -106,6 +92,6 @@ public class BaseListFiller {
     public void reset() {
         initialized = false;
     }
-	
-	
+
+
 }

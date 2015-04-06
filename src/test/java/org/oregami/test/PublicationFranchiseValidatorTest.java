@@ -2,7 +2,6 @@ package org.oregami.test;
 
 import com.google.inject.Injector;
 import org.apache.log4j.Logger;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
