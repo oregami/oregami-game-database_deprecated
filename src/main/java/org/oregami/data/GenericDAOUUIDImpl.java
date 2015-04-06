@@ -1,25 +1,23 @@
 package org.oregami.data;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.joda.time.LocalDateTime;
-import org.oregami.data.GenericDAOUUID;
 import org.oregami.entities.BaseEntityUUID;
 import org.oregami.entities.CustomRevisionEntity;
 import org.oregami.entities.CustomRevisionListener;
 import org.oregami.entities.TopLevelEntity;
 import org.oregami.service.ServiceCallContext;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
         GenericDAOUUID<E, P> {
