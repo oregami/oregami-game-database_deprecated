@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (C) 2012  Oregami.org, Germany http://www.oregami.org
- * 
+ *
  * 	This program is free software: you can redistribute it and/or modify
  * 	it under the terms of version 3 or any later version of the
- * 	GNU Affero General Public License as published by the Free Software 
+ * 	GNU Affero General Public License as published by the Free Software
  * 	Foundation.
- * 	
+ *
  * 	This program is distributed in the hope that it will be useful,
  * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
  * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU Affero General Public License for more details.	
- * 	
+ * 	GNU Affero General Public License for more details.
+ *
  * 	You should have received a copy of the GNU Affero General Public License
  * 	along with this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
@@ -29,18 +29,18 @@ import javax.persistence.Table;
 public class Release extends BaseEntityUUID {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
 	private ReleaseGroup releaseGroup;
-	
+
 	private String description;
 
-	public Release() {};
-	
-	public void setReleaseGroup(
+	public Release() {}
+
+    public void setReleaseGroup(
 			ReleaseGroup releaseGroup) {
 		this.releaseGroup = releaseGroup;
 	}

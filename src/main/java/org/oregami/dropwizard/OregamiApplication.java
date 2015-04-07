@@ -11,7 +11,6 @@ import com.github.toastshaman.dropwizard.auth.jwt.parser.DefaultJsonWebTokenPars
 import com.github.toastshaman.dropwizard.auth.jwt.validator.ExpiryValidator;
 import com.google.common.base.Optional;
 import com.google.inject.persist.PersistFilter;
-import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
@@ -77,10 +76,7 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
     public void run(OregamiConfiguration config, Environment environment)
             throws Exception {
 
-        //StartHelper.setConfiguration(config);
         environment.servlets().addFilter("persistFilter", guiceBundle.getInjector().getInstance(PersistFilter.class)).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
-
-        //guiceBundle.getInjector().getInstance(PersistService.class).start();
 
         StartHelper.init(StartHelper.getConfigFilename());
 

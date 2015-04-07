@@ -128,10 +128,8 @@ public class PublicationFranchiseValidator implements IEntityValidator {
                     );
                 }
             }
-            ;
 
         }
-        ;
 
         return errorMessages;
     }

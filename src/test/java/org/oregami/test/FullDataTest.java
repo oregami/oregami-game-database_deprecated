@@ -1,8 +1,6 @@
 package org.oregami.test;
 
-import com.google.inject.Injector;
 import com.google.inject.persist.Transactional;
-import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;

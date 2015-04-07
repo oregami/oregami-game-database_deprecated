@@ -13,8 +13,6 @@ import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.util.StartHelper;
 
-import javax.persistence.EntityManager;
-
 public class RestAuthenticationTest {
 
     @ClassRule

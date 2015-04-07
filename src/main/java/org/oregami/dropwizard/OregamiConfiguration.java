@@ -112,6 +112,6 @@ public class OregamiConfiguration extends Configuration {
 
     public MailConfiguration getMailConfiguration() {
 		return mailConfiguration;
-	};
+	}
 
 }
