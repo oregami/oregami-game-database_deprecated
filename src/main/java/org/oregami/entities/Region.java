@@ -1,8 +1,10 @@
 package org.oregami.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.Entity;
 
@@ -18,21 +20,21 @@ public class Region extends BaseEntityUUID {
 	private boolean isCountry;
 	private boolean isBusinessRegion;
 	private String description;
-	
+
 	public Region(String name) {
 		this.setName(name);
 	}
-	
+
 	public Region(String name, boolean isCountry, boolean isBusinessRegion, String description) {
 		this.name = name;
 		this.isCountry = isCountry;
 		this.isBusinessRegion = isBusinessRegion;
 		this.description = description;
 	}
-	
+
 	Region() {
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -75,6 +77,9 @@ public class Region extends BaseEntityUUID {
 	public static final String EUROPE = "EUROPE";
 	public static final String NORTH_AMERICA = "NORTH_AMERICA";
 
-	
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    public LocalDateTime getChangeTimeGui() {
+        return getChangeTime();
+    }
 
 }

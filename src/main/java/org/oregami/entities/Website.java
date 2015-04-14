@@ -14,17 +14,17 @@ import javax.persistence.Entity;
 public class Website extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -8912197072050937329L;
-	
+
 	public Website() {
 		this.createTime = new LocalDateTime();
 	}
-	
+
 	@Column
 	private String url;
-	
+
 	@Column
 	private String createSize;
-	
+
 	public String getCreateSize() {
 		return createSize;
 	}
@@ -36,7 +36,7 @@ public class Website extends BaseEntityUUID {
 
 	@Column
 	private final LocalDateTime createTime;
-	
+
 	@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
 	public LocalDateTime getCreateTime() {
 		return createTime;
@@ -46,11 +46,11 @@ public class Website extends BaseEntityUUID {
 	private byte[] image;
 
 	@Column(name = "THUMB", unique = false, nullable = false, length = 1000000)
-	private byte[] thumbnail;	
-	
+	private byte[] thumbnail;
+
 	@Column()
 	private boolean approved = false;
-	
+
 	public byte[] getImage() {
 		return image;
 	}
@@ -74,7 +74,7 @@ public class Website extends BaseEntityUUID {
 	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
@@ -83,5 +83,9 @@ public class Website extends BaseEntityUUID {
 		this.url = url;
 	}
 
-	
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    public LocalDateTime getChangeTimeGui() {
+        return getChangeTime();
+    }
+
 }

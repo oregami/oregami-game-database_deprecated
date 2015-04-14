@@ -1,9 +1,11 @@
 package org.oregami.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -48,5 +50,10 @@ public class PublicationFranchise extends BaseEntityUUID {
 	public Set<Publication> getPublicationList() {
 		return publicationList;
 	}
+
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    public LocalDateTime getChangeTimeGui() {
+        return getChangeTime();
+    }
 
 }
