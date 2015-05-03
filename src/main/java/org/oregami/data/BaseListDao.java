@@ -7,13 +7,13 @@ import org.oregami.entities.datalist.BaseList;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class BaseListDao<T extends BaseList> extends GenericDAOImpl<T, Long>{
+public class BaseListDao<T extends BaseList> extends GenericDAOUUIDImpl<T, String>{
 
 	@Inject
 	public BaseListDao(Provider<EntityManager> emf) {
 		super(emf);
 	}
-	
+
 	@SuppressWarnings("unchecked")
     public T findByName(String value) {
 		//T type = (T)
@@ -26,7 +26,7 @@ public class BaseListDao<T extends BaseList> extends GenericDAOImpl<T, Long>{
         }
         return null;
     }
-	
-	
+
+
 
 }
