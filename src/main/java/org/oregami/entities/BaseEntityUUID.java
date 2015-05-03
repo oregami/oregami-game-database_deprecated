@@ -17,9 +17,11 @@
 package org.oregami.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.LocalDateTime;
 
@@ -48,10 +50,7 @@ public abstract class BaseEntityUUID implements Serializable
     @Column(name = "version")
     private int version = 0;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "veraenderung_zeitpunkt")
-    @Transient
-    private Date lastUpdate;
+
 
     @Transient
     private String validationId;
@@ -60,7 +59,6 @@ public abstract class BaseEntityUUID implements Serializable
     {
         this.id = source.id;
         this.version = source.version;
-        this.lastUpdate = source.lastUpdate;
     }
 
     @Override
@@ -111,20 +109,10 @@ public abstract class BaseEntityUUID implements Serializable
         this.version = version;
     }
 
-    public Date getLastUpdate()
-    {
-        return this.lastUpdate;
-    }
-
-    public void setLastUpdate(final Date lastUpdate)
-    {
-        this.lastUpdate = lastUpdate;
-    }
-
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-	}
+        return ToStringBuilder.reflectionToString(this, RecursiveToStringStyle.JSON_STYLE);
+    }
 
     public String getValidationId() {
         return validationId;
@@ -134,6 +122,7 @@ public abstract class BaseEntityUUID implements Serializable
         this.validationId = validationId;
     }
 
+    @JsonIgnoreProperties
     private LocalDateTime changeTime = null;
 
     public LocalDateTime getChangeTime() {

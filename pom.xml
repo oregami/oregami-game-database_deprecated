@@ -53,19 +53,19 @@
 			<artifactId>dropwizard-testing</artifactId>
 			<version>${dropwizard.version}</version>
 			<scope>test</scope>
-		</dependency>		
-		
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
 			<version>4.0-beta5</version>
             <!-- 4.0-beta5 -->
-		</dependency>		
-		
-		
-		
-		
-		
+		</dependency>
+
+
+
+
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -123,11 +123,11 @@
 		    <scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
 
 
 		<dependency>
@@ -176,7 +176,7 @@
 
 
 
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -244,12 +244,12 @@
 
 		</plugins>
 	</build>
-	
+
 	<repositories>
 		<repository>
 		    <id>federecio-releases</id>
 		    <url>https://repository-federecio1.forge.cloudbees.com/release/</url>
-		</repository>	
+		</repository>
 	</repositories>
 
 </project>
