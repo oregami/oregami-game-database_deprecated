@@ -20,12 +20,12 @@ public class UserResource {
 
 	@Inject
 	private UserDao userDao;
-	
+
 	@Inject
 	private IUserService userService;
 
 	MailHelper mailHelper = MailHelper.instance();
-	
+
 	@POST
 	public Response createUser(User user) {
 		try {
@@ -43,13 +43,5 @@ public class UserResource {
 		}
 
 	}
-	
-	
-	@GET
-	public List<User> getUserlist() {
-		List<User> findAll = userDao.findAll();
-		return findAll;
-	}
-
 
 }
