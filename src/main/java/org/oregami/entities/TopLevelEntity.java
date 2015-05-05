@@ -24,7 +24,8 @@ public @interface TopLevelEntity {
         PUBLICATIONFRANCHISE,
         SOFTWAREPLATFORM,
         HARDWAREPLATFORM,
-        WEBSITE, TAG
+        WEBSITE,
+        TRANSLITERATEDSTRING
     }
 
     @NotNull
