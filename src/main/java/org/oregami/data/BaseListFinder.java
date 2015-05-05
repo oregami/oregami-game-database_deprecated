@@ -20,6 +20,9 @@ public class BaseListFinder {
 	@Inject
 	DemoContentTypeDao demoContentTypeDao;
 
+    @Inject
+    ScriptDao scriptDao;
+
 	public GameEntryType getGameEntryType(String value) {
 		return gameEntryTypeDao.findByName(value);
 	}
@@ -39,5 +42,9 @@ public class BaseListFinder {
 	public DemoContentType getDemoContentType(String value) {
 		return demoContentTypeDao.findByName(value);
 	}
+
+    public Script getScript(String value) {
+        return scriptDao.findByExactName(value);
+    }
 
 }

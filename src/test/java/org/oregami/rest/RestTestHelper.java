@@ -10,6 +10,7 @@ public class RestTestHelper {
     public static final String URL_LOGIN = "/jwt/login";
     public static final String URL_SECURED = "/jwt/secured";
     public static final String URL_GAMETITLES = "/gameTitle";
+    public static final String URL_SCRIPT = "/script";
 
     public static void initRestAssured() {
         RestAssured.baseURI = "http://localhost";

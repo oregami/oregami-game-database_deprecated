@@ -15,4 +15,6 @@ public interface FieldNames {
 
 
     public static final String GAMETITLE_NATIVESPELLING = "gameTitle.nativeSpelling";
+
+    public static final String ANY_FIELD = "anyField";
 }

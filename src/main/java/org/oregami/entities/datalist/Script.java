@@ -11,18 +11,18 @@ import javax.persistence.Entity;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Script.GetAll", query = 
+	@NamedQuery(name="Script.GetAll", query =
 			"from Script g")
 })
 public class Script extends BaseList {
 
 	private static final long serialVersionUID = -3264726597931716725L;
-	
+
 	public Script(String value) {
 		super(value);
 	}
-	
-	Script() {
+
+	public Script() {
 		super("");
 	}
 
