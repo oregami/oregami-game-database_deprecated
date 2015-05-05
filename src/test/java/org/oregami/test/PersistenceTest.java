@@ -487,15 +487,17 @@ public class PersistenceTest {
 
 		ScriptDao dao = injector.getInstance(ScriptDao.class);
 
+        Language langEnglish = StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH);
+
 		Script s = new Script(Script.LATIN);
-		Long id = dao.save(s);
+		String id = dao.save(s);
 		Assert.assertNotNull("ID expected", id);
 
 		List<Script> all = dao.findAll();
 		Assert.assertEquals("1 script expected", 1, all.size());
 
 		Script s2 = new Script(Script.ARABIC);
-		Long id2 = dao.save(s2);
+        String id2 = dao.save(s2);
 
 		all = dao.findAll();
 		Assert.assertEquals("2 scripts expected", 2, all.size());
@@ -511,5 +513,7 @@ public class PersistenceTest {
 		Assert.assertEquals(loadedObject2, s2);
 
 	}
+
+
 
 }
