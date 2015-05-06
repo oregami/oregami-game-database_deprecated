@@ -58,28 +58,18 @@ public class RestEntityTest {
         Assert.assertNotNull(liste);
         Assert.assertThat(liste.size(), Matchers.greaterThan(0));
 
-        Header jsonContentHeader = new Header("Content-Type", "application/json");
-
-
         GameTitle gameTitle = new GameTitle();
         gameTitle.setNativeSpelling("The Secret of Monkey Island");
 
         //set Header for secured request:
         Header authHeader = new Header("Authorization", "bearer " + token);
-        response = RestAssured.given()
-                .header(authHeader)
-                .header(jsonContentHeader)
-                .body(getJsonString(gameTitle))
-                .post(RestTestHelper.URL_GAMETITLES);
+        response = saveNewEntity(gameTitle, RestTestHelper.URL_GAMETITLES, authHeader);
 
-        response.then().contentType(ContentType.JSON).statusCode(equalTo(javax.ws.rs.core.Response.Status.CREATED.getStatusCode()));
-
+        //Load entity with new GET request
         String location = response.header("Location");
-
         response = RestAssured.get(location);
         String nativeSpelling = response.body().jsonPath().get("nativeSpelling");
         Assert.assertThat(nativeSpelling, equalTo(gameTitle.getNativeSpelling()));
-
         Assert.assertThat(location, containsString(response.body().jsonPath().get("id").toString()));
 
     }
@@ -134,29 +124,35 @@ public class RestEntityTest {
 
         playstationLatinEnglish.setScript(scriptLatin);
         playstationLatinEnglish.setText("Sony Playstation");
-        saveNewEntity(playstationLatinEnglish, RestTestHelper.URL_TRANSLITERATEDSTRING, authHeader);
+        response = saveNewEntity(playstationLatinEnglish, RestTestHelper.URL_TRANSLITERATEDSTRING, authHeader);
+        String loc = response.header("Location");
+        playstationLatinEnglish = StartHelper.getInstance(TransliteratedStringDao.class).findOne(loc.substring(loc.lastIndexOf("/") + 1));
 
-        /*
         TransliteratedString playstationJapanese = new TransliteratedString();
         Language langJapanese = StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE);
         playstationJapanese.setLanguage(langJapanese);
         Script scriptJapanese = StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE);
         playstationJapanese.setScript(scriptJapanese);
         playstationJapanese.setText("プレイステーション");
-        saveNewEntity(playstationJapanese, RestTestHelper.URL_TRANSLITERATEDSTRING, authHeader);
+        response = saveNewEntity(playstationJapanese, RestTestHelper.URL_TRANSLITERATEDSTRING, authHeader);
+        loc = response.header("Location");
+        playstationJapanese = StartHelper.getInstance(TransliteratedStringDao.class).findOne(loc.substring(loc.lastIndexOf("/") + 1));
 
         HardwarePlatform hp = new HardwarePlatform();
-        //hp.addTitle(playstationJapanese);
-        //hp.addTitle(playstationLatinEnglish);
-        //set Header for secured request:
+        hp.addTitle(playstationJapanese);
+        hp.addTitle(playstationLatinEnglish);
+
         response = saveNewEntity(hp, RestTestHelper.URL_HARDWAREPLATFORM, authHeader);
 
+        //Load entity with new GET request
         String location = response.header("Location");
-
         response = RestAssured.get(location);
-        String json = response.body().jsonPath().prettyPrint();
-        System.out.println(json);
-        */
+        Assert.assertThat(location, containsString(response.body().jsonPath().get("id").toString()));
+
+        //String text = response.body().jsonPath().get("title.text");
+        System.out.println(response.body().prettyPrint());
+
+
     }
 
     private Response saveNewEntity(BaseEntityUUID entity, String url, Header authHeader) {
@@ -168,6 +164,7 @@ public class RestEntityTest {
                 .header(jsonContentHeader)
                 .body(getJsonString(entity))
                 .post(url);
+        System.out.println(response.body().prettyPrint());
         response.then().contentType(ContentType.JSON).statusCode(equalTo(javax.ws.rs.core.Response.Status.CREATED.getStatusCode()));
         return response;
     }
