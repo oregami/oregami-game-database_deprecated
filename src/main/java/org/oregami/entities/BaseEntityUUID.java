@@ -32,7 +32,7 @@ import java.util.Date;
 
 
 @MappedSuperclass
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //see http://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "changeTime"}) //see http://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
 public abstract class BaseEntityUUID implements Serializable
 {
     /**
@@ -122,8 +122,7 @@ public abstract class BaseEntityUUID implements Serializable
         this.validationId = validationId;
     }
 
-    @JsonIgnoreProperties
-    private LocalDateTime changeTime = null;
+    private LocalDateTime changeTime = new LocalDateTime();
 
     public LocalDateTime getChangeTime() {
         return changeTime;
