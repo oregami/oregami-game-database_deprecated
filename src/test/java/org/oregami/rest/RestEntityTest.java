@@ -168,8 +168,6 @@ public class RestEntityTest {
                 .header(jsonContentHeader)
                 .body(getJsonString(entity))
                 .post(url);
-        System.out.println(response.body().prettyPrint());
-        System.out.println(response.prettyPrint());
         response.then().contentType(ContentType.JSON).statusCode(equalTo(javax.ws.rs.core.Response.Status.CREATED.getStatusCode()));
         return response;
     }
