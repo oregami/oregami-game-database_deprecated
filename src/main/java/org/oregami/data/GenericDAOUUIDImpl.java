@@ -35,9 +35,9 @@ public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
     @Transactional
     @SuppressWarnings("unchecked")
     public P save(E entity) {
+        entity.setChangeTime(new LocalDateTime());
         emf.get().persist(entity);
         updateRevisionListener(entity);
-        entity.setChangeTime(new LocalDateTime());
         return (P) entity.getId();
     }
 
