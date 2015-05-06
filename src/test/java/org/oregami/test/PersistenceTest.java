@@ -48,6 +48,11 @@ public class PersistenceTest {
 		entityManager.getTransaction().rollback();
 	}
 
+    @AfterClass
+    public static void finishClass() {
+        injector.getInstance(DatabaseFiller.class).dropAllData();
+    }
+
 	private <T> T getInstance(Class<T> c) {
 		return injector.getInstance(c);
 	}
@@ -487,7 +492,9 @@ public class PersistenceTest {
 
 		ScriptDao dao = injector.getInstance(ScriptDao.class);
 
-        Language langEnglish = StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH);
+        Language langEnglish = new Language(Language.ENGLISH);
+        injector.getInstance(LanguageDao.class).save(langEnglish);
+        //Language langEnglish = StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH);
 
 		Script s = new Script(Script.LATIN);
 		String id = dao.save(s);
