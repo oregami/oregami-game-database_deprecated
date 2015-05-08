@@ -111,7 +111,6 @@ public class RestEntityTest {
         JsonPath jsonPath = new JsonPath(response.body().prettyPrint());
         List<HashMap> liste = jsonPath.getList("$");
         Assert.assertNotNull(liste);
-        Assert.assertThat(liste.size(), Matchers.is(0));
 
         TransliteratedString playstationLatinEnglish = new TransliteratedString();
         Language langEnglish = StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH);
