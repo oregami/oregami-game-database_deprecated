@@ -9,6 +9,7 @@ import org.oregami.entities.*;
 import org.oregami.entities.KeyObjects.SystemKey;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.ReleaseType;
+import org.oregami.entities.datalist.Script;
 import org.oregami.entities.datalist.TitleType;
 import org.oregami.entities.user.User;
 import org.oregami.util.StartHelper;
@@ -263,11 +264,42 @@ public class DatabaseFiller {
 	public void initGameData() {
 		addLanguages();
 		addRegions();
+        addPlatforms();
 		addGames();
 		addPublications();
 	}
 
-//	@Transactional
+    private void addPlatforms() {
+        HardwarePlatformDao hpDao = getInjector().getInstance(HardwarePlatformDao.class);
+
+        TransliteratedStringDao transliteratedStringDao = getInjector().getInstance(TransliteratedStringDao.class);
+
+        TransliteratedString playstationLatinEnglish = new TransliteratedString();
+        Language langEnglish = getInjector().getInstance(LanguageDao.class).findByExactName(Language.ENGLISH);
+        playstationLatinEnglish.setLanguage(langEnglish);
+        Script scriptLatin = getInjector().getInstance(BaseListFinder.class).getScript(Script.LATIN);
+        playstationLatinEnglish.setScript(scriptLatin);
+        playstationLatinEnglish.setText("Sony Playstation");
+        transliteratedStringDao.save(playstationLatinEnglish);
+        String playstationLatinEnglishId = playstationLatinEnglish.getId();
+
+        TransliteratedString playstationJapanese = new TransliteratedString();
+        Language langJapanese = getInjector().getInstance(LanguageDao.class).findByExactName(Language.JAPANESE);
+        playstationJapanese.setLanguage(langJapanese);
+        Script scriptJapanese = getInjector().getInstance(BaseListFinder.class).getScript(Script.JAPANESE);
+        playstationJapanese.setScript(scriptJapanese);
+        playstationJapanese.setText("プレイステーション");
+        transliteratedStringDao.save(playstationJapanese);
+        String playstationJapaneseId = playstationJapanese.getId();
+
+        HardwarePlatform hpPlaystation = new HardwarePlatform();
+        hpPlaystation.addTitle(playstationJapanese);
+        hpPlaystation.addTitle(playstationLatinEnglish);
+        hpDao.save(hpPlaystation);
+
+    }
+
+    //	@Transactional
 	public void initData() {
 		initBaseLists();
 		initGameData();
