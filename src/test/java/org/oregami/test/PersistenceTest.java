@@ -557,7 +557,7 @@ public class PersistenceTest {
         Assert.assertThat(hardwarePlatformList, Matchers.notNullValue());
         Assert.assertThat(hardwarePlatformList.size(), Matchers.is(1));
 
-        System.out.println(hardwarePlatformList.get(0));
+        //System.out.println(hardwarePlatformList.get(0));
     }
 
 

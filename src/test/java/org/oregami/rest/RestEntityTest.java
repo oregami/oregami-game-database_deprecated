@@ -9,6 +9,7 @@ import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Response;
 import io.dropwizard.testing.junit.DropwizardAppRule;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hamcrest.Matchers;
 import org.junit.*;
 import org.oregami.data.*;
@@ -17,13 +18,13 @@ import org.oregami.dropwizard.OregamiApplication;
 import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.entities.*;
 import org.oregami.entities.datalist.Script;
+import org.oregami.entities.datalist.TitleType;
 import org.oregami.util.StartHelper;
 
 import java.util.HashMap;
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 
 public class RestEntityTest {
 
@@ -68,6 +69,7 @@ public class RestEntityTest {
         //Load entity with new GET request
         String location = response.header("Location");
         response = RestAssured.get(location);
+        System.out.println(response.prettyPrint());
         String nativeSpelling = response.body().jsonPath().get("nativeSpelling");
         Assert.assertThat(nativeSpelling, equalTo(gameTitle.getNativeSpelling()));
         Assert.assertThat(location, containsString(response.body().jsonPath().get("id").toString()));
@@ -112,40 +114,39 @@ public class RestEntityTest {
         List<HashMap> liste = jsonPath.getList("$");
         Assert.assertNotNull(liste);
 
-        TransliteratedString playstationLatinEnglish = new TransliteratedString();
-        Language langEnglish = StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH);
-        playstationLatinEnglish.setLanguage(langEnglish);
-        Script scriptLatin = StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN);
-
-        Response response1 = RestAssured.given().when().get(RestTestHelper.URL_SCRIPT + "/" + scriptLatin.getId());
-        System.out.println(response1.body().prettyPrint());
-        //Script s = RestAssured.given().when().get(RestTestHelper.URL_SCRIPT+ "/" + scriptLatin.getId()).as(Script.class);
-
-        playstationLatinEnglish.setScript(scriptLatin);
-        playstationLatinEnglish.setText("Sony Playstation");
-        response = saveNewEntity(playstationLatinEnglish, RestTestHelper.URL_TRANSLITERATEDSTRING, authHeader);
-        String loc = response.header("Location");
-        playstationLatinEnglish = StartHelper.getInstance(TransliteratedStringDao.class).findOne(loc.substring(loc.lastIndexOf("/") + 1));
-
-        TransliteratedString playstationJapanese = new TransliteratedString();
-        Language langJapanese = StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE);
-        playstationJapanese.setLanguage(langJapanese);
-        Script scriptJapanese = StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE);
-        playstationJapanese.setScript(scriptJapanese);
-        playstationJapanese.setText("プレイステーション");
-        response = saveNewEntity(playstationJapanese, RestTestHelper.URL_TRANSLITERATEDSTRING, authHeader);
-        loc = response.header("Location");
-        playstationJapanese = StartHelper.getInstance(TransliteratedStringDao.class).findOne(loc.substring(loc.lastIndexOf("/") + 1));
-
         HardwarePlatform hp = new HardwarePlatform();
-        hp.addTitle(playstationJapanese);
-        hp.addTitle(playstationLatinEnglish);
+
+        PlatformTitle pt1 = PlatformTitleFactory.createPlatformTitle(
+                StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
+                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+                StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+                "Sony Playstation"
+        );
+        //hp.addTitle(pt1);
+
+        PlatformTitle pt2 = PlatformTitleFactory.createPlatformTitle(
+                StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
+                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+                StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
+                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
+                "プレイステーション"
+        );
+        //hp.addTitle(pt2);
 
         response = saveNewEntity(hp, RestTestHelper.URL_HARDWAREPLATFORM, authHeader);
 
+        List<HardwarePlatform> hardwarePlatformList = StartHelper.getInstance(HardwarePlatformDao.class).findAll();
+        Assert.assertThat(hardwarePlatformList, notNullValue());
+        Assert.assertThat(hardwarePlatformList.size(), greaterThan(0));
+
         //Load entity with new GET request
         String location = response.header("Location");
+        System.out.println("location: " + location);
+
         response = RestAssured.get(location);
+        System.out.println(response.prettyPrint());
+        response.then().statusCode(equalTo(javax.ws.rs.core.Response.Status.OK.getStatusCode()));
         Assert.assertThat(location, containsString(response.body().jsonPath().get("id").toString()));
 
         //String text = response.body().jsonPath().get("title.text");
@@ -163,8 +164,9 @@ public class RestEntityTest {
                 .header(jsonContentHeader)
                 .body(getJsonString(entity))
                 .post(url);
+        System.out.println(response.prettyPrint());
         System.out.println(response.body().prettyPrint());
-        response.then().contentType(ContentType.JSON).statusCode(equalTo(javax.ws.rs.core.Response.Status.CREATED.getStatusCode()));
+        response.then().statusCode(equalTo(javax.ws.rs.core.Response.Status.CREATED.getStatusCode()));
         return response;
     }
 

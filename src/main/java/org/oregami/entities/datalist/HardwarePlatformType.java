@@ -1,8 +1,14 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 
 @Entity
+@Audited
+@NamedQueries({@NamedQuery(name="HardwarePlatformType.GetAll", query = "from HardwarePlatformType jpt")})
 public class HardwarePlatformType extends BaseList {
 
 	public HardwarePlatformType(String value) {
