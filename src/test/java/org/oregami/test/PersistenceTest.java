@@ -2,6 +2,7 @@ package org.oregami.test;
 
 import com.google.inject.Injector;
 import org.apache.log4j.Logger;
+import org.hamcrest.Matchers;
 import org.joda.time.LocalDate;
 import org.junit.*;
 import org.oregami.data.*;
@@ -521,6 +522,43 @@ public class PersistenceTest {
 
 	}
 
+
+    @Test
+    public void createAndSaveHardwarePlatform() {
+
+        getInstance(BaseListFiller.class).initBaseLists();
+        getInstance(DatabaseFiller.class).addLanguages();
+        getInstance(DatabaseFiller.class).addRegions();
+
+        HardwarePlatformDao dao = getInstance(HardwarePlatformDao.class);
+
+        HardwarePlatform hp = new HardwarePlatform();
+        PlatformTitle pt1 = PlatformTitleFactory.createPlatformTitle(
+                StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
+                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+                StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+                "Sony Playstation"
+        );
+        hp.addTitle(pt1);
+
+        PlatformTitle pt2 = PlatformTitleFactory.createPlatformTitle(
+                StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
+                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+                StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
+                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
+                "プレイステーション"
+        );
+        hp.addTitle(pt2);
+
+        dao.save(hp);
+
+        List<HardwarePlatform> hardwarePlatformList = dao.findAll();
+        Assert.assertThat(hardwarePlatformList, Matchers.notNullValue());
+        Assert.assertThat(hardwarePlatformList.size(), Matchers.is(1));
+
+        System.out.println(hardwarePlatformList.get(0));
+    }
 
 
 }

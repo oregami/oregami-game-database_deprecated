@@ -293,8 +293,8 @@ public class DatabaseFiller {
         String playstationJapaneseId = playstationJapanese.getId();
 
         HardwarePlatform hpPlaystation = new HardwarePlatform();
-        hpPlaystation.addTitle(playstationJapanese);
-        hpPlaystation.addTitle(playstationLatinEnglish);
+        //hpPlaystation.addTitle(playstationJapanese);
+        //hpPlaystation.addTitle(playstationLatinEnglish);
         hpDao.save(hpPlaystation);
 
     }
@@ -305,7 +305,7 @@ public class DatabaseFiller {
 		initGameData();
 	}
 
-	private void addRegions() {
+	public void addRegions() {
 		//countries:
 		RegionDao regionDao = getInjector().getInstance(RegionDao.class);
 		regionDao.save(new Region(Region.GERMANY, true, false, null));
