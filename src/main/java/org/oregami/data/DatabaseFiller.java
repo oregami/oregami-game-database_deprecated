@@ -272,29 +272,26 @@ public class DatabaseFiller {
     private void addPlatforms() {
         HardwarePlatformDao hpDao = getInjector().getInstance(HardwarePlatformDao.class);
 
-        TransliteratedStringDao transliteratedStringDao = getInjector().getInstance(TransliteratedStringDao.class);
-
-        TransliteratedString playstationLatinEnglish = new TransliteratedString();
-        Language langEnglish = getInjector().getInstance(LanguageDao.class).findByExactName(Language.ENGLISH);
-        playstationLatinEnglish.setLanguage(langEnglish);
-        Script scriptLatin = getInjector().getInstance(BaseListFinder.class).getScript(Script.LATIN);
-        playstationLatinEnglish.setScript(scriptLatin);
-        playstationLatinEnglish.setText("Sony Playstation");
-        transliteratedStringDao.save(playstationLatinEnglish);
-        String playstationLatinEnglishId = playstationLatinEnglish.getId();
-
-        TransliteratedString playstationJapanese = new TransliteratedString();
-        Language langJapanese = getInjector().getInstance(LanguageDao.class).findByExactName(Language.JAPANESE);
-        playstationJapanese.setLanguage(langJapanese);
-        Script scriptJapanese = getInjector().getInstance(BaseListFinder.class).getScript(Script.JAPANESE);
-        playstationJapanese.setScript(scriptJapanese);
-        playstationJapanese.setText("プレイステーション");
-        transliteratedStringDao.save(playstationJapanese);
-        String playstationJapaneseId = playstationJapanese.getId();
-
         HardwarePlatform hpPlaystation = new HardwarePlatform();
-        //hpPlaystation.addTitle(playstationJapanese);
-        //hpPlaystation.addTitle(playstationLatinEnglish);
+
+        PlatformTitle pt1 = PlatformTitleFactory.createPlatformTitle(
+                StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
+                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+                StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+                "Sony Playstation"
+        );
+        hpPlaystation.addTitle(pt1);
+
+        PlatformTitle pt2 = PlatformTitleFactory.createPlatformTitle(
+                StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
+                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+                StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
+                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
+                "プレイステーション"
+        );
+        hpPlaystation.addTitle(pt2);
+
         hpDao.save(hpPlaystation);
 
     }
