@@ -11,6 +11,7 @@ import org.oregami.service.TopLevelEntityService;
 
 import javax.persistence.OptimisticLockException;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,7 +21,7 @@ import java.util.NoSuchElementException;
  */
 public abstract class ResourceHelper {
 
-    public static Response create(User user, BaseEntityUUID entity, TopLevelEntityService service) {
+    public static Response create(User user, BaseEntityUUID entity, TopLevelEntityService service, Class resourceClass) {
         try {
             ServiceCallContext context = new ServiceCallContext(user);
             ServiceResult<BaseEntityUUID> serviceResult = service.createNewEntity(entity, context);
@@ -29,7 +30,16 @@ public abstract class ResourceHelper {
                         .type("text/json")
                         .entity(serviceResult.getErrors()).build();
             }
-            return Response.created(new URI(serviceResult.getResult().getId())).build();
+            //BUG: https://java.net/jira/browse/JERSEY-2838
+            //    and https://github.com/dropwizard/dropwizard/issues/878
+            //return Response.created(new URI(serviceResult.getResult().getId())).build();
+            //workaround:
+
+            final URI uri = UriBuilder.fromResource(resourceClass)
+                    .path("{id}")
+                    .build(serviceResult.getResult().getId());
+            return Response.created(uri).build();
+
         } catch (Exception e) {
             return Response.status(Response.Status.CONFLICT).type("text/plain")
                     .entity(e.getMessage()).build();

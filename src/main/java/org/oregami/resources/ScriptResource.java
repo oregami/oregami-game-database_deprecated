@@ -53,7 +53,7 @@ public class ScriptResource {
 
     @POST
     public Response create(@Auth User user, Script entity) {
-        return ResourceHelper.create(user, entity, service);
+        return ResourceHelper.create(user, entity, service, this.getClass());
     }
 
     @PUT

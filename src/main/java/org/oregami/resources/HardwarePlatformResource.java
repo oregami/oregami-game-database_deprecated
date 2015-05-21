@@ -53,7 +53,7 @@ public class HardwarePlatformResource {
 
     @POST
     public Response create(@Auth User user, HardwarePlatform entity) {
-        return ResourceHelper.create(user, entity, service);
+        return ResourceHelper.create(user, entity, service, this.getClass());
     }
 
     @PUT

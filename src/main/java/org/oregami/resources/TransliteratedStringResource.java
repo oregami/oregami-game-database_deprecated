@@ -53,7 +53,7 @@ public class TransliteratedStringResource {
 
     @POST
     public Response create(@Auth User user, TransliteratedString entity) {
-        return ResourceHelper.create(user, entity, service);
+        return ResourceHelper.create(user, entity, service, this.getClass());
     }
 
     @PUT

@@ -53,7 +53,7 @@ public class GameTitleResource {
 
     @POST
     public Response create(@Auth User user, GameTitle entity) {
-        return ResourceHelper.create(user, entity, service);
+        return ResourceHelper.create(user, entity, service, this.getClass());
     }
 
     @PUT
