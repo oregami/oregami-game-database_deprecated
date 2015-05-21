@@ -1,6 +1,6 @@
 package org.oregami.util.validation;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.oregami.entities.Publication;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.entities.PublicationIssue;

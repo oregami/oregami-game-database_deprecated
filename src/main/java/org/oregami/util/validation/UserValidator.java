@@ -1,6 +1,6 @@
 package org.oregami.util.validation;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.oregami.data.UserDao;
 import org.oregami.entities.user.User;
 import org.oregami.service.FieldNames;
@@ -48,7 +48,7 @@ public class UserValidator {
         if (StringUtils.length(userData.getUsername())<3) {
         	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_USERNAME), ServiceErrorMessage.USER_USERNAME_TOO_SHORT));
         }
-        if (org.apache.commons.lang.StringUtils.isEmpty(userData.getUsername())) {
+        if (org.apache.commons.lang3.StringUtils.isEmpty(userData.getUsername())) {
             errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_USERNAME), ServiceErrorMessage.USER_USERNAME_EMPTY));
         }
 
@@ -57,7 +57,7 @@ public class UserValidator {
         }
 
         if (StringUtils.isEmpty(userData.getPassword())) {
-        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_PASSWORD), ServiceErrorMessage.USER_PASSWORD_EMPTY));        	
+        	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_PASSWORD), ServiceErrorMessage.USER_PASSWORD_EMPTY));
         } else if (StringUtils.length(userData.getPassword())<6) {
         	errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.USER_PASSWORD), ServiceErrorMessage.USER_PASSWORD_TOO_SHORT));
         }

@@ -1,7 +1,6 @@
 package org.oregami.util.validation;
 
-import org.apache.commons.lang.StringUtils;
-import org.oregami.entities.GameTitle;
+import org.apache.commons.lang3.StringUtils;
 import org.oregami.entities.TransliteratedString;
 import org.oregami.service.FieldNames;
 import org.oregami.service.ServiceError;

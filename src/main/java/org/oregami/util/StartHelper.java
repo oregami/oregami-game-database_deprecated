@@ -6,8 +6,8 @@ import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import io.dropwizard.configuration.ConfigurationFactory;
 import io.dropwizard.jackson.Jackson;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.dropwizard.OregamiGuiceModule;
 

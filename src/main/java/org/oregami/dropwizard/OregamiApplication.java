@@ -1,7 +1,7 @@
 package org.oregami.dropwizard;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.github.toastshaman.dropwizard.auth.jwt.JWTAuthProvider;
+import com.github.toastshaman.dropwizard.auth.jwt.JWTAuthFactory;
 import com.github.toastshaman.dropwizard.auth.jwt.JsonWebTokenParser;
 import com.github.toastshaman.dropwizard.auth.jwt.JsonWebTokenValidator;
 import com.github.toastshaman.dropwizard.auth.jwt.exceptions.TokenExpiredException;
@@ -14,11 +14,13 @@ import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthFactory;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.hk2.utilities.Binder;
 import org.joda.time.Duration;
 import org.oregami.data.DatabaseFiller;
 import org.oregami.entities.user.User;
@@ -118,34 +120,46 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
 
         environment.jersey().register(createAuthProvider());
 
+
         environment.jersey().register(guiceBundle.getInjector().getInstance(SecuredResource.class));
 
     }
 
-    private JWTAuthProvider<User> createAuthProvider() {
+    private static class ExampleAuthenticator implements Authenticator<JsonWebToken, User> {
+        @Override
+        public Optional<User> authenticate(JsonWebToken token) throws AuthenticationException {
+
+            final JsonWebTokenValidator expiryValidator = new ExpiryValidator(Duration.standardSeconds(1));
+            //final JsonWebTokenValidator expiryValidator = new ExpiryValidator();
+
+            // Provide your own implementation to lookup users based on the principal attribute in the
+            // JWT Token. E.g.: lookup users from a database etc.
+            // This method will be called once the token's signature has been verified
+
+            // In case you want to verify different parts of the token you can do that here.
+            // E.g.: Verifying that the provided token has not expired.
+            try {
+                expiryValidator.validate(token);
+            } catch (TokenExpiredException e) {
+                throw new AuthenticationException(e.getMessage(), e);
+            }
+
+            final AuthHelper authHelper = StartHelper.getInstance(AuthHelper.class);
+
+            //check if username is present:
+            Object tokenUsername = token.claim().getParameter("username");
+            if (tokenUsername != null) {
+                return Optional.of(authHelper.getUserByUsername(tokenUsername.toString()));
+            }
+
+            return Optional.absent();
+        }
+    }
+
+    private Binder createAuthProvider() {
         JsonWebTokenParser tokenParser = new DefaultJsonWebTokenParser();
         final HmacSHA512Verifier tokenVerifier = new HmacSHA512Verifier(AuthHelper.authKey);
-        final JsonWebTokenValidator expiryValidator = new ExpiryValidator(Duration.standardSeconds(1));
-
-        final AuthHelper authHelper = guiceBundle.getInjector().getInstance(AuthHelper.class);
-
-        JWTAuthProvider<User> authProvider = new JWTAuthProvider<>(new Authenticator<JsonWebToken, User>() {
-            @Override
-            public Optional<User> authenticate(JsonWebToken token) throws AuthenticationException {
-                //check if token has expired:
-                try {
-                    expiryValidator.validate(token);
-                } catch (TokenExpiredException e) {
-                    throw new AuthenticationException(e.getMessage(), e);
-                }
-                //check if username is present:
-                Object tokenUsername = token.claim().getParameter("username");
-                if (tokenUsername != null) {
-                    return Optional.of(authHelper.getUserByUsername(tokenUsername.toString()));
-                }
-                return Optional.absent();
-            }
-        }, tokenParser, tokenVerifier, "realm");
+        Binder authProvider = AuthFactory.binder(new JWTAuthFactory<>(new ExampleAuthenticator(), "realm", User.class, tokenVerifier, tokenParser));
         return authProvider;
     }
 
