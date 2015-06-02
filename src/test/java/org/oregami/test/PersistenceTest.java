@@ -468,27 +468,6 @@ public class PersistenceTest {
 
 
 	@Test
-	public void testGamingEnvironment() {
-		GamingEnvironmentDao geDao = injector.getInstance(GamingEnvironmentDao.class);
-
-		GamingEnvironment g = new GamingEnvironment("SONY_PLAYSTATION");
-
-		String id1 = geDao.save(g);
-
-		List<GamingEnvironment> findAll = geDao.findAll();
-		Assert.assertNotNull(findAll);
-		Assert.assertEquals(findAll.size(), 1);
-
-		Assert.assertNotNull(id1);
-
-		GamingEnvironment gLoaded = geDao.findOne(id1);
-		Assert.assertNotNull(gLoaded);
-		Assert.assertEquals(gLoaded.getTitle(), g.getTitle());
-
-	}
-
-
-	@Test
 	public void testScript() {
 
 		ScriptDao dao = injector.getInstance(ScriptDao.class);

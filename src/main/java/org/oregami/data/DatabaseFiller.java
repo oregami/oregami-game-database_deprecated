@@ -142,6 +142,7 @@ public class DatabaseFiller {
 		gameMonkeyIsland.getGameToGameTitleConnectionList().add(gameToGameTitleConnection3);
 
 
+		/*
 		//#### Atari ST #######
 		ReleaseGroup rgAtari = new ReleaseGroup("Atari", SystemKey.AtariST, baseListFinder.getReleaseType(ReleaseType.PORT));
 		gameMonkeyIsland.addReleaseGroup(rgAtari);
@@ -179,6 +180,7 @@ public class DatabaseFiller {
 
 
 		gameDao.save(gameMonkeyIsland);
+		*/
 
 	}
 
@@ -264,7 +266,8 @@ public class DatabaseFiller {
 	public void initGameData() {
 		addLanguages();
 		addRegions();
-        addPlatforms();
+		addGamingEnvironments();
+        //addPlatforms();
 		addGames();
 		addPublications();
 	}
@@ -295,6 +298,59 @@ public class DatabaseFiller {
         hpDao.save(hpPlaystation);
 
     }
+
+
+	private void addGamingEnvironments() {
+		GamingEnvironmentDao dao = getInjector().getInstance(GamingEnvironmentDao.class);
+
+		//====== SONY PLAYSTATION =================
+		GamingEnvironment gamingEnvironmentPlaystation = new GamingEnvironment();
+		PlatformTitle pt1 = PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+				"Sony Playstation"
+		);
+		gamingEnvironmentPlaystation.addTitle(pt1);
+		PlatformTitle pt2 = PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
+				"プレイステーション"
+		);
+		gamingEnvironmentPlaystation.addTitle(pt2);
+		dao.save(gamingEnvironmentPlaystation);
+
+		//====== NES =================
+		GamingEnvironment nes = new GamingEnvironment();
+		nes.addTitle(PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+				"Famicom"
+		));
+		nes.addTitle(PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+				"Nintendo Entertainment System"
+		));
+		nes.addTitle(PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
+				"ファミリーコンピュータ"
+		));
+		dao.save(nes);
+
+
+
+	}
 
     //	@Transactional
 	public void initData() {

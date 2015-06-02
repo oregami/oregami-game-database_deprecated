@@ -48,8 +48,9 @@ public class ReleaseGroup extends BaseEntityUUID {
 	private boolean censored = false;
 	
 	private boolean released = true;
-	
-	private SystemKey system;
+
+	@ManyToOne
+	private GamingEnvironment gamingEnvironment;
 	
 	@ManyToOne
 	private UnreleaseState unreleaseState;
@@ -65,10 +66,10 @@ public class ReleaseGroup extends BaseEntityUUID {
 	public ReleaseGroup() {
 	}
 	
-	public ReleaseGroup(String name, SystemKey system, ReleaseType releaseType) {
+	public ReleaseGroup(String name, GamingEnvironment gamingEnvironment, ReleaseType releaseType) {
 		this.name = name;
 		this.setReleaseType(releaseType);
-		this.setSystem(system);
+		this.gamingEnvironment = gamingEnvironment;
 	}
 
 	public void setGame(Game game) {
@@ -86,14 +87,6 @@ public class ReleaseGroup extends BaseEntityUUID {
 
 	public Set<Release> getReleaseList() {
 		return releaseList;
-	}
-
-	public SystemKey getSystem() {
-		return system;
-	}
-
-	public void setSystem(SystemKey system) {
-		this.system = system;
 	}
 
 	public boolean isCensored() {
