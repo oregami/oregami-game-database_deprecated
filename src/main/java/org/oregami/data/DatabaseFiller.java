@@ -6,11 +6,7 @@ import com.google.inject.persist.Transactional;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.oregami.entities.*;
-import org.oregami.entities.KeyObjects.SystemKey;
-import org.oregami.entities.datalist.GameEntryType;
-import org.oregami.entities.datalist.ReleaseType;
-import org.oregami.entities.datalist.Script;
-import org.oregami.entities.datalist.TitleType;
+import org.oregami.entities.datalist.*;
 import org.oregami.entities.user.User;
 import org.oregami.util.StartHelper;
 
@@ -177,10 +173,10 @@ public class DatabaseFiller {
 
 		ReleaseGroup rgMacSE = new ReleaseGroup("Mac SE", SystemKey.AppleMacintosh, baseListFinder.getReleaseType(ReleaseType.PORT));
 		gameMonkeyIsland.addReleaseGroup(rgMacSE);
-
+		*/
 
 		gameDao.save(gameMonkeyIsland);
-		*/
+
 
 	}
 
@@ -202,10 +198,13 @@ public class DatabaseFiller {
 		gameToGameTitleConnection1.setGameTitle(gameTitleDao.findByExactName("Resident Evil: Director's Cut").get(0));
 		gameResidentEvil.getGameToGameTitleConnectionList().add(gameToGameTitleConnection1);
 
-//		ReleaseGroup releaseGroupPlaystation = new ReleaseGroup("Playstation", SystemKey.Playstation, ReleaseGroupReason.ORIGINAL);
+//		ReleaseGroup releaseGroupPlaystation = new ReleaseGroup("Playstation", getGamingEnvironmentPlaystation1(), ReleaseGroupReason.ORIGINAL);
 //		gameResidentEvil.addReleaseGroup(releaseGroupPlaystation);
 //		ReleaseGroup releaseGroupWindows = new ReleaseGroup("Windows", SystemKey.Windows, ReleaseGroupReason.ORIGINAL);
 //		gameResidentEvil.addReleaseGroup(releaseGroupWindows);
+
+		ReleaseGroup rgPsOne = new ReleaseGroup("PS 1 Release", getGamingEnvironmentPlaystation1(), baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
+		gameResidentEvil.addReleaseGroup(rgPsOne);
 
 		gameDao.save(gameResidentEvil);
 	}
@@ -272,34 +271,6 @@ public class DatabaseFiller {
 		addPublications();
 	}
 
-    private void addPlatforms() {
-        HardwarePlatformDao hpDao = getInjector().getInstance(HardwarePlatformDao.class);
-
-        HardwarePlatform hpPlaystation = new HardwarePlatform();
-
-        PlatformTitle pt1 = PlatformTitleFactory.createPlatformTitle(
-                StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
-                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-                StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
-                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
-                "Sony Playstation"
-        );
-        hpPlaystation.addTitle(pt1);
-
-        PlatformTitle pt2 = PlatformTitleFactory.createPlatformTitle(
-                StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
-                StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-                StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
-                StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
-                "プレイステーション"
-        );
-        hpPlaystation.addTitle(pt2);
-
-        hpDao.save(hpPlaystation);
-
-    }
-
-
 	private void addGamingEnvironments() {
 		GamingEnvironmentDao dao = getInjector().getInstance(GamingEnvironmentDao.class);
 
@@ -348,6 +319,39 @@ public class DatabaseFiller {
 		));
 		dao.save(nes);
 
+
+		//====== Amiga =================
+		GamingEnvironment amiga = new GamingEnvironment();
+		amiga.addTitle(PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+				"Commodore Amiga"
+		));
+		dao.save(amiga);
+
+		//====== C64 =================
+		GamingEnvironment c64 = new GamingEnvironment();
+		c64.addTitle(PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+				"Commodore 64"
+		));
+		dao.save(c64);
+
+		//====== MS-DOS =================
+		GamingEnvironment msdos = new GamingEnvironment();
+		msdos.addTitle(PlatformTitleFactory.createPlatformTitle(
+				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
+				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
+				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+				null,
+				"MS-DOS"
+		));
+		dao.save(msdos);
 
 
 	}
@@ -452,4 +456,13 @@ public class DatabaseFiller {
     public Injector getInjector() {
         return StartHelper.getInjector();
     }
+
+
+	private GamingEnvironment getGamingEnvironmentPlaystation1() {
+		return getInjector().getInstance(GamingEnvironmentDao.class).findOneByExactTitle("Sony Playstation");
+	}
+
+	private GamingEnvironment getGamingEnvironmentPlaystation2() {
+		return getInjector().getInstance(GamingEnvironmentDao.class).findOneByExactTitle("Playstation 2");
+	}
 }

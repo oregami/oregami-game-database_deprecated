@@ -17,7 +17,6 @@
 package org.oregami.entities;
 
 import org.hibernate.envers.Audited;
-import org.oregami.entities.KeyObjects.SystemKey;
 import org.oregami.entities.datalist.DemoContentType;
 import org.oregami.entities.datalist.ReleaseGroupReason;
 import org.oregami.entities.datalist.ReleaseType;
@@ -35,7 +34,7 @@ public class ReleaseGroup extends BaseEntityUUID {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	
+
 	@ManyToOne
 	private ReleaseGroupReason releaseGroupReason;
 	
@@ -51,7 +50,7 @@ public class ReleaseGroup extends BaseEntityUUID {
 
 	@ManyToOne
 	private GamingEnvironment gamingEnvironment;
-	
+
 	@ManyToOne
 	private UnreleaseState unreleaseState;
 	
@@ -137,4 +136,11 @@ public class ReleaseGroup extends BaseEntityUUID {
 		demoContentTypeList.add(demoContentType);
 	}
 
+	public void setGamingEnvironment(GamingEnvironment gamingEnvironment) {
+		this.gamingEnvironment = gamingEnvironment;
+	}
+
+	public GamingEnvironment getGamingEnvironment() {
+		return gamingEnvironment;
+	}
 }

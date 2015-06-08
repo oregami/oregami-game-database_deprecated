@@ -20,38 +20,6 @@ package org.oregami.entities;
 public class KeyObjects {
 
 
-	public enum SystemKey {
-		Amiga, AtariST, C64, MSDOS, AppleMacintosh, Windows,
-
-		NintendoWii,
-		NintendoGamecube,
-		SuperNintendo,
-
-		Sega32X,
-		Panasonic3DO,
-		CD32,
-		Dreamcast,
-		Gameboy,
-		GameGear,
-		Jaguar,
-		Lynx,
-		MasterSystem,
-		MegaCD,
-		MegaDrive,
-		NES,
-		NeoGeo,
-		NeoGeoCD,
-		Nintendo64,
-		PCEngine,
-		Playstation,
-		Playstation2,
-		Saturn,
-
-		FMTowns
-
-	}
-
-
     public enum RoleKey {Admin, User}
 
     public enum UserStatusKey {
