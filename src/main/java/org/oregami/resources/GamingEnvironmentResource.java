@@ -1,11 +1,12 @@
 package org.oregami.resources;
 
 import com.google.inject.Inject;
-import org.apache.log4j.Logger;
+import io.dropwizard.auth.Auth;
 import org.oregami.data.GamingEnvironmentDao;
 import org.oregami.entities.GamingEnvironment;
+import org.oregami.entities.user.User;
+import org.oregami.service.GamingEnvironmentService;
 
-import javax.persistence.OptimisticLockException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,47 +19,23 @@ import java.util.List;
 public class GamingEnvironmentResource {
 
 	@Inject
-	public GamingEnvironmentDao dao;
-	
+	private GamingEnvironmentDao dao = null;
+
+	public GamingEnvironmentResource() {
+	}
+
+	@Inject
+	GamingEnvironmentService service = null;
+
 	@GET
 	public List<GamingEnvironment> list() {
-		List<GamingEnvironment> ret = null;
-		ret = dao.findAll();
-		return ret;
+		return dao.findAll();
 	}
-	
-	@POST
-	public Response addGamingEnvironment(GamingEnvironment newGamingEnvironment) {
-		dao.save(newGamingEnvironment);
-		return Response.status(Response.Status.CREATED).entity(newGamingEnvironment).build();
-	}
-	
-	
-	@PUT
-	@Path("{id}")
-	public Response updateGame(@PathParam("id") long id, GamingEnvironment updatedGamingEnvironment) {
-		if (updatedGamingEnvironment.getId()==null) {
-			return Response.status(Response.Status.BAD_REQUEST).build();
-		}
-		try {
-			dao.update(updatedGamingEnvironment);
-		} catch (OptimisticLockException e) {
-			Logger.getLogger(this.getClass()).warn("OptimisticLockException", e);
-			return Response.status(Response.Status.BAD_REQUEST).tag("OptimisticLockException").build();
-		}
-		return Response.status(Response.Status.ACCEPTED).entity(updatedGamingEnvironment).build();
-	}	
 
-
-    @GET
-    @Path("/{id}")
-	public Response getGamingEnvironment(@PathParam("id") String id) {
-    	GamingEnvironment gameTite = dao.findOne(id);
-    	if (gameTite!=null) {
-    		return Response.ok(gameTite).build();
-    	} else {
-    		return Response.status(Response.Status.NOT_FOUND).build();
-    	}
+	@GET
+	@Path("/{id}")
+	public Response get(@PathParam("id") String id) {
+		return ResourceHelper.get(id, dao);
 	}
 
 	@GET
@@ -72,5 +49,22 @@ public class GamingEnvironmentResource {
 	public Response getRevision(@PathParam("id") String id, @PathParam("revision") String revision) {
 		return ResourceHelper.getRevision(id, revision, dao);
 	}
-	
+
+	@POST
+	public Response create(@Auth User user, GamingEnvironment entity) {
+		return ResourceHelper.create(user, entity, service, this.getClass());
+	}
+
+	@PUT
+	@Path("{id}")
+	public Response update(@Auth User user, @PathParam("id") String id, GamingEnvironment entity) {
+		return ResourceHelper.update(user, id, entity, service);
+	}
+
+	@DELETE
+	@Path("{id}")
+	public Response delete(@Auth User user, @PathParam("id") String id) {
+		return ResourceHelper.delete(user, id, service);
+	}
+
 }

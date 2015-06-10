@@ -26,6 +26,15 @@ public class BaseListFiller {
 	@Inject
 	private ScriptDao scriptDao;
 
+	@Inject
+	private HardwarePlatformTypeDao hardwarePlatformTypeDao;
+
+	@Inject
+	private SoftwarePlatformTypeDao softwarePlatformTypeDao;
+
+	@Inject
+	private ReleaseGroupReasonDao releaseGroupReasonDao;
+
 
     @Transactional
 	public void initBaseLists() {
@@ -36,9 +45,30 @@ public class BaseListFiller {
                 initReleaseType();
                 initTitleType();
                 initScript();
+				initHardwarePlatformType();
+				initSoftwarePlatformType();
+				initReleaseGroupReason();
                 initialized = true;
             }
 		}
+	}
+
+	private void initSoftwarePlatformType() {
+		softwarePlatformTypeDao.save(new SoftwarePlatformType(SoftwarePlatformType.BUILT_IN));
+		softwarePlatformTypeDao.save(new SoftwarePlatformType(SoftwarePlatformType.DESKTOP));
+		softwarePlatformTypeDao.save(new SoftwarePlatformType(SoftwarePlatformType.MOBILE));
+		softwarePlatformTypeDao.save(new SoftwarePlatformType(SoftwarePlatformType.SPECIAL_SOFTWARE));
+	}
+
+	private void initHardwarePlatformType() {
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.CONSOLES_EUROPE_NORTHAMERICA));
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.CONSOLES_NON_EUROPE_NORTHAMERICA));
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.HANDHELDS_EUROPE_NORTHAMERICA));
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.HANDHELDS_NON_EUROPE_NORTHAMERICA));
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.HOME_COMPUTERS_ASIA));
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.HOME_COMPUTERS_EUROPE_NORTHAMERICA));
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.MOBILE));
+		hardwarePlatformTypeDao.save(new HardwarePlatformType(HardwarePlatformType.NO_HARDWARE));
 	}
 
 
@@ -86,6 +116,14 @@ public class BaseListFiller {
 		scriptDao.save(new Script(Script.HEBREW));
 		scriptDao.save(new Script(Script.JAPANESE));
 		scriptDao.save(new Script(Script.KOREAN));
+	}
+
+	private void initReleaseGroupReason() {
+		releaseGroupReasonDao.save(new ReleaseGroupReason(ReleaseGroupReason.ORIGINAL));
+		releaseGroupReasonDao.save(new ReleaseGroupReason(ReleaseGroupReason.CENSORED));
+		releaseGroupReasonDao.save(new ReleaseGroupReason(ReleaseGroupReason.DEMO_PROMO));
+		releaseGroupReasonDao.save(new ReleaseGroupReason(ReleaseGroupReason.ENHANCED));
+		releaseGroupReasonDao.save(new ReleaseGroupReason(ReleaseGroupReason.REMAKE));
 	}
 
 

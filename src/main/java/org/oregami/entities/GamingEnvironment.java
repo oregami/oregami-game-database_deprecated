@@ -6,10 +6,7 @@ import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 import org.joda.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +23,9 @@ public class GamingEnvironment extends BaseEntityUUID {
 
 	public GamingEnvironment() {
 	}
+
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
+	private HardwarePlatform hardwarePlatform;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
 	private Set<PlatformTitle> title = new HashSet<>();
@@ -47,5 +47,11 @@ public class GamingEnvironment extends BaseEntityUUID {
 		return getChangeTime();
 	}
 
+	public HardwarePlatform getHardwarePlatform() {
+		return hardwarePlatform;
+	}
 
+	public void setHardwarePlatform(HardwarePlatform hardwarePlatform) {
+		this.hardwarePlatform = hardwarePlatform;
+	}
 }

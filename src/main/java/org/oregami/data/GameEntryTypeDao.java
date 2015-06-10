@@ -13,6 +13,6 @@ public class GameEntryTypeDao extends BaseListDao<GameEntryType>{
 		super(emf);
 		entityClass=GameEntryType.class;
 	}
-	
+
 
 }

@@ -2,32 +2,45 @@ package org.oregami.entities;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
+import org.oregami.entities.datalist.SoftwarePlatformType;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.SOFTWAREPLATFORM)
-@NamedQueries({
-	@NamedQuery(name="SoftwarePlatform.GetAll", query =
-			"from SoftwarePlatform s")
-})
+@Audited
 public class SoftwarePlatform extends BaseEntityUUID {
-
-	private String title;
 
 	public SoftwarePlatform() {
 	}
 
-	public SoftwarePlatform(String title) {
-		this.setTitle(title);
-	}
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+	private Set<PlatformTitle> title = new HashSet<>();
 
-	public String getTitle() {
+	@ManyToOne
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+	public SoftwarePlatformType platformType;
+
+	public Set<PlatformTitle> getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(Set<PlatformTitle> title) {
 		this.title = title;
 	}
 
+	public void addTitle(PlatformTitle t) {
+		this.title.add(t);
+	}
+
+	public SoftwarePlatformType getPlatformType() {
+		return platformType;
+	}
+
+	public void setPlatformType(SoftwarePlatformType platformType) {
+		this.platformType = platformType;
+	}
 }

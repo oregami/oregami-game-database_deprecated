@@ -16,6 +16,7 @@
  ******************************************************************************/
 package org.oregami.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -132,5 +133,9 @@ public abstract class BaseEntityUUID implements Serializable
         this.changeTime = changeTime;
     }
 
+    @JsonIgnore
+    public void setChangeTimeGui(String changeTime) {
+        //nothing, we just need this setter to prevent serialization of the field!
+    }
 
 }

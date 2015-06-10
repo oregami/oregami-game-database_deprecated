@@ -16,10 +16,13 @@
  ******************************************************************************/
 package org.oregami.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.joda.time.LocalDateTime;
 import org.oregami.entities.datalist.GameEntryType;
 import org.oregami.entities.datalist.TitleType;
@@ -36,11 +39,13 @@ import java.util.Set;
 	@NamedQuery(name="Game.GetAll", query =
 			"from Game g")
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Game extends BaseEntityUUID {
 
 	private static final long serialVersionUID = -2362683596950421365L;
 
 	@ManyToOne
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private GameEntryType gameEntryType;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)

@@ -329,6 +329,17 @@ public class DatabaseFiller {
 				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
 				"Commodore Amiga"
 		));
+		HardwarePlatform hpAmiga = new HardwarePlatform();
+		hpAmiga.addTitle(PlatformTitleFactory.createLatinPlatformTitle(
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+				"Amiga M68K Machine & Compatibles"
+		));
+		hpAmiga.addTitle(PlatformTitleFactory.createLatinPlatformTitle(
+				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.GERMAN),
+				"Amiga M68K und Kompatible"
+		));
+
+		amiga.setHardwarePlatform(hpAmiga);
 		dao.save(amiga);
 
 		//====== C64 =================

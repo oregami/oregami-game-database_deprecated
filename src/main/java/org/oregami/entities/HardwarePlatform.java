@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Entity
 @Audited
-@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.HARDWAREPLATFORM)
 @NamedQueries({
 	@NamedQuery(name="HardwarePlatform.GetAll", query =
 			"from HardwarePlatform h")

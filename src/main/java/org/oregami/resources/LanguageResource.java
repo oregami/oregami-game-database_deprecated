@@ -17,22 +17,17 @@ public class LanguageResource {
 
 	@Inject
 	private LanguageDao languageDao;
-	
+
 	public LanguageResource() {
 	}
-	
-	  
+
 	@GET
 	public List<Language> list() {
 		List<Language> ret = null;
 		ret = languageDao.findAll();
-//		if (ret.size()==0) {
-//			DatabaseFiller.getInstance().initData();
-//			ret = languageDao.findAll();
-//		}
 		return ret;
 	}
-	
+
     @GET
     @Path("/{name}")
 	public Response getLanguage(@PathParam("name") String name) {
@@ -43,5 +38,5 @@ public class LanguageResource {
     		return Response.status(Response.Status.NOT_FOUND).build();
     	}
 	}
-	
+
 }
