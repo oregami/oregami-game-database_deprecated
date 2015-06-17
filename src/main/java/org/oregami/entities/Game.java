@@ -16,7 +16,6 @@
  ******************************************************************************/
 package org.oregami.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
@@ -25,7 +24,6 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.joda.time.LocalDateTime;
 import org.oregami.entities.datalist.GameEntryType;
-import org.oregami.entities.datalist.TitleType;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -50,11 +48,11 @@ public class Game extends BaseEntityUUID {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	@JoinColumn
-	private final Set<ReleaseGroup> releaseGroupList = new HashSet<ReleaseGroup>();
+	private Set<ReleaseGroup> releaseGroupList = new HashSet<ReleaseGroup>();
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	@JoinColumn
-	private final Set<GameToGameTitleConnection> gameToGameTitleConnectionList = new HashSet<GameToGameTitleConnection>();
+	private Set<GameTitle> gameTitleList = new HashSet<>();
 
 	public void addReleaseGroup(ReleaseGroup vog) {
 		this.releaseGroupList.add(vog);
@@ -73,20 +71,20 @@ public class Game extends BaseEntityUUID {
 		this.gameEntryType = gameEntryType;
 	}
 
-	public Set<GameToGameTitleConnection> getGameToGameTitleConnectionList() {
-		return gameToGameTitleConnectionList;
-	}
-
-	public void connectGameTitle(GameTitle gt, TitleType titleType) {
-		GameToGameTitleConnection conn = new GameToGameTitleConnection();
-		conn.setTitleType(titleType);
-		gameToGameTitleConnectionList.add(conn);
-
-	}
-
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     public LocalDateTime getChangeTimeGui() {
         return getChangeTime();
     }
 
+	public Set<GameTitle> getGameTitleList() {
+		return gameTitleList;
+	}
+
+	public void setGameTitleList(Set<GameTitle> gameTitleList) {
+		this.gameTitleList = gameTitleList;
+	}
+
+	public void addGameTitle(GameTitle g) {
+		this.gameTitleList.add(g);
+	}
 }

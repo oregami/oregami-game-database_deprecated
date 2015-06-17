@@ -1,71 +1,47 @@
 package org.oregami.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
-import org.joda.time.LocalDateTime;
+import org.oregami.entities.datalist.TitleType;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+/**
+ * Created by sebastian on 20.05.15.
+ */
 @Entity
 @Audited
-@TopLevelEntity(discriminator = TopLevelEntity.Discriminator.GAMETITLE)
-@NamedQueries({
-	@NamedQuery(name="GameTitle.GetAll", query =
-			"from GameTitle t")
-})
 public class GameTitle extends BaseEntityUUID {
 
-	private static final long serialVersionUID = -4693647736354542489L;
+    @ManyToOne
+    private Region region;
 
-	private String nativeSpelling;
+    @ManyToOne
+    private TitleType titleType;
 
-	private String standardTransliteration;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
+    TransliteratedString text;
 
-	@ManyToOne
-	private Language language;
-
-	public GameTitle() {
-	}
-
-	public GameTitle(String nativeSpelling) {
-		this.setNativeSpelling(nativeSpelling);
-	}
-
-	public GameTitle(String nativeSpelling, Language language) {
-		this.setNativeSpelling(nativeSpelling);
-		this.setLanguage(language);
-	}
-
-	public String getNativeSpelling() {
-		return nativeSpelling;
-	}
-
-	public void setNativeSpelling(String nativeSpelling) {
-		this.nativeSpelling = nativeSpelling;
-	}
-
-	public String getStandardTransliteration() {
-		return standardTransliteration;
-	}
-
-	public void setStandardTransliteration(String standardTransliteration) {
-		this.standardTransliteration = standardTransliteration;
-	}
-
-	public Language getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(Language language) {
-		this.language = language;
-	}
-
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-    public LocalDateTime getChangeTimeGui() {
-        return getChangeTime();
+    public Region getRegion() {
+        return region;
     }
 
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public TitleType getTitleType() {
+        return titleType;
+    }
+
+    public void setTitleType(TitleType titleType) {
+        this.titleType = titleType;
+    }
+
+    public TransliteratedString getText() {
+        return text;
+    }
+
+    public void setText(TransliteratedString text) {
+        this.text = text;
+    }
 }

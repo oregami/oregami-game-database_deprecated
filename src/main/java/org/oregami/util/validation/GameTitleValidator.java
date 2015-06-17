@@ -14,7 +14,7 @@ public class GameTitleValidator implements IEntityValidator {
 
     private final GameTitle entity;
 
-    private final int nameMinLenght = 3;
+    private final int nameMinLenght = 2;
 
     public GameTitleValidator(GameTitle entity) {
         if (entity == null) {
@@ -41,10 +41,10 @@ public class GameTitleValidator implements IEntityValidator {
         if (id==null) {
             id = entity.getValidationId();
         }
-        if (StringUtils.isEmpty(entity.getNativeSpelling())) {
+        if (StringUtils.isEmpty(entity.getText().getText())) {
             errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.GAMETITLE_NATIVESPELLING, id), ServiceErrorMessage.FIELD_EMPTY));
         }
-        else if (StringUtils.length(entity.getNativeSpelling()) < nameMinLenght) {
+        else if (StringUtils.length(entity.getText().getText()) < nameMinLenght) {
             errorMessages.add(new ServiceError(new ServiceErrorContext(FieldNames.GAMETITLE_NATIVESPELLING, id), ServiceErrorMessage.FIELD_TOO_SHORT));
         }
 

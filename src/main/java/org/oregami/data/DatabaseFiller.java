@@ -25,7 +25,7 @@ public class DatabaseFiller {
 	Logger logger = Logger.getLogger(DatabaseFiller.class);
 
 	private static List<String> dataTables =
-			Arrays.asList( "Release", "ReleaseGroup", "GameToGameTitleConnection", "Game",
+			Arrays.asList( "Release", "ReleaseGroup", "GameTitle", "Game",
                     "GameTitle",
                     "PublicationIssue",  "Publication",  "PublicationFranchise",
                     "Language", "Region"
@@ -36,9 +36,6 @@ public class DatabaseFiller {
 
 	@Inject
 	private GameDao gameDao;
-
-	@Inject
-	private GameTitleDao gameTitleDao;
 
 	@Inject
 	private LanguageDao languageDao;
@@ -108,34 +105,45 @@ public class DatabaseFiller {
 
 		gameMonkeyIsland.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
 
-		gameTitleDao.save(new GameTitle("The Secret of Monkey Island", languageDao.findByExactName(Language.ENGLISH)));
-		gameTitleDao.save(new GameTitle("Le Secret de L'Ile aux Singes", languageDao.findByExactName(Language.FRENCH)));
-		gameTitleDao.save(new GameTitle("El Secreto de Monkey Island", languageDao.findByExactName(Language.SPANISH)));
-		gameTitleDao.save(new GameTitle("Monkey Island", languageDao.findByExactName(Language.ENGLISH)));
-		gameTitleDao.save(new GameTitle("Monkey Island 1", languageDao.findByExactName(Language.ENGLISH)));
-		GameTitle gameTitle = new GameTitle("猴島小英雄", languageDao.findByExactName(Language.CHINESE));
-		gameTitle.setStandardTransliteration("The Secret of Monkey Island");
-		gameTitleDao.save(gameTitle);
+		gameMonkeyIsland.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"The Secret of Monkey Island"
+				)
+		);
 
-		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
-		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
-		gameToGameTitleConnection.setGameTitle(gameTitleDao.findByExactName("The Secret of Monkey Island").get(0));
-		gameMonkeyIsland.getGameToGameTitleConnectionList().add(gameToGameTitleConnection);
+		gameMonkeyIsland.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ABBREVIATION),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Monkey Island 1"
+				)
+		);
 
-		GameToGameTitleConnection gameToGameTitleConnection1 = new GameToGameTitleConnection();
-		gameToGameTitleConnection1.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
-		gameToGameTitleConnection1.setGameTitle(gameTitleDao.findByExactName("猴島小英雄").get(0));
-		gameMonkeyIsland.getGameToGameTitleConnectionList().add(gameToGameTitleConnection1);
+		gameMonkeyIsland.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.FRENCH),
+						"Le Secret de L'Ile aux Singes"
+				)
+		);
 
-		GameToGameTitleConnection gameToGameTitleConnection2 = new GameToGameTitleConnection();
-		gameToGameTitleConnection2.setTitleType(baseListFinder.getTitleType(TitleType.ABBREVIATION));
-		gameToGameTitleConnection2.setGameTitle(gameTitleDao.findByExactName("Monkey Island").get(0));
-		gameMonkeyIsland.getGameToGameTitleConnectionList().add(gameToGameTitleConnection2);
-
-		GameToGameTitleConnection gameToGameTitleConnection3 = new GameToGameTitleConnection();
-		gameToGameTitleConnection3.setTitleType(baseListFinder.getTitleType(TitleType.ABBREVIATION));
-		gameToGameTitleConnection3.setGameTitle(gameTitleDao.findByExactName("Monkey Island 1").get(0));
-		gameMonkeyIsland.getGameToGameTitleConnectionList().add(gameToGameTitleConnection3);
+		gameMonkeyIsland.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.CHINESE),
+						languageDao.findByExactName(Language.CHINESE),
+						"猴島小英雄"
+				)
+		);
 
 
 		/*
@@ -185,23 +193,24 @@ public class DatabaseFiller {
 		Game gameResidentEvil = new Game();
 		gameResidentEvil.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
 
-		gameTitleDao.save(new GameTitle("Resident Evil", languageDao.findByExactName(Language.ENGLISH)));
-		gameTitleDao.save(new GameTitle("Resident Evil: Director's Cut", languageDao.findByExactName(Language.ENGLISH)));
-
-		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
-		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
-		gameToGameTitleConnection.setGameTitle(gameTitleDao.findByExactName("Resident Evil").get(0));
-		gameResidentEvil.getGameToGameTitleConnectionList().add(gameToGameTitleConnection);
-
-		GameToGameTitleConnection gameToGameTitleConnection1 = new GameToGameTitleConnection();
-		gameToGameTitleConnection1.setTitleType(baseListFinder.getTitleType(TitleType.RE_RELEASE_TITLE));
-		gameToGameTitleConnection1.setGameTitle(gameTitleDao.findByExactName("Resident Evil: Director's Cut").get(0));
-		gameResidentEvil.getGameToGameTitleConnectionList().add(gameToGameTitleConnection1);
-
-//		ReleaseGroup releaseGroupPlaystation = new ReleaseGroup("Playstation", getGamingEnvironmentPlaystation1(), ReleaseGroupReason.ORIGINAL);
-//		gameResidentEvil.addReleaseGroup(releaseGroupPlaystation);
-//		ReleaseGroup releaseGroupWindows = new ReleaseGroup("Windows", SystemKey.Windows, ReleaseGroupReason.ORIGINAL);
-//		gameResidentEvil.addReleaseGroup(releaseGroupWindows);
+		gameResidentEvil.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Resident Evil"
+				)
+		);
+		gameResidentEvil.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.RE_RELEASE_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Resident Evil: Director's Cut"
+				)
+		);
 
 		ReleaseGroup rgPsOne = new ReleaseGroup("PS 1 Release", getGamingEnvironmentPlaystation1(), baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
 		gameResidentEvil.addReleaseGroup(rgPsOne);
@@ -212,38 +221,34 @@ public class DatabaseFiller {
 	private void addXWingGame() {
 		Game gameXWing = new Game();
 
-		gameTitleDao.save(new GameTitle("Star Wars - X-Wing", languageDao.findByExactName(Language.ENGLISH)));
-		gameTitleDao.save(new GameTitle("X-Wing", languageDao.findByExactName(Language.ENGLISH)));
-		gameTitleDao.save(new GameTitle("Star Wars - X-Wing: Space Combat Simulator", languageDao.findByExactName(Language.ENGLISH)));
+		gameXWing.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ABBREVIATION),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Star Wars - X-Wing"
+				)
+		);
+		gameXWing.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ABBREVIATION),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"X-Wing"
+				)
+		);
 
-		GameToGameTitleConnection gameToGameTitleConnection = new GameToGameTitleConnection();
-		gameToGameTitleConnection.setTitleType(baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE));
-		gameToGameTitleConnection.setGameTitle(gameTitleDao.findByExactName("Star Wars - X-Wing: Space Combat Simulator").get(0));
-		gameXWing.getGameToGameTitleConnectionList().add(gameToGameTitleConnection);
-
-		GameToGameTitleConnection gameToGameTitleConnection1 = new GameToGameTitleConnection();
-		gameToGameTitleConnection1.setTitleType(baseListFinder.getTitleType(TitleType.ABBREVIATION));
-		gameToGameTitleConnection1.setGameTitle(gameTitleDao.findByExactName("X-Wing").get(0));
-		gameXWing.getGameToGameTitleConnectionList().add(gameToGameTitleConnection1);
-
-		GameToGameTitleConnection gameToGameTitleConnection2 = new GameToGameTitleConnection();
-		gameToGameTitleConnection2.setTitleType(baseListFinder.getTitleType(TitleType.ABBREVIATION));
-		gameToGameTitleConnection2.setGameTitle(gameTitleDao.findByExactName("Star Wars - X-Wing").get(0));
-		gameXWing.getGameToGameTitleConnectionList().add(gameToGameTitleConnection2);
-
-
-
-//		ReleaseGroup rgDos = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupReason.ORIGINAL);
-//		gameXWing.addReleaseGroup(rgDos);
-//
-//		ReleaseGroup rgDosEnhanced = new ReleaseGroup("DOS", SystemKey.MSDOS, ReleaseGroupReason.ENHANCED);
-//		gameXWing.addReleaseGroup(rgDosEnhanced);
-//
-//		ReleaseGroup rgWinEnhanced = new ReleaseGroup("Windows", SystemKey.Windows, ReleaseGroupReason.ENHANCED);
-//		gameXWing.addReleaseGroup(rgWinEnhanced);
-//
-//		ReleaseGroup rgMacEnhanced = new ReleaseGroup("Apple Macintosh", SystemKey.AppleMacintosh, ReleaseGroupReason.ENHANCED);
-//		gameXWing.addReleaseGroup(rgMacEnhanced);
+		gameXWing.addGameTitle(
+				TitleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Star Wars - X-Wing: Space Combat Simulator"
+				)
+		);
 
 		gameDao.save(gameXWing);
 	}
@@ -276,7 +281,7 @@ public class DatabaseFiller {
 
 		//====== SONY PLAYSTATION =================
 		GamingEnvironment gamingEnvironmentPlaystation = new GamingEnvironment();
-		PlatformTitle pt1 = PlatformTitleFactory.createPlatformTitle(
+		PlatformTitle pt1 = TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
@@ -284,7 +289,7 @@ public class DatabaseFiller {
 				"Sony Playstation"
 		);
 		gamingEnvironmentPlaystation.addTitle(pt1);
-		PlatformTitle pt2 = PlatformTitleFactory.createPlatformTitle(
+		PlatformTitle pt2 = TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
@@ -296,21 +301,21 @@ public class DatabaseFiller {
 
 		//====== NES =================
 		GamingEnvironment nes = new GamingEnvironment();
-		nes.addTitle(PlatformTitleFactory.createPlatformTitle(
+		nes.addTitle(TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
 				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
 				"Famicom"
 		));
-		nes.addTitle(PlatformTitleFactory.createPlatformTitle(
+		nes.addTitle(TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
 				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
 				"Nintendo Entertainment System"
 		));
-		nes.addTitle(PlatformTitleFactory.createPlatformTitle(
+		nes.addTitle(TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
@@ -322,7 +327,7 @@ public class DatabaseFiller {
 
 		//====== Amiga =================
 		GamingEnvironment amiga = new GamingEnvironment();
-		amiga.addTitle(PlatformTitleFactory.createPlatformTitle(
+		amiga.addTitle(TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
@@ -330,11 +335,11 @@ public class DatabaseFiller {
 				"Commodore Amiga"
 		));
 		HardwarePlatform hpAmiga = new HardwarePlatform();
-		hpAmiga.addTitle(PlatformTitleFactory.createLatinPlatformTitle(
+		hpAmiga.addTitle(TitleFactory.createLatinPlatformTitle(
 				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
 				"Amiga M68K Machine & Compatibles"
 		));
-		hpAmiga.addTitle(PlatformTitleFactory.createLatinPlatformTitle(
+		hpAmiga.addTitle(TitleFactory.createLatinPlatformTitle(
 				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.GERMAN),
 				"Amiga M68K und Kompatible"
 		));
@@ -344,7 +349,7 @@ public class DatabaseFiller {
 
 		//====== C64 =================
 		GamingEnvironment c64 = new GamingEnvironment();
-		c64.addTitle(PlatformTitleFactory.createPlatformTitle(
+		c64.addTitle(TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
@@ -355,7 +360,7 @@ public class DatabaseFiller {
 
 		//====== MS-DOS =================
 		GamingEnvironment msdos = new GamingEnvironment();
-		msdos.addTitle(PlatformTitleFactory.createPlatformTitle(
+		msdos.addTitle(TitleFactory.createPlatformTitle(
 				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
 				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
 				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),

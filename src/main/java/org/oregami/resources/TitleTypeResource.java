@@ -2,10 +2,10 @@ package org.oregami.resources;
 
 import com.google.inject.Inject;
 import io.dropwizard.auth.Auth;
-import org.oregami.data.GameTitleDao;
-import org.oregami.entities.GameTitle;
+import org.oregami.data.TitleTypeDao;
+import org.oregami.entities.datalist.TitleType;
 import org.oregami.entities.user.User;
-import org.oregami.service.GameTitleService;
+import org.oregami.service.TitleTypeService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,25 +13,25 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 
-@Path("/gameTitle")
+@Path("/titleTypes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class GameTitleResource {
+public class TitleTypeResource {
+
+	@Inject
+	private TitleTypeDao dao = null;
 
     @Inject
-    private GameTitleDao dao = null;
+    private TitleTypeService service = null;
 
-    @Inject
-    private GameTitleService service = null;
-
-    public GameTitleResource() {
-    }
+	public TitleTypeResource() {
+	}
 
 
-    @GET
-    public List<GameTitle> list() {
-        return dao.findAll();
-    }
+	@GET
+	public List<TitleType> list() {
+		return dao.findAll();
+	}
 
     @GET
     @Path("/{id}")
@@ -52,13 +52,13 @@ public class GameTitleResource {
     }
 
     @POST
-    public Response create(@Auth User user, GameTitle entity) {
+    public Response create(@Auth User user, TitleType entity) {
         return ResourceHelper.create(user, entity, service, this.getClass());
     }
 
     @PUT
     @Path("{id}")
-    public Response update(@Auth User user, @PathParam("id") String id, GameTitle entity) {
+    public Response update(@Auth User user, @PathParam("id") String id, TitleType entity) {
         return ResourceHelper.update(user, id, entity, service);
     }
 
@@ -67,4 +67,5 @@ public class GameTitleResource {
     public Response delete(@Auth User user, @PathParam("id") String id) {
         return ResourceHelper.delete(user, id, service);
     }
+
 }

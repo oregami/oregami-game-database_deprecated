@@ -22,8 +22,6 @@ public @interface TopLevelEntity {
         PERSON,
         COMPANY,
         PUBLICATIONFRANCHISE,
-        SOFTWAREPLATFORM,
-        HARDWAREPLATFORM,
         WEBSITE,
         TRANSLITERATEDSTRING
     }

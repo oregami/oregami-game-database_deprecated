@@ -3,11 +3,9 @@ package org.oregami.data;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
-import org.oregami.entities.GameTitle;
 import org.oregami.entities.PublicationFranchise;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranchise, String>{
 
@@ -18,12 +16,14 @@ public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranc
 	}
 
 
+    /*
     @SuppressWarnings("unchecked")
 	public List<GameTitle> findByExactName(String name) {
         List<GameTitle> gameTitleList = getEntityManager()
         		.createNativeQuery("SELECT * FROM PublicationFranchiseDao t where lower(t.name) = :value ", PublicationFranchiseDao.class).setParameter("value", name.toLowerCase()).getResultList();
         return gameTitleList;
     }
+    */
 
     @Override
     @Transactional
