@@ -459,6 +459,12 @@ public class DatabaseFiller {
         user2.setPasswordAndEncryptIt("password2");
         userDao.save(user2);
 
+		User user3 = new User();
+		user3.setEmail("gene1@oregami.org");
+		user3.setUsername("gene");
+		user3.setPasswordAndEncryptIt("gene");
+		userDao.save(user3);
+
     }
 
 
