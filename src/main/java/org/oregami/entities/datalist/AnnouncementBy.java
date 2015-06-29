@@ -1,5 +1,9 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 
 /**
@@ -8,15 +12,15 @@ import javax.persistence.Entity;
  * Used in ReleaseGroup-Entity
  */
 @Entity
+@Audited
+@NamedQueries({@NamedQuery(name="AnnouncementBy.GetAll", query = "from AnnouncementBy e")})
 public class AnnouncementBy extends BaseList {
 
-	private static final long serialVersionUID = 7024627464416350356L;
-	
 	public AnnouncementBy(String value) {
 		super(value);
 	}
 	
-	AnnouncementBy() {
+	public AnnouncementBy() {
 		super("");
 	}
 	

@@ -1,11 +1,17 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+27+-+Release+Business+Models
  */
 @Entity
+@Audited
+@NamedQueries({@NamedQuery(name="BusinessModel.GetAll", query = "from BusinessModel e")})
 public class BusinessModel extends BaseList {
 
 	private static final long serialVersionUID = 8648455079483420964L;

@@ -1,5 +1,7 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
@@ -10,10 +12,12 @@ import javax.persistence.Entity;
  */
 @Entity
 @Audited
+@NamedQueries({
+		@NamedQuery(name="DemoContentType.GetAll", query =
+				"from DemoContentType g")
+})
 public class DemoContentType extends BaseList {
 
-	private static final long serialVersionUID = 3690292173015960083L;
-	
 	public DemoContentType(String value) {
 		super(value);
 	}

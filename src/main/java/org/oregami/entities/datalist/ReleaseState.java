@@ -1,12 +1,33 @@
 package org.oregami.entities.datalist;
 
-/**
- * see http://wiki.oregami.org/display/OR/Data+List+2+-+RG+Release+Types
- */
-public interface ReleaseState {
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 
-	public static final int NATIVE_DEVELOPMENT = 1;
-	public static final int PORT = 2;
-	public static final int EMULATOR_RELEASE = 3;
+import javax.persistence.Entity;
+
+/**
+ * see http://wiki.oregami.org/
+ * used in ReleaseGroup-Entity
+ */
+@Entity
+@Audited
+@NamedQueries({
+		@NamedQuery(name="ReleaseState.GetAll", query =
+				"from ReleaseState g")
+})
+public class ReleaseState extends BaseList {
+
+	public ReleaseState(String value) {
+		super(value);
+	}
+
+	public ReleaseState() {
+		super("");
+	}
+
+	public static final String NATIVE_DEVELOPMENT = "NATIVE_DEVELOPMENT";
+	public static final String PORT = "PORT";
+	public static final String EMULATOR_RELEASE = "EMULATOR_RELEASE";
 
 }

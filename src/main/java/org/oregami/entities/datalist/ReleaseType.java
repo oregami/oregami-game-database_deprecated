@@ -3,6 +3,8 @@ package org.oregami.entities.datalist;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+2+-+RG+Release+Types
@@ -10,10 +12,9 @@ import javax.persistence.Entity;
  */
 @Entity
 @Audited
+@NamedQueries({@NamedQuery(name="ReleaseType.GetAll", query = "from ReleaseType e")})
 public class ReleaseType extends BaseList {
 
-	private static final long serialVersionUID = -8652320100834691941L;
-	
 	public ReleaseType(String value) {
 		super(value);
 	}

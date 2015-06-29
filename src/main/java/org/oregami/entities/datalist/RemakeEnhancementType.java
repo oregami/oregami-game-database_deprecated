@@ -1,6 +1,10 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * see 
@@ -8,15 +12,15 @@ import javax.persistence.Entity;
  * Used in ReleaseGroup-Entity
  */
 @Entity
+@Audited
+@NamedQueries({@NamedQuery(name="RemakeEnhancementType.GetAll", query = "from RemakeEnhancementType e")})
 public class RemakeEnhancementType extends BaseList {
-
-	private static final long serialVersionUID = -2856272829027884179L;
 
 	public RemakeEnhancementType(String value) {
 		super(value);
 	}
 	
-	RemakeEnhancementType() {
+	public RemakeEnhancementType() {
 		super("");
 	}
 	

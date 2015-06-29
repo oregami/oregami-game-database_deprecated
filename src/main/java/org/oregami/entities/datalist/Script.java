@@ -2,6 +2,7 @@ package org.oregami.entities.datalist;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
  * Used for scripted texts
  */
 @Entity
+@Audited
 @NamedQueries({
 	@NamedQuery(name="Script.GetAll", query =
 			"from Script g")

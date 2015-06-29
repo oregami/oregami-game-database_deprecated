@@ -1,24 +1,28 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 
-
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+4+-+Un-release+States
+ * used in ReleaseGroup-Entity
  */
 @Entity
 @Audited
-public class UnreleaseState extends BaseList {
+@NamedQueries({
+		@NamedQuery(name="UnReleasedState.GetAll", query =
+				"from UnReleasedState g")
+})
+public class UnReleasedState extends BaseList {
 
-	private static final long serialVersionUID = -6903953989551086371L;
-	
-	public UnreleaseState(String value) {
+	public UnReleasedState(String value) {
 		super(value);
 	}
-	
-	public UnreleaseState() {
+
+	public UnReleasedState() {
 		super("");
 	}
 	

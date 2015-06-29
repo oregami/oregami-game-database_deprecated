@@ -116,7 +116,6 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
         environment.jersey().register(guiceBundle.getInjector().getInstance(ScriptResource.class));
         environment.jersey().register(guiceBundle.getInjector().getInstance(TransliteratedStringResource.class));
         environment.jersey().register(guiceBundle.getInjector().getInstance(HardwarePlatformResource.class));
-        environment.jersey().register(guiceBundle.getInjector().getInstance(TitleTypeResource.class));
 
         environment.jersey().register(createAuthProvider());
 

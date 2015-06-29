@@ -1,5 +1,9 @@
 package org.oregami.entities.datalist;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 
 /**
@@ -8,15 +12,15 @@ import javax.persistence.Entity;
  * Used in ReleaseGroup-Entity
  */
 @Entity
+@Audited
+@NamedQueries({@NamedQuery(name="CensorshipType.GetAll", query = "from CensorshipType e")})
 public class CensorshipType extends BaseList {
-
-	private static final long serialVersionUID = 855977781930300875L;
 
 	public CensorshipType(String value) {
 		super(value);
 	}
 	
-	CensorshipType() {
+	public CensorshipType() {
 		super("");
 	}
 
