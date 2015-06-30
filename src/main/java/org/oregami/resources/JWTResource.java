@@ -19,13 +19,13 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/jwt")
 @Produces(APPLICATION_JSON)
-public class SecuredResource {
+public class JWTResource {
 
 
     @Inject
     private AuthHelper authHelper;
 
-    public SecuredResource() {
+    public JWTResource() {
     }
 
     @POST

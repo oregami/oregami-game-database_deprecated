@@ -120,7 +120,7 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
         environment.jersey().register(createAuthProvider());
 
 
-        environment.jersey().register(guiceBundle.getInjector().getInstance(SecuredResource.class));
+        environment.jersey().register(guiceBundle.getInjector().getInstance(JWTResource.class));
 
     }
 
