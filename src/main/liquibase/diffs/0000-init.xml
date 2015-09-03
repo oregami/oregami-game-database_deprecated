@@ -1,0 +1,1744 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="sebastian (generated)" id="1439582662777-1">
+        <createTable tableName="AddOnContentType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-2">
+        <createTable tableName="AddOnContentType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-3">
+        <createTable tableName="AnnouncementBy">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-4">
+        <createTable tableName="AnnouncementBy_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-5">
+        <createTable tableName="BusinessModel">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-6">
+        <createTable tableName="BusinessModel_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-7">
+        <createTable tableName="CensorshipType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-8">
+        <createTable tableName="CensorshipType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-9">
+        <createTable tableName="CustomRevisionEntity">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="timestamp" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entityDiscriminator" type="INT"/>
+            <column name="entityId" type="VARCHAR(255)"/>
+            <column name="userId" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-10">
+        <createTable tableName="DemoContentType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-11">
+        <createTable tableName="DemoContentType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-12">
+        <createTable tableName="Game">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="gameEntryType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-13">
+        <createTable tableName="GameEntryType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-14">
+        <createTable tableName="GameEntryType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-15">
+        <createTable tableName="GameRelease">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="releaseGroup_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-16">
+        <createTable tableName="GameRelease_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="releaseGroup_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-17">
+        <createTable tableName="GameTitle">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="region_id" type="VARCHAR(255)"/>
+            <column name="text_id" type="VARCHAR(255)"/>
+            <column name="titleType_id" type="VARCHAR(255)"/>
+            <column name="gameTitleList_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-18">
+        <createTable tableName="GameTitle_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="region_id" type="VARCHAR(255)"/>
+            <column name="text_id" type="VARCHAR(255)"/>
+            <column name="titleType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-19">
+        <createTable tableName="Game_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="gameEntryType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-20">
+        <createTable tableName="Game_GameTitle_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gameTitleList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-21">
+        <createTable tableName="Game_ReleaseGroup_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="releaseGroupList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-22">
+        <createTable tableName="GamingEnvironment">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="hardwarePlatform_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-23">
+        <createTable tableName="GamingEnvironment_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="hardwarePlatform_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-24">
+        <createTable tableName="GamingEnvironment_PlatformTitle">
+            <column name="GamingEnvironment_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-25">
+        <createTable tableName="GamingEnvironment_PlatformTitle_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GamingEnvironment_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-26">
+        <createTable tableName="HardwarePlatform">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="platformType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-27">
+        <createTable tableName="HardwarePlatformType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-28">
+        <createTable tableName="HardwarePlatformType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-29">
+        <createTable tableName="HardwarePlatform_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="platformType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-30">
+        <createTable tableName="HardwarePlatform_PlatformTitle">
+            <column name="HardwarePlatform_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-31">
+        <createTable tableName="HardwarePlatform_PlatformTitle_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HardwarePlatform_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-32">
+        <createTable tableName="Language">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-33">
+        <createTable tableName="Language_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-34">
+        <createTable tableName="PlatformTitle">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="region_id" type="VARCHAR(255)"/>
+            <column name="text_id" type="VARCHAR(255)"/>
+            <column name="titleType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-35">
+        <createTable tableName="PlatformTitle_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="region_id" type="VARCHAR(255)"/>
+            <column name="text_id" type="VARCHAR(255)"/>
+            <column name="titleType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-36">
+        <createTable tableName="Publication">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="language_id" type="VARCHAR(255)"/>
+            <column name="region_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-37">
+        <createTable tableName="PublicationFranchise">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-38">
+        <createTable tableName="PublicationFranchise_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-39">
+        <createTable tableName="PublicationFranchise_Publication">
+            <column name="PublicationFranchise_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="publicationList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-40">
+        <createTable tableName="PublicationFranchise_Publication_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PublicationFranchise_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="publicationList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-41">
+        <createTable tableName="PublicationIssue">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="issueNameNumber" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="issueNameSpecial" type="VARCHAR(255)"/>
+            <column name="issueNameYear" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="releaseDate" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-42">
+        <createTable tableName="PublicationIssue_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="issueNameNumber" type="INT"/>
+            <column name="issueNameSpecial" type="VARCHAR(255)"/>
+            <column name="issueNameYear" type="INT"/>
+            <column name="releaseDate" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-43">
+        <createTable tableName="Publication_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="language_id" type="VARCHAR(255)"/>
+            <column name="region_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-44">
+        <createTable tableName="Publication_PublicationIssue">
+            <column name="Publication_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="publicationIssueList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-45">
+        <createTable tableName="Publication_PublicationIssue_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Publication_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="publicationIssueList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-46">
+        <createTable tableName="REVCHANGES">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ENTITYNAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-47">
+        <createTable tableName="Region">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="isBusinessRegion" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="isCountry" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-48">
+        <createTable tableName="Region_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="isBusinessRegion" type="BIT(1)"/>
+            <column name="isCountry" type="BIT(1)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-49">
+        <createTable tableName="ReleaseGroup">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="censored" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="released" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="game_id" type="VARCHAR(255)"/>
+            <column name="gamingEnvironment_id" type="VARCHAR(255)"/>
+            <column name="releaseGroupReason_id" type="VARCHAR(255)"/>
+            <column name="releaseType_id" type="VARCHAR(255)"/>
+            <column name="unreleasedState_id" type="VARCHAR(255)"/>
+            <column name="releaseGroupList_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-50">
+        <createTable tableName="ReleaseGroupReason">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-51">
+        <createTable tableName="ReleaseGroupReason_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-52">
+        <createTable tableName="ReleaseGroup_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="censored" type="BIT(1)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="released" type="BIT(1)"/>
+            <column name="game_id" type="VARCHAR(255)"/>
+            <column name="gamingEnvironment_id" type="VARCHAR(255)"/>
+            <column name="releaseGroupReason_id" type="VARCHAR(255)"/>
+            <column name="releaseType_id" type="VARCHAR(255)"/>
+            <column name="unreleasedState_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-53">
+        <createTable tableName="ReleaseGroup_DemoContentType">
+            <column name="ReleaseGroup_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="demoContentTypeList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-54">
+        <createTable tableName="ReleaseGroup_DemoContentType_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ReleaseGroup_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="demoContentTypeList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-55">
+        <createTable tableName="ReleaseState">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-56">
+        <createTable tableName="ReleaseState_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-57">
+        <createTable tableName="ReleaseType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-58">
+        <createTable tableName="ReleaseType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-59">
+        <createTable tableName="RemakeEnhancementType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-60">
+        <createTable tableName="RemakeEnhancementType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-61">
+        <createTable tableName="Role">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="roleKey" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-62">
+        <createTable tableName="Script">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-63">
+        <createTable tableName="Script_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-64">
+        <createTable tableName="SoftwarePlatform">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="platformType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-65">
+        <createTable tableName="SoftwarePlatformType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-66">
+        <createTable tableName="SoftwarePlatformType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-67">
+        <createTable tableName="SoftwarePlatform_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="platformType_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-68">
+        <createTable tableName="SoftwarePlatform_PlatformTitle">
+            <column name="SoftwarePlatform_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-69">
+        <createTable tableName="SoftwarePlatform_PlatformTitle_AUD">
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SoftwarePlatform_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-70">
+        <createTable tableName="TitleLocation">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-71">
+        <createTable tableName="TitleLocation_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-72">
+        <createTable tableName="TitleType">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-73">
+        <createTable tableName="TitleType_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-74">
+        <createTable tableName="TransliteratedString">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="text" type="VARCHAR(255)"/>
+            <column name="language_id" type="VARCHAR(255)"/>
+            <column name="script_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-75">
+        <createTable tableName="TransliteratedString_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+            <column name="text" type="VARCHAR(255)"/>
+            <column name="language_id" type="VARCHAR(255)"/>
+            <column name="script_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-76">
+        <createTable tableName="UnReleasedState">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="value" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-77">
+        <createTable tableName="UnReleasedState_AUD">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-78">
+        <createTable tableName="User">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="avatar" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-79">
+        <createTable tableName="UserStatus">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="creationDate" type="datetime(6)"/>
+            <column name="userStatus" type="VARCHAR(255)"/>
+            <column name="verifyDate" type="datetime(6)"/>
+            <column name="verifyHash" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-80">
+        <createTable tableName="User_Role">
+            <column name="User_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roleList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-81">
+        <createTable tableName="User_UserStatus">
+            <column name="User_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="userStatusList_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-82">
+        <createTable tableName="Website">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changeTime" type="TINYBLOB"/>
+            <column name="version" type="INT"/>
+            <column name="approved" type="BIT(1)"/>
+            <column name="createSize" type="VARCHAR(255)"/>
+            <column name="createTime" type="TINYBLOB"/>
+            <column name="DATA" type="LONGBLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="THUMB" type="MEDIUMBLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-88">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="AddOnContentType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-89">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="AddOnContentType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-90">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="AnnouncementBy"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-91">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="AnnouncementBy_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-92">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="BusinessModel"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-93">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="BusinessModel_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-94">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="CensorshipType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-95">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="CensorshipType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-96">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="DemoContentType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-97">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="DemoContentType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-98">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="Game"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-99">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="GameEntryType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-100">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="GameEntryType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-101">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="GameRelease"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-102">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="GameRelease_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-103">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="GameTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-104">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="GameTitle_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-105">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="Game_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-106">
+        <addPrimaryKey columnNames="REV, gameTitleList_id, id" constraintName="PRIMARY" tableName="Game_GameTitle_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-107">
+        <addPrimaryKey columnNames="REV, releaseGroupList_id, id" constraintName="PRIMARY" tableName="Game_ReleaseGroup_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-108">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="GamingEnvironment"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-109">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="GamingEnvironment_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-110">
+        <addPrimaryKey columnNames="GamingEnvironment_id, title_id" constraintName="PRIMARY" tableName="GamingEnvironment_PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-111">
+        <addPrimaryKey columnNames="REV, GamingEnvironment_id, title_id" constraintName="PRIMARY" tableName="GamingEnvironment_PlatformTitle_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-112">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="HardwarePlatform"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-113">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="HardwarePlatformType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-114">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="HardwarePlatformType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-115">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="HardwarePlatform_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-116">
+        <addPrimaryKey columnNames="HardwarePlatform_id, title_id" constraintName="PRIMARY" tableName="HardwarePlatform_PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-117">
+        <addPrimaryKey columnNames="REV, HardwarePlatform_id, title_id" constraintName="PRIMARY" tableName="HardwarePlatform_PlatformTitle_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-118">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="Language"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-119">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="Language_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-120">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-121">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="PlatformTitle_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-122">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="Publication"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-123">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="PublicationFranchise"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-124">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="PublicationFranchise_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-125">
+        <addPrimaryKey columnNames="PublicationFranchise_id, publicationList_id" constraintName="PRIMARY" tableName="PublicationFranchise_Publication"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-126">
+        <addPrimaryKey columnNames="REV, PublicationFranchise_id, publicationList_id" constraintName="PRIMARY" tableName="PublicationFranchise_Publication_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-127">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="PublicationIssue"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-128">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="PublicationIssue_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-129">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="Publication_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-130">
+        <addPrimaryKey columnNames="Publication_id, publicationIssueList_id" constraintName="PRIMARY" tableName="Publication_PublicationIssue"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-131">
+        <addPrimaryKey columnNames="REV, Publication_id, publicationIssueList_id" constraintName="PRIMARY" tableName="Publication_PublicationIssue_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-132">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="Region"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-133">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="Region_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-134">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="ReleaseGroup"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-135">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="ReleaseGroupReason"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-136">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="ReleaseGroupReason_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-137">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="ReleaseGroup_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-138">
+        <addPrimaryKey columnNames="ReleaseGroup_id, demoContentTypeList_id" constraintName="PRIMARY" tableName="ReleaseGroup_DemoContentType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-139">
+        <addPrimaryKey columnNames="REV, ReleaseGroup_id, demoContentTypeList_id" constraintName="PRIMARY" tableName="ReleaseGroup_DemoContentType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-140">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="ReleaseState"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-141">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="ReleaseState_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-142">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="ReleaseType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-143">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="ReleaseType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-144">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="RemakeEnhancementType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-145">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="RemakeEnhancementType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-146">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="Role"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-147">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="Script"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-148">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="Script_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-149">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="SoftwarePlatform"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-150">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="SoftwarePlatformType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-151">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="SoftwarePlatformType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-152">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="SoftwarePlatform_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-153">
+        <addPrimaryKey columnNames="SoftwarePlatform_id, title_id" constraintName="PRIMARY" tableName="SoftwarePlatform_PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-154">
+        <addPrimaryKey columnNames="REV, SoftwarePlatform_id, title_id" constraintName="PRIMARY" tableName="SoftwarePlatform_PlatformTitle_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-155">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="TitleLocation"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-156">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="TitleLocation_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-157">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="TitleType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-158">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="TitleType_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-159">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="TransliteratedString"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-160">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="TransliteratedString_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-161">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="UnReleasedState"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-162">
+        <addPrimaryKey columnNames="id, REV" constraintName="PRIMARY" tableName="UnReleasedState_AUD"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-163">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="User"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-164">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="UserStatus"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-165">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="Website"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-166">
+        <addUniqueConstraint columnNames="title_id" constraintName="UK_1plvy5umwqu2kdip3f1a4nn1h" tableName="SoftwarePlatform_PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-167">
+        <addUniqueConstraint columnNames="publicationIssueList_id" constraintName="UK_3jaxw7n5jxoftm7twv7blac1h" tableName="Publication_PublicationIssue"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-168">
+        <addUniqueConstraint columnNames="username" constraintName="UK_jreodf78a7pl5qidfh43axdfb" tableName="User"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-169">
+        <addUniqueConstraint columnNames="roleList_id" constraintName="UK_msiqpq3vwlvre4ukl6yppvhyp" tableName="User_Role"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-170">
+        <addUniqueConstraint columnNames="title_id" constraintName="UK_qdownur8r6cp2o8ax34dw7buo" tableName="HardwarePlatform_PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-171">
+        <addUniqueConstraint columnNames="userStatusList_id" constraintName="UK_rofky36utyh29c14r79fjmwar" tableName="User_UserStatus"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-172">
+        <addUniqueConstraint columnNames="title_id" constraintName="UK_saxtvsq3qb0w8xde2hybb8tc9" tableName="GamingEnvironment_PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-173">
+        <addUniqueConstraint columnNames="publicationList_id" constraintName="UK_tnbj3i87cub2vhqm7mim2wfg6" tableName="PublicationFranchise_Publication"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-174">
+        <createIndex indexName="FK_13ti3untap8xxitxgc4nt7p3y" tableName="HardwarePlatform_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-175">
+        <createIndex indexName="FK_227x64ldll4jc0k11202ukf8i" tableName="ReleaseGroup">
+            <column name="releaseGroupReason_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-176">
+        <createIndex indexName="FK_2ln5yvavounkgxkpq97b2dx31" tableName="PlatformTitle">
+            <column name="titleType_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-177">
+        <createIndex indexName="FK_30v79h06l13y29bjtuw97liky" tableName="TransliteratedString">
+            <column name="script_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-178">
+        <createIndex indexName="FK_3abbyx2ykfxslgsedwujta10j" tableName="Language_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-179">
+        <createIndex indexName="FK_3v0lx580c5c14h4rbpnb1gm6k" tableName="ReleaseState_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-180">
+        <createIndex indexName="FK_402sam521wwu9c7smjj32fswj" tableName="ReleaseGroup_DemoContentType">
+            <column name="demoContentTypeList_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-181">
+        <createIndex indexName="FK_48sl2ww43mxnvk4ejfjxp0raq" tableName="AnnouncementBy_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-182">
+        <createIndex indexName="FK_4j0qwps43tpq2le0mtwhn8cyu" tableName="Publication">
+            <column name="region_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-183">
+        <createIndex indexName="FK_5yx006tokif8irco747or3iaj" tableName="SoftwarePlatformType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-184">
+        <createIndex indexName="FK_7omwyiilqkhytgcmgltdejbng" tableName="DemoContentType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-185">
+        <createIndex indexName="FK_7uro96189ebpqwyifrvjww7es" tableName="Game_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-186">
+        <createIndex indexName="FK_9al8s13k0gxw8vh8i2sxf9mxv" tableName="TransliteratedString">
+            <column name="language_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-187">
+        <createIndex indexName="FK_9iwnkkslclyi784x9nfto9915" tableName="Publication">
+            <column name="language_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-188">
+        <createIndex indexName="FK_9qjp26p57tvm9u033wf9323dd" tableName="Publication_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-189">
+        <createIndex indexName="FK_bh8efbd6fhma0hvnlwkjwfgwu" tableName="UnReleasedState_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-190">
+        <createIndex indexName="FK_btj38yi15v62ykf22fhobwto" tableName="GamingEnvironment">
+            <column name="hardwarePlatform_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-191">
+        <createIndex indexName="FK_c9q24a4vvt5t68my2k1c6trxh" tableName="GameTitle_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-192">
+        <createIndex indexName="FK_cjy33y6gpsgmg4n92yq54ira2" tableName="GameTitle">
+            <column name="text_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-193">
+        <createIndex indexName="FK_ct4x225q5yu0tqfyeanntdx4v" tableName="ReleaseGroup">
+            <column name="releaseType_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-194">
+        <createIndex indexName="FK_cy1qrsvkges9hb3p8uubv7edc" tableName="GamingEnvironment_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-195">
+        <createIndex indexName="FK_cybrbjqnlk1skjuou9b1ewpn9" tableName="ReleaseGroup">
+            <column name="game_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-196">
+        <createIndex indexName="FK_dg3x67h1479ma1wfh59vseh4n" tableName="HardwarePlatformType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-197">
+        <createIndex indexName="FK_dn7062mksaivwx8ns6mof9x0e" tableName="TransliteratedString_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-198">
+        <createIndex indexName="FK_dv4w2xni693cg4ibi3fo1fkk6" tableName="User_Role">
+            <column name="User_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-199">
+        <createIndex indexName="FK_e11r7qslr28prlq8pbdfnb89g" tableName="HardwarePlatform">
+            <column name="platformType_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-200">
+        <createIndex indexName="FK_e3spbaar39xhoeftjlh5df5h2" tableName="PublicationFranchise_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-201">
+        <createIndex indexName="FK_eo5nffqft0g4g46ybp4umwxbw" tableName="ReleaseGroup">
+            <column name="unreleasedState_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-202">
+        <createIndex indexName="FK_ew977kxli92ng4oow0fvpk4ba" tableName="SoftwarePlatform_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-203">
+        <createIndex indexName="FK_fo62307r3atc2askbjsjykmv2" tableName="GameRelease">
+            <column name="releaseGroup_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-204">
+        <createIndex indexName="FK_fxt1m1yoh863bwnjsdflftxj4" tableName="ReleaseGroup">
+            <column name="releaseGroupList_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-205">
+        <createIndex indexName="FK_glax8s26yi89k08po9crpoplp" tableName="TitleType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-206">
+        <createIndex indexName="FK_gpnd1ahjqqv8yvrydvtfxq4cr" tableName="PlatformTitle">
+            <column name="text_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-207">
+        <createIndex indexName="FK_h9pxcyyrpw4ue3vpgjcej9rcb" tableName="RemakeEnhancementType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-208">
+        <createIndex indexName="FK_hfpxaaw372bbig59s9gtvpwfm" tableName="AddOnContentType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-209">
+        <createIndex indexName="FK_hvwscg28cqnbt77hvdca23bwm" tableName="Region_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-210">
+        <createIndex indexName="FK_hyqa0rfjbsb2t2imfhp35omv4" tableName="GameEntryType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-211">
+        <createIndex indexName="FK_inhrohetjr2bx06bb9hjcj7fu" tableName="PublicationIssue_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-212">
+        <createIndex indexName="FK_iqdowkq5uw3jeowv9s2jvhxop" tableName="ReleaseGroup_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-213">
+        <createIndex indexName="FK_ldxy620om7c8kvq5vgpa1p59n" tableName="CensorshipType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-214">
+        <createIndex indexName="FK_mbrjhnrq9iyrtok3v6du1antm" tableName="ReleaseGroup">
+            <column name="gamingEnvironment_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-215">
+        <createIndex indexName="FK_ng4wf3qi27arbfclalxn1vdf4" tableName="BusinessModel_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-216">
+        <createIndex indexName="FK_omic7flftw53v49cfhw8pyucc" tableName="GameTitle">
+            <column name="titleType_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-217">
+        <createIndex indexName="FK_owrmooyl3c73orud3snc97lo0" tableName="GameTitle">
+            <column name="gameTitleList_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-218">
+        <createIndex indexName="FK_oyuei8a9cdgj3lkw1yrwg32wg" tableName="SoftwarePlatform">
+            <column name="platformType_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-219">
+        <createIndex indexName="FK_p15ffg2wsxwtqp2h3jjl42n0o" tableName="GameRelease_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-220">
+        <createIndex indexName="FK_p52lh0iubues7m58nk7kdgab3" tableName="ReleaseGroupReason_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-221">
+        <createIndex indexName="FK_p93av0b5x852hhxe8ic742s9c" tableName="Game">
+            <column name="gameEntryType_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-222">
+        <createIndex indexName="FK_pqmhsr0muo2961s1eokwrni96" tableName="GameTitle">
+            <column name="region_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-223">
+        <createIndex indexName="FK_qj06y0ybwlevclbwnalnifp9x" tableName="Script_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-224">
+        <createIndex indexName="FK_qp6xn8i3wj7j47fl6x05lis98" tableName="ReleaseType_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-225">
+        <createIndex indexName="FK_revqtjwwsucd6htccp3acndm4" tableName="PlatformTitle">
+            <column name="region_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-226">
+        <createIndex indexName="FK_s2it5c0kgvt2fi8brnwnoy20k" tableName="PlatformTitle_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-227">
+        <createIndex indexName="FK_shc5mmnvpw4c09rxse8x20b6k" tableName="User_UserStatus">
+            <column name="User_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-228">
+        <createIndex indexName="FK_sxvbesehb66g64dwp0y3j7aym" tableName="TitleLocation_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-229">
+        <createIndex indexName="FK_t69kea3hasj6uc6ddn5ck5r9y" tableName="REVCHANGES">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-230">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="HardwarePlatform_AUD" constraintName="FK_13ti3untap8xxitxgc4nt7p3y" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-231">
+        <addForeignKeyConstraint baseColumnNames="title_id" baseTableName="SoftwarePlatform_PlatformTitle" constraintName="FK_1plvy5umwqu2kdip3f1a4nn1h" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-232">
+        <addForeignKeyConstraint baseColumnNames="releaseGroupReason_id" baseTableName="ReleaseGroup" constraintName="FK_227x64ldll4jc0k11202ukf8i" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="ReleaseGroupReason"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-233">
+        <addForeignKeyConstraint baseColumnNames="titleType_id" baseTableName="PlatformTitle" constraintName="FK_2ln5yvavounkgxkpq97b2dx31" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TitleType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-234">
+        <addForeignKeyConstraint baseColumnNames="script_id" baseTableName="TransliteratedString" constraintName="FK_30v79h06l13y29bjtuw97liky" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Script"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-235">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Language_AUD" constraintName="FK_3abbyx2ykfxslgsedwujta10j" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-236">
+        <addForeignKeyConstraint baseColumnNames="publicationIssueList_id" baseTableName="Publication_PublicationIssue" constraintName="FK_3jaxw7n5jxoftm7twv7blac1h" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="PublicationIssue"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-237">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="ReleaseState_AUD" constraintName="FK_3v0lx580c5c14h4rbpnb1gm6k" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-238">
+        <addForeignKeyConstraint baseColumnNames="demoContentTypeList_id" baseTableName="ReleaseGroup_DemoContentType" constraintName="FK_402sam521wwu9c7smjj32fswj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="DemoContentType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-239">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="AnnouncementBy_AUD" constraintName="FK_48sl2ww43mxnvk4ejfjxp0raq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-240">
+        <addForeignKeyConstraint baseColumnNames="region_id" baseTableName="Publication" constraintName="FK_4j0qwps43tpq2le0mtwhn8cyu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Region"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-241">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Game_GameTitle_AUD" constraintName="FK_5dahcrxuc9kfbgt74wpu1hgwm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-242">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="SoftwarePlatformType_AUD" constraintName="FK_5yx006tokif8irco747or3iaj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-243">
+        <addForeignKeyConstraint baseColumnNames="PublicationFranchise_id" baseTableName="PublicationFranchise_Publication" constraintName="FK_6s4gujtr281nupib1nogcsd0c" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="PublicationFranchise"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-244">
+        <addForeignKeyConstraint baseColumnNames="ReleaseGroup_id" baseTableName="ReleaseGroup_DemoContentType" constraintName="FK_7gglkfucskrgdjwgq295gg25b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="ReleaseGroup"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-245">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="DemoContentType_AUD" constraintName="FK_7omwyiilqkhytgcmgltdejbng" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-246">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Game_AUD" constraintName="FK_7uro96189ebpqwyifrvjww7es" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-247">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Game_ReleaseGroup_AUD" constraintName="FK_8jmh9jnnnkn86g84ti9h8ocat" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-248">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="HardwarePlatform_PlatformTitle_AUD" constraintName="FK_8njx883g074e7n13klv99t2me" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-249">
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="TransliteratedString" constraintName="FK_9al8s13k0gxw8vh8i2sxf9mxv" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Language"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-250">
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="Publication" constraintName="FK_9iwnkkslclyi784x9nfto9915" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Language"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-251">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Publication_AUD" constraintName="FK_9qjp26p57tvm9u033wf9323dd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-252">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="UnReleasedState_AUD" constraintName="FK_bh8efbd6fhma0hvnlwkjwfgwu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-253">
+        <addForeignKeyConstraint baseColumnNames="hardwarePlatform_id" baseTableName="GamingEnvironment" constraintName="FK_btj38yi15v62ykf22fhobwto" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="HardwarePlatform"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-254">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="ReleaseGroup_DemoContentType_AUD" constraintName="FK_c1c8tdrfrch1h3lfl7g9ppiud" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-255">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="GameTitle_AUD" constraintName="FK_c9q24a4vvt5t68my2k1c6trxh" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-256">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="GamingEnvironment_PlatformTitle_AUD" constraintName="FK_cayvehupg0gjvkjey57w8xv5e" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-257">
+        <addForeignKeyConstraint baseColumnNames="text_id" baseTableName="GameTitle" constraintName="FK_cjy33y6gpsgmg4n92yq54ira2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TransliteratedString"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-258">
+        <addForeignKeyConstraint baseColumnNames="releaseType_id" baseTableName="ReleaseGroup" constraintName="FK_ct4x225q5yu0tqfyeanntdx4v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="ReleaseType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-259">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="GamingEnvironment_AUD" constraintName="FK_cy1qrsvkges9hb3p8uubv7edc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-260">
+        <addForeignKeyConstraint baseColumnNames="game_id" baseTableName="ReleaseGroup" constraintName="FK_cybrbjqnlk1skjuou9b1ewpn9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Game"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-261">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="HardwarePlatformType_AUD" constraintName="FK_dg3x67h1479ma1wfh59vseh4n" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-262">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="TransliteratedString_AUD" constraintName="FK_dn7062mksaivwx8ns6mof9x0e" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-263">
+        <addForeignKeyConstraint baseColumnNames="User_id" baseTableName="User_Role" constraintName="FK_dv4w2xni693cg4ibi3fo1fkk6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-264">
+        <addForeignKeyConstraint baseColumnNames="platformType_id" baseTableName="HardwarePlatform" constraintName="FK_e11r7qslr28prlq8pbdfnb89g" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="HardwarePlatformType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-265">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="PublicationFranchise_AUD" constraintName="FK_e3spbaar39xhoeftjlh5df5h2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-266">
+        <addForeignKeyConstraint baseColumnNames="unreleasedState_id" baseTableName="ReleaseGroup" constraintName="FK_eo5nffqft0g4g46ybp4umwxbw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="UnReleasedState"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-267">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="SoftwarePlatform_AUD" constraintName="FK_ew977kxli92ng4oow0fvpk4ba" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-268">
+        <addForeignKeyConstraint baseColumnNames="Publication_id" baseTableName="Publication_PublicationIssue" constraintName="FK_ffewsg1go6caj35ymwfjv0wa5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Publication"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-269">
+        <addForeignKeyConstraint baseColumnNames="HardwarePlatform_id" baseTableName="HardwarePlatform_PlatformTitle" constraintName="FK_ficwvmo8rnseyoj5pr3t9vlfa" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="HardwarePlatform"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-270">
+        <addForeignKeyConstraint baseColumnNames="releaseGroup_id" baseTableName="GameRelease" constraintName="FK_fo62307r3atc2askbjsjykmv2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="ReleaseGroup"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-271">
+        <addForeignKeyConstraint baseColumnNames="releaseGroupList_id" baseTableName="ReleaseGroup" constraintName="FK_fxt1m1yoh863bwnjsdflftxj4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Game"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-272">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="TitleType_AUD" constraintName="FK_glax8s26yi89k08po9crpoplp" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-273">
+        <addForeignKeyConstraint baseColumnNames="text_id" baseTableName="PlatformTitle" constraintName="FK_gpnd1ahjqqv8yvrydvtfxq4cr" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TransliteratedString"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-274">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="RemakeEnhancementType_AUD" constraintName="FK_h9pxcyyrpw4ue3vpgjcej9rcb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-275">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="AddOnContentType_AUD" constraintName="FK_hfpxaaw372bbig59s9gtvpwfm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-276">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Region_AUD" constraintName="FK_hvwscg28cqnbt77hvdca23bwm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-277">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="GameEntryType_AUD" constraintName="FK_hyqa0rfjbsb2t2imfhp35omv4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-278">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="PublicationIssue_AUD" constraintName="FK_inhrohetjr2bx06bb9hjcj7fu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-279">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="ReleaseGroup_AUD" constraintName="FK_iqdowkq5uw3jeowv9s2jvhxop" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-280">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="SoftwarePlatform_PlatformTitle_AUD" constraintName="FK_kjeno8c3cet9sjrhb0wder8n0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-281">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="CensorshipType_AUD" constraintName="FK_ldxy620om7c8kvq5vgpa1p59n" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-282">
+        <addForeignKeyConstraint baseColumnNames="SoftwarePlatform_id" baseTableName="SoftwarePlatform_PlatformTitle" constraintName="FK_lo95crxohhxvgxif4yhrlvdtu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="SoftwarePlatform"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-283">
+        <addForeignKeyConstraint baseColumnNames="gamingEnvironment_id" baseTableName="ReleaseGroup" constraintName="FK_mbrjhnrq9iyrtok3v6du1antm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="GamingEnvironment"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-284">
+        <addForeignKeyConstraint baseColumnNames="roleList_id" baseTableName="User_Role" constraintName="FK_msiqpq3vwlvre4ukl6yppvhyp" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Role"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-285">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="BusinessModel_AUD" constraintName="FK_ng4wf3qi27arbfclalxn1vdf4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-286">
+        <addForeignKeyConstraint baseColumnNames="titleType_id" baseTableName="GameTitle" constraintName="FK_omic7flftw53v49cfhw8pyucc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TitleType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-287">
+        <addForeignKeyConstraint baseColumnNames="gameTitleList_id" baseTableName="GameTitle" constraintName="FK_owrmooyl3c73orud3snc97lo0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Game"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-288">
+        <addForeignKeyConstraint baseColumnNames="platformType_id" baseTableName="SoftwarePlatform" constraintName="FK_oyuei8a9cdgj3lkw1yrwg32wg" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="SoftwarePlatformType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-289">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="GameRelease_AUD" constraintName="FK_p15ffg2wsxwtqp2h3jjl42n0o" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-290">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="ReleaseGroupReason_AUD" constraintName="FK_p52lh0iubues7m58nk7kdgab3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-291">
+        <addForeignKeyConstraint baseColumnNames="gameEntryType_id" baseTableName="Game" constraintName="FK_p93av0b5x852hhxe8ic742s9c" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="GameEntryType"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-292">
+        <addForeignKeyConstraint baseColumnNames="GamingEnvironment_id" baseTableName="GamingEnvironment_PlatformTitle" constraintName="FK_p9pdbhprrso9jjl4ai19lpk1q" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="GamingEnvironment"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-293">
+        <addForeignKeyConstraint baseColumnNames="region_id" baseTableName="GameTitle" constraintName="FK_pqmhsr0muo2961s1eokwrni96" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Region"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-294">
+        <addForeignKeyConstraint baseColumnNames="title_id" baseTableName="HardwarePlatform_PlatformTitle" constraintName="FK_qdownur8r6cp2o8ax34dw7buo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-295">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Script_AUD" constraintName="FK_qj06y0ybwlevclbwnalnifp9x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-296">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="ReleaseType_AUD" constraintName="FK_qp6xn8i3wj7j47fl6x05lis98" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-297">
+        <addForeignKeyConstraint baseColumnNames="region_id" baseTableName="PlatformTitle" constraintName="FK_revqtjwwsucd6htccp3acndm4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Region"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-298">
+        <addForeignKeyConstraint baseColumnNames="userStatusList_id" baseTableName="User_UserStatus" constraintName="FK_rofky36utyh29c14r79fjmwar" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="UserStatus"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-299">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="PublicationFranchise_Publication_AUD" constraintName="FK_rtx8ugoygmfgelkqg7jc39u7t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-300">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="PlatformTitle_AUD" constraintName="FK_s2it5c0kgvt2fi8brnwnoy20k" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-301">
+        <addForeignKeyConstraint baseColumnNames="title_id" baseTableName="GamingEnvironment_PlatformTitle" constraintName="FK_saxtvsq3qb0w8xde2hybb8tc9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="PlatformTitle"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-302">
+        <addForeignKeyConstraint baseColumnNames="User_id" baseTableName="User_UserStatus" constraintName="FK_shc5mmnvpw4c09rxse8x20b6k" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-303">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="Publication_PublicationIssue_AUD" constraintName="FK_slx0e2jeo889g2sbbu78fccmy" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-304">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="TitleLocation_AUD" constraintName="FK_sxvbesehb66g64dwp0y3j7aym" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-305">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="REVCHANGES" constraintName="FK_t69kea3hasj6uc6ddn5ck5r9y" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="CustomRevisionEntity"/>
+    </changeSet>
+    <changeSet author="sebastian (generated)" id="1439582662777-306">
+        <addForeignKeyConstraint baseColumnNames="publicationList_id" baseTableName="PublicationFranchise_Publication" constraintName="FK_tnbj3i87cub2vhqm7mim2wfg6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Publication"/>
+    </changeSet>
+</databaseChangeLog>
