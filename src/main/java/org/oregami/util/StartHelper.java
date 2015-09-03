@@ -11,6 +11,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.oregami.dropwizard.OregamiConfiguration;
 import org.oregami.dropwizard.OregamiGuiceModule;
 
+import javax.persistence.PersistenceException;
 import javax.validation.Validation;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ import java.util.Properties;
  */
 public class StartHelper {
 
+    private static String jpaUnit = null;
     private static Injector injector = null;
-    public static final String JPA_UNIT = "d1";
-    public static final String CONFIG_FILENAME_TEST = "src/test/resources/oregami.yml";
+    public static final String CONFIG_FILENAME_TEST = "src/test/resources/oregami_test.yml";
     private static String configFilename;
 
     public static String getConfigFilename() {
@@ -49,8 +50,15 @@ public class StartHelper {
         propertiesList.add("hibernate.password");
 
         Properties properties = new Properties();
-        properties.setProperty("javax.persistence.jdbc.url", databaseConfiguration.getUrl());
-
+        if (databaseConfiguration.getUrl()!=null) {
+            properties.setProperty("javax.persistence.jdbc.url", databaseConfiguration.getUrl());
+        }
+        if (databaseConfiguration.getUser()!=null) {
+            properties.setProperty("javax.persistence.jdbc.user", databaseConfiguration.getUser());
+        }
+        if (databaseConfiguration.getPassword()!=null) {
+            properties.setProperty("javax.persistence.jdbc.password", databaseConfiguration.getPassword());
+        }
         for (String p : propertiesList) {
             String val = databaseConfiguration.getProperties().get(p);
             if (val != null) {
@@ -77,10 +85,16 @@ public class StartHelper {
         configFilename = localConfigFilename;
         OregamiConfiguration configuration = createConfiguration(localConfigFilename);
         Properties properties = createPropertiesFromConfiguration(configuration);
-        JpaPersistModule jpaPersistModule = new JpaPersistModule(JPA_UNIT);
+        jpaUnit = configuration.getDatabaseConfiguration().getJpaUnit();
+        JpaPersistModule jpaPersistModule = new JpaPersistModule(jpaUnit);
         jpaPersistModule.properties(properties);
         injector = Guice.createInjector(jpaPersistModule, new OregamiGuiceModule());
-        injector.getInstance(PersistService.class).start();
+        try {
+            injector.getInstance(PersistService.class).start();
+        } catch (PersistenceException e) {
+            throw new RuntimeException("Database error", e);
+        }
+
     }
 
     public static OregamiConfiguration createConfiguration(String configFilename) {
@@ -104,5 +118,9 @@ public class StartHelper {
 
     public static <T> T getInstance(Class<T> c) {
         return getInjector().getInstance(c);
+    }
+
+    public static String getJpaUnit() {
+        return jpaUnit;
     }
 }

@@ -11,10 +11,17 @@ import java.util.Map;
 public class OregamiConfiguration extends Configuration {
 
     public class DatabaseConfiguration {
+
+        @NotNull
+        private String jpaUnit = null;
+
         @NotNull
         private String driverClass = null;
+
         private String user = null;
+
         private String password = "";
+
         @NotNull
         private String url = null;
         @NotNull
@@ -58,6 +65,14 @@ public class OregamiConfiguration extends Configuration {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        public String getJpaUnit() {
+            return jpaUnit;
+        }
+
+        public void setJpaUnit(String jpaUnit) {
+            this.jpaUnit = jpaUnit;
         }
     }
 
@@ -113,5 +128,7 @@ public class OregamiConfiguration extends Configuration {
     public MailConfiguration getMailConfiguration() {
 		return mailConfiguration;
 	}
+
+
 
 }

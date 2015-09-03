@@ -1,0 +1,43 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+phantomJSConfiguration:
+ phantomjsCommandLocation : /usr/local/bin/phantomjs
+ rasterizeJSFileLocation : /usr/local/bin/rasterize.js
+
+mailConfiguration:
+ host : smtp.oregami.org
+ username : demo@oregami.org
+ password : XxxxXxxx
+ port: 25
+
+initBaseLists: true
+initGames: true
+
+####### embedded HSQL database ############
+#databaseConfiguration:
+#  jpaUnit: dataHsql
+#  url: jdbc:hsqldb:mem:testdb
+#  properties:
+#    hibernate.dialect : org.hibernate.dialect.HSQLDialect
+#    hibernate.show_sql : true
+#    hibernate.hbm2ddl.auto : update
+#    hibernate.archive.autodetection: class, hbm
+
+####### external MySQL database ############
+databaseConfiguration:
+  jpaUnit: dataMysql
+  url: jdbc:mysql://localhost:3306/oregami_dev?useUnicode=true&characterEncoding=UTF-8
+  user: oregami_dev
+  password: oregami_dev_pwd
+  driverClass: com.mysql.jdbc.Driver
+  properties:
+    hibernate.connection.driver_class : com.mysql.jdbc.Driver
+    hibernate.dialect : org.hibernate.dialect.MySQLDialect
+    #hibernate.show_sql : true
+    #hibernate.archive.autodetection: class, hbm

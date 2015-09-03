@@ -55,7 +55,7 @@ public class OregamiApplication extends Application<OregamiConfiguration> {
         OregamiConfiguration configuration = StartHelper.createConfiguration(StartHelper.getConfigFilename());
         Properties jpaProperties = StartHelper.createPropertiesFromConfiguration(configuration);
 
-        JpaPersistModule jpaPersistModule = new JpaPersistModule(StartHelper.JPA_UNIT);
+        JpaPersistModule jpaPersistModule = new JpaPersistModule(configuration.getDatabaseConfiguration().getJpaUnit());
         jpaPersistModule.properties(jpaProperties);
 
         guiceBundle = GuiceBundle.<OregamiConfiguration>newBuilder()

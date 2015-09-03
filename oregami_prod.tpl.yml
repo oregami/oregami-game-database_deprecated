@@ -1,0 +1,30 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+phantomJSConfiguration:
+ phantomjsCommandLocation : /usr/local/bin/phantomjs
+ rasterizeJSFileLocation : /usr/local/bin/rasterize.js
+
+mailConfiguration:
+ host : smtp.oregami.org
+ username : demo@oregami.org
+ password : fill_this_password_on_real_server
+ port: 25
+
+initBaseLists: true
+initGames: true
+
+databaseConfiguration:
+  jpaUnit: dataMysql
+  url: jdbc:mysql://localhost:3306/oregami_prod?useUnicode=true&characterEncoding=UTF-8
+  user: oregami_prod
+  password: fill_this_password_on_real_server
+  driverClass: com.mysql.jdbc.Driver
+  properties:
+    hibernate.connection.driver_class : com.mysql.jdbc.Driver
+    hibernate.dialect : org.hibernate.dialect.MySQLDialect

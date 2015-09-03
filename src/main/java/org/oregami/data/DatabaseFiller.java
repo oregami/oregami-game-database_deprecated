@@ -61,11 +61,11 @@ public class DatabaseFiller {
 		pf.getPublicationList().add(publicationVideoGames);
 
 		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1991,1));
-		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1991,2));
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1991, 2));
 		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1991,3));
 		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1992,1));
 		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1992,2));
-		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1992,3));
+		publicationVideoGames.getPublicationIssueList().add(new PublicationIssue(1992, 3));
 
 		publicationFranchiseDao.save(pf);
 
@@ -84,7 +84,7 @@ public class DatabaseFiller {
 		PublicationIssue issue_1990_4 = new PublicationIssue(1990,4);
 		issue_1990_4.setReleaseDate(new LocalDate(1990,3,16));
 		publicationPowerPlay.getPublicationIssueList().add(issue_1990_4);
-		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1990,5));
+		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1990, 5));
 		publicationPowerPlay.getPublicationIssueList().add(new PublicationIssue(1989,1));
 
 		Publication publicationChipPowerPlay = new Publication("CHIP Power Play");
@@ -268,12 +268,14 @@ public class DatabaseFiller {
 	}
 
 	public void initGameData() {
-		addLanguages();
-		addRegions();
-		addGamingEnvironments();
-        //addPlatforms();
-		addGames();
-		addPublications();
+		if (StartHelper.getInstance(LanguageDao.class).findAll().size()==0) {
+			addLanguages();
+			addRegions();
+			addGamingEnvironments();
+			//addPlatforms();
+			addGames();
+			addPublications();
+		}
 	}
 
 	private void addGamingEnvironments() {
@@ -447,24 +449,25 @@ public class DatabaseFiller {
     @Transactional
     public void initDemoUser() {
         UserDao userDao = getInjector().getInstance(UserDao.class);
-        User user = new User();
-        user.setEmail("user1@oregami.org");
-        user.setUsername("user1");
-        user.setPasswordAndEncryptIt("password1");
-        userDao.save(user);
+		if (userDao.findAll().size()==0) {
+			User user = new User();
+			user.setEmail("user1@oregami.org");
+			user.setUsername("user1");
+			user.setPasswordAndEncryptIt("password1");
+			userDao.save(user);
 
-        User user2 = new User();
-        user2.setEmail("user2@oregami.org");
-        user2.setUsername("user2");
-        user2.setPasswordAndEncryptIt("password2");
-        userDao.save(user2);
+			User user2 = new User();
+			user2.setEmail("user2@oregami.org");
+			user2.setUsername("user2");
+			user2.setPasswordAndEncryptIt("password2");
+			userDao.save(user2);
 
-		User user3 = new User();
-		user3.setEmail("gene1@oregami.org");
-		user3.setUsername("gene");
-		user3.setPasswordAndEncryptIt("gene");
-		userDao.save(user3);
-
+			User user3 = new User();
+			user3.setEmail("gene1@oregami.org");
+			user3.setUsername("gene");
+			user3.setPasswordAndEncryptIt("gene");
+			userDao.save(user3);
+		}
     }
 
 
