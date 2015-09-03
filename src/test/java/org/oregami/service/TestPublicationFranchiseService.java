@@ -12,6 +12,7 @@ import org.oregami.entities.Publication;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.entities.PublicationIssue;
 import org.oregami.test.PersistenceTest;
+import org.oregami.util.StartHelper;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -28,11 +29,8 @@ public class TestPublicationFranchiseService {
 
     @BeforeClass
     public static void init() {
-        JpaPersistModule jpaPersistModule = new JpaPersistModule("data");
-        injector = Guice.createInjector(jpaPersistModule);
-        injector.getInstance(PersistenceTest.class);
-        PersistService persistService = injector.getInstance(PersistService.class);
-        persistService.start();
+        StartHelper.init(StartHelper.CONFIG_FILENAME_TEST);
+        injector = StartHelper.getInjector();
         entityManager = injector.getInstance(EntityManager.class);
     }
 
