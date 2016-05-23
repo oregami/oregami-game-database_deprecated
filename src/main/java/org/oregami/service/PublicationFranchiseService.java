@@ -1,15 +1,17 @@
 package org.oregami.service;
 
-import com.google.inject.Inject;
 import org.oregami.data.GenericDAOUUID;
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.entities.PublicationFranchise;
 import org.oregami.util.validation.IEntityValidator;
 import org.oregami.util.validation.PublicationFranchiseValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PublicationFranchiseService extends TopLevelEntityService<PublicationFranchise> {
 
-	@Inject
+	@Autowired
 	private PublicationFranchiseDao dao;
 
     @Override

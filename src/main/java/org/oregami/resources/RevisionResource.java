@@ -1,32 +1,31 @@
 package org.oregami.resources;
 
-import com.google.inject.Inject;
 import org.oregami.data.RevisionEntityDao;
 import org.oregami.entities.CustomRevisionEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 
-@Path("/revisions")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+
+@Controller
 public class RevisionResource {
 
-	@Inject
+	@Autowired
 	private RevisionEntityDao dao = null;
 
 	public RevisionResource() {
 	}
 
-	@GET
-	public List<CustomRevisionEntity> list() {
+    @RequestMapping(value = "/revisions", method = RequestMethod.GET)
+	public String list(Model model) {
 		List<CustomRevisionEntity> ret = dao.findAll();
-		return ret;
+        model.addAttribute("revisions", ret);
+		return "revisions";
 	}
 
 }

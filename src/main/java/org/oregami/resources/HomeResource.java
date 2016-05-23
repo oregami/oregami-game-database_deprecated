@@ -1,21 +1,21 @@
 package org.oregami.resources;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@Path("/")
-@Produces(MediaType.APPLICATION_JSON)
+@Controller
 public class HomeResource {
 
-	@GET
-	public Map<String, Object> home() {
-		HashMap<String, Object> values = new HashMap<String, Object>();
-		values.put("hello", "oregami");
-		return values;
+	public HomeResource() {
 	}
+
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+	public String list(Model model) {
+        return "index";
+	}
+
 }

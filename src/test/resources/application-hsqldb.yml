@@ -1,0 +1,39 @@
+app:
+  name: Oregami.org
+
+debug:  true
+
+# DataSource settings: set here your own configurations for the database
+# connection. In this example we have "netgloo_blog" as database name and
+# "root" as username and password.
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url:  jdbc:mysql://localhost:3306/oregami2?useUnicode=true&amp;characterEncoding=UTF-8
+    username: oregami
+    password: oregami
+
+# Keep the connection alive if idle for a long time (needed in production)
+    testWhileIdle:  true
+    alidationQuery: SELECT 1
+
+# Show or not log for each sql query
+  jpa:
+    show-sql: true
+
+# Hibernate ddl auto (create, create-drop, update)
+    hibernate:
+      #ddl-auto: create
+
+# Naming strategy
+      naming-strategy:  org.hibernate.cfg.ImprovedNamingStrategy
+
+# Use spring.jpa.properties.* for Hibernate native properties (the prefix is
+# stripped before adding them to the entity manager)
+
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+    properties:
+      hibernate:
+        dialect:  org.hibernate.dialect.HSQLDialect
+

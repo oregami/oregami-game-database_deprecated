@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Publication Franchises - One'"></head>
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_PUBLICATIONFRANCHISE)"></nav>
+
+
+<div class="content">
+    <h1>
+        <a th:href="@{${URL_PUBLICATIONFRANCHISE}}"><i class="fa fa-chevron-circle-left color-primary-0"></i></a>
+        <span th:text="${publicationFranchise.name}">PublicationFranchise-Name</span>
+    </h1>
+    <!--<div th:text="${publicationFranchise.id}"></div>-->
+
+    <div th:each="publication : ${publicationFranchise.publicationList}">
+        <h2 th:text="${publication.name}"></h2>
+
+        <div th:each="issue : ${publication.publicationIssueList}">
+            <h3 th:text="${issue.issueNameNumber + '/' + issue.issueNameYear}"></h3>
+            <div th:if="${issue.releaseDate}">
+                <label th:text="#{releaseDate}">releaseDate</label>:
+                <span th:text="${issue.releaseDate.toString('dd.MM.yyyy')}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

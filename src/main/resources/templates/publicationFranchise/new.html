@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Publication Franchises - List'"></head>
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_PUBLICATIONFRANCHISE)"></nav>
+
+
+<div class="content">
+<div class="grids-unit pure-g">
+    <div class="pure-u-1-2"
+         style="margin-bottom: 4px;"
+         >
+        <form action="#" th:action="@{/publicationFranchise}" th:object="${publicationFranchise}" method="post">
+            <p>Name: <input type="text" th:field="*{name}" /></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+
+
+    </div>
+</div>
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+<script language="JavaScript">
+    /*<![CDATA[*/
+    /*
+    alert('test');
+    var buttons = document.querySelectorAll('[data-preview-img]');
+     for (var i = 0; i < buttons.length; i++) {
+     buttons[i].innerHTML = buttons[i].innerHTML + '<br/> <img src="' + buttons[i].getAttribute('data-preview-img') + '"/>';
+     }
+     */
+    /*]]>*/
+</script>
+</body>
+</html>
