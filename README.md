@@ -3,8 +3,8 @@ oregami
 open source game database
 
 This is the REST server written in Java.
-It uses spring boot, JPA and Hibernate.
+It uses Spring Boot, JPA and Hibernate.
 
 How to start the Server:
-Run the class "org.oregami.dropwizard.OregamiApplication".
+Run the class "org.oregami.OregamiApplication".
 Open your web browser at localhost:8080
