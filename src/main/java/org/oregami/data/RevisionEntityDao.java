@@ -2,6 +2,8 @@ package org.oregami.data;
 
 import org.oregami.entities.CustomRevisionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManagerFactory;
@@ -9,6 +11,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RevisionEntityDao {
 
     @Autowired

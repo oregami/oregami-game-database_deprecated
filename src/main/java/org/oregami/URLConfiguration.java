@@ -14,6 +14,8 @@ public class URLConfiguration {
 
 	enum URLS {
 		PUBLICATIONFRANCHISE("/publicationFranchise")
+        ,GAMINGENVIRONMENTS("/gamingEnvironments")
+        ,GAMES("/")
 		,HOME("/")
 		;
 		public final String value;

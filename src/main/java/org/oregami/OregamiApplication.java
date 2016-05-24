@@ -1,5 +1,6 @@
 package org.oregami;
 
+import org.oregami.data.BaseListFiller;
 import org.oregami.data.DatabaseFiller;
 import org.oregami.data.LanguageDao;
 import org.springframework.boot.SpringApplication;
@@ -24,9 +25,16 @@ public class OregamiApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(OregamiApplication.class, args);
+
+        BaseListFiller baseListFiller = ctx.getBean(BaseListFiller.class);
+        baseListFiller.initBaseLists();
+
         DatabaseFiller databaseFiller = ctx.getBean(DatabaseFiller.class);
         databaseFiller.addLanguages();
+        databaseFiller.addRegions();
         databaseFiller.addPublications();
+        databaseFiller.addGamingEnvironments();
+
     }
 
     @Bean
