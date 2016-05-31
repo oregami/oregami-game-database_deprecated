@@ -34,6 +34,7 @@ public class OregamiApplication {
         databaseFiller.addRegions();
         databaseFiller.addPublications();
         databaseFiller.addGamingEnvironments();
+        databaseFiller.addGames();
 
     }
 

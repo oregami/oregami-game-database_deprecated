@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Game - One'"></head>
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_GAMES)"></nav>
+
+
+<div class="content">
+    <h1>
+        <a th:href="@{${URL_GAMES}}"><i class="fa fa-chevron-circle-left color-primary-0"></i></a>
+        <span th:each="title,iterStat : ${one.gameTitleList}" th:text="!${iterStat.first} ? ' / ' + ${title.text.text} :${title.text.text}"></span>
+    </h1>
+
+    <div th:each="title,iterStat : ${one.gameTitleList}">
+        <span th:text="${title.text.text}"></span>
+        <span class="hint" th:if="${title.titleType.value}" th:text="${title.titleType.value}"></span>
+        <span class="hint" th:if="${title.region}" th:text="${title.region.name}"></span>
+    </div>
+
+
+    <div th:each="releaseGroup,iterStat : ${one.releaseGroupList}">
+        <div th:each="title,iterStat : ${releaseGroup.gamingEnvironment.title}">
+            <h2 th:text="${title.text.text}"></h2>
+            <span class="hint" th:if="${title.titleType.value}" th:text="${title.titleType.value}"></span>
+            <span class="hint" th:if="${title.region.name}" th:text="${title.region.name}"></span>
+            <!--<span th:text="${iterStat.last} ? '' :  ','"></span>-->
+        </div>
+
+        <dl>
+            <th:block th:if="${releaseGroup.releaseType}">
+                <dt th:text="#{releaseType}"></dt>
+                <dd th:text="${releaseGroup.releaseType.value}"></dd>
+            </th:block>
+            <th:block th:if="${releaseGroup.releaseGroupReason}">
+                <dt th:text="#{releaseGroupReason}"></dt>
+                <dd th:text="${releaseGroup.releaseGroupReason.value}"></dd>
+            </th:block>
+        </dl>
+
+    </div>
+
+
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

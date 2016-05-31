@@ -3,8 +3,7 @@ package org.oregami.data;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.oregami.entities.*;
-import org.oregami.entities.datalist.Script;
-import org.oregami.entities.datalist.TitleType;
+import org.oregami.entities.datalist.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +51,10 @@ public class DatabaseFiller {
 
     @Autowired
     TitleFactory titleFactory;
+
+    @Autowired
+    GameDao gameDao;
+
 //
 //	BaseListFiller baseListFiller = StartHelper.getInstance(BaseListFiller.class);
 
@@ -108,168 +111,168 @@ public class DatabaseFiller {
 
 	}
 
-//	private void addMonkeyIsland() {
-//		Game gameMonkeyIsland = new Game();
-//
-//		gameMonkeyIsland.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
-//
-//		gameMonkeyIsland.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.ENGLISH),
-//						"The Secret of Monkey Island"
-//				)
-//		);
-//
-//		gameMonkeyIsland.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ABBREVIATION),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.ENGLISH),
-//						"Monkey Island 1"
-//				)
-//		);
-//
-//		gameMonkeyIsland.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.FRENCH),
-//						"Le Secret de L'Ile aux Singes"
-//				)
-//		);
-//
-//		gameMonkeyIsland.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
-//						baseListFinder.getScript(Script.CHINESE),
-//						languageDao.findByExactName(Language.CHINESE),
-//						"猴島小英雄"
-//				)
-//		);
-//
-//
-//		/*
-//		//#### Atari ST #######
-//		ReleaseGroup rgAtari = new ReleaseGroup("Atari", SystemKey.AtariST, baseListFinder.getReleaseType(ReleaseType.PORT));
-//		gameMonkeyIsland.addReleaseGroup(rgAtari);
-//
-//		//#### Amiga #######
-//		ReleaseGroup rgAmiga = new ReleaseGroup("Amiga", SystemKey.Amiga, baseListFinder.getReleaseType(ReleaseType.PORT));
-//		gameMonkeyIsland.addReleaseGroup(rgAmiga);
-//
-//		ReleaseGroup rgAmigaDemo = new ReleaseGroup("Amiga Demo", SystemKey.Amiga, baseListFinder.getReleaseType(ReleaseType.PORT));
-//		gameMonkeyIsland.addReleaseGroup(rgAmigaDemo);
-//
-//		//#### MS-DOS ######
-//		ReleaseGroup rgDos = new ReleaseGroup("DOS Initial Floppy", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
-//		gameMonkeyIsland.addReleaseGroup(rgDos);
-//
-//		ReleaseGroup rgDosVga = new ReleaseGroup("DOS Floppy VGA", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
-//		gameMonkeyIsland.addReleaseGroup(rgDosVga);
-//
-//		ReleaseGroup rgDosEnhancedCDRom = new ReleaseGroup("DOS Enhanced CDROM", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
-//		gameMonkeyIsland.addReleaseGroup(rgDosEnhancedCDRom);
-//
-//		ReleaseGroup rgDosDemo = new ReleaseGroup("DOS Demo", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
-//		gameMonkeyIsland.addReleaseGroup(rgDosDemo);
-//
-//		//#### FMTowns #######
-//		ReleaseGroup rgFMTowns = new ReleaseGroup("FMTowns", SystemKey.FMTowns, baseListFinder.getReleaseType(ReleaseType.PORT));
-//		gameMonkeyIsland.addReleaseGroup(rgFMTowns);
-//
-//		//#### Mac #######
-//		ReleaseGroup rgMac = new ReleaseGroup("Mac", SystemKey.AppleMacintosh, baseListFinder.getReleaseType(ReleaseType.PORT));
-//		gameMonkeyIsland.addReleaseGroup(rgMac);
-//
-//		ReleaseGroup rgMacSE = new ReleaseGroup("Mac SE", SystemKey.AppleMacintosh, baseListFinder.getReleaseType(ReleaseType.PORT));
-//		gameMonkeyIsland.addReleaseGroup(rgMacSE);
-//		*/
-//
-//		gameDao.save(gameMonkeyIsland);
-//
-//
-//	}
-//
-//	private void addResidentEvilGame() {
-//
-//		Game gameResidentEvil = new Game();
-//		gameResidentEvil.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
-//
-//		gameResidentEvil.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.ENGLISH),
-//						"Resident Evil"
-//				)
-//		);
-//		gameResidentEvil.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.RE_RELEASE_TITLE),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.ENGLISH),
-//						"Resident Evil: Director's Cut"
-//				)
-//		);
-//
-//		ReleaseGroup rgPsOne = new ReleaseGroup("PS 1 Release", getGamingEnvironmentPlaystation1(), baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
-//		gameResidentEvil.addReleaseGroup(rgPsOne);
-//
-//		gameDao.save(gameResidentEvil);
-//	}
-//
-//	private void addXWingGame() {
-//		Game gameXWing = new Game();
-//
-//		gameXWing.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ABBREVIATION),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.ENGLISH),
-//						"Star Wars - X-Wing"
-//				)
-//		);
-//		gameXWing.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ABBREVIATION),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.ENGLISH),
-//						"X-Wing"
-//				)
-//		);
-//
-//		gameXWing.addGameTitle(
-//				titleFactory.createGameTitle(
-//						null, //Region
-//						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
-//						baseListFinder.getScript(Script.LATIN),
-//						languageDao.findByExactName(Language.ENGLISH),
-//						"Star Wars - X-Wing: Space Combat Simulator"
-//				)
-//		);
-//
-//		gameDao.save(gameXWing);
-//	}
-//
-//	private void addGames() {
-//
-//		if (gameDao.findAll().size()>0) return;
-//
-//		addMonkeyIsland();
-//		addResidentEvilGame();
-//		addXWingGame();
-//
-//	}
+	private void addMonkeyIsland() {
+		Game gameMonkeyIsland = new Game();
+
+		gameMonkeyIsland.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
+
+		gameMonkeyIsland.addGameTitle(
+				titleFactory.createGameTitle(
+						regionDao.findByExactName(Region.NORTH_AMERICA), //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"The Secret of Monkey Island"
+				)
+		);
+
+		gameMonkeyIsland.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ABBREVIATION),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Monkey Island 1"
+				)
+		);
+
+		gameMonkeyIsland.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.FRENCH),
+						"Le Secret de L'Ile aux Singes"
+				)
+		);
+
+		gameMonkeyIsland.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.CHINESE),
+						languageDao.findByExactName(Language.CHINESE),
+						"猴島小英雄"
+				)
+		);
+
+
+		/*
+		//#### Atari ST #######
+		ReleaseGroup rgAtari = new ReleaseGroup("Atari", SystemKey.AtariST, baseListFinder.getReleaseType(ReleaseType.PORT));
+		gameMonkeyIsland.addReleaseGroup(rgAtari);
+
+		//#### Amiga #######
+		ReleaseGroup rgAmiga = new ReleaseGroup("Amiga", SystemKey.Amiga, baseListFinder.getReleaseType(ReleaseType.PORT));
+		gameMonkeyIsland.addReleaseGroup(rgAmiga);
+
+		ReleaseGroup rgAmigaDemo = new ReleaseGroup("Amiga Demo", SystemKey.Amiga, baseListFinder.getReleaseType(ReleaseType.PORT));
+		gameMonkeyIsland.addReleaseGroup(rgAmigaDemo);
+
+		//#### MS-DOS ######
+		ReleaseGroup rgDos = new ReleaseGroup("DOS Initial Floppy", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
+		gameMonkeyIsland.addReleaseGroup(rgDos);
+
+		ReleaseGroup rgDosVga = new ReleaseGroup("DOS Floppy VGA", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
+		gameMonkeyIsland.addReleaseGroup(rgDosVga);
+
+		ReleaseGroup rgDosEnhancedCDRom = new ReleaseGroup("DOS Enhanced CDROM", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
+		gameMonkeyIsland.addReleaseGroup(rgDosEnhancedCDRom);
+
+		ReleaseGroup rgDosDemo = new ReleaseGroup("DOS Demo", SystemKey.MSDOS, baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
+		gameMonkeyIsland.addReleaseGroup(rgDosDemo);
+
+		//#### FMTowns #######
+		ReleaseGroup rgFMTowns = new ReleaseGroup("FMTowns", SystemKey.FMTowns, baseListFinder.getReleaseType(ReleaseType.PORT));
+		gameMonkeyIsland.addReleaseGroup(rgFMTowns);
+
+		//#### Mac #######
+		ReleaseGroup rgMac = new ReleaseGroup("Mac", SystemKey.AppleMacintosh, baseListFinder.getReleaseType(ReleaseType.PORT));
+		gameMonkeyIsland.addReleaseGroup(rgMac);
+
+		ReleaseGroup rgMacSE = new ReleaseGroup("Mac SE", SystemKey.AppleMacintosh, baseListFinder.getReleaseType(ReleaseType.PORT));
+		gameMonkeyIsland.addReleaseGroup(rgMacSE);
+		*/
+
+		gameDao.save(gameMonkeyIsland);
+
+
+	}
+
+	private void addResidentEvilGame() {
+
+		Game gameResidentEvil = new Game();
+		gameResidentEvil.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
+
+		gameResidentEvil.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Resident Evil"
+				)
+		);
+		gameResidentEvil.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.RE_RELEASE_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Resident Evil: Director's Cut"
+				)
+		);
+
+		ReleaseGroup rgPsOne = new ReleaseGroup("PS 1 Release", getGamingEnvironmentPlaystation1(), baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
+        rgPsOne.setReleaseGroupReason(baseListFinder.getReleaseGroupReason(ReleaseGroupReason.ORIGINAL));
+
+		gameResidentEvil.addReleaseGroup(rgPsOne);
+
+		gameDao.save(gameResidentEvil);
+	}
+
+	private void addXWingGame() {
+		Game gameXWing = new Game();
+
+		gameXWing.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ABBREVIATION),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Star Wars - X-Wing"
+				)
+		);
+		gameXWing.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ABBREVIATION),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"X-Wing"
+				)
+		);
+
+		gameXWing.addGameTitle(
+				titleFactory.createGameTitle(
+						null, //Region
+						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+						baseListFinder.getScript(Script.LATIN),
+						languageDao.findByExactName(Language.ENGLISH),
+						"Star Wars - X-Wing: Space Combat Simulator"
+				)
+		);
+
+		gameDao.save(gameXWing);
+	}
+
+	public void addGames() {
+		if (gameDao.findAll().size()>0) return;
+		addMonkeyIsland();
+		addResidentEvilGame();
+		addXWingGame();
+	}
+
 //
 //	public void initBaseLists() {
 //		baseListFiller.initBaseLists();
@@ -289,6 +292,9 @@ public class DatabaseFiller {
 	public void addGamingEnvironments() {
 		//====== SONY PLAYSTATION =================
 		GamingEnvironment gamingEnvironmentPlaystation = new GamingEnvironment();
+
+        //gamingEnvironmentPlaystation.setHardwarePlatform(HardwarePlatformTypeDao.);
+
 		PlatformTitle pt1 = titleFactory.createPlatformTitle(
                 regionDao.findByExactName(Region.UNITED_STATES),
 				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
@@ -487,11 +493,11 @@ public class DatabaseFiller {
 //    }
 //
 //
-//	private GamingEnvironment getGamingEnvironmentPlaystation1() {
-//		return getInjector().getInstance(GamingEnvironmentDao.class).findOneByExactTitle("Sony Playstation");
-//	}
-//
-//	private GamingEnvironment getGamingEnvironmentPlaystation2() {
-//		return getInjector().getInstance(GamingEnvironmentDao.class).findOneByExactTitle("Playstation 2");
-//	}
+	private GamingEnvironment getGamingEnvironmentPlaystation1() {
+        return gamingEnvironmentDao.findOneByExactTitle("Sony Playstation");
+	}
+
+	private GamingEnvironment getGamingEnvironmentPlaystation2() {
+		return gamingEnvironmentDao.findOneByExactTitle("Playstation 2");
+	}
 }

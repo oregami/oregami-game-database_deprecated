@@ -22,7 +22,7 @@ public class GamingEnvironmentDao extends GenericDAOUUIDImpl<GamingEnvironment, 
     @SuppressWarnings("unchecked")
 	public List<GamingEnvironment> findByTitle(String title) {
 		List<GamingEnvironment> geList = getEntityManager()
-				.createNativeQuery("SELECT * FROM GamingEnvironment t where title = :value ", GamingEnvironment.class).setParameter("value", title).getResultList();
+				.createNativeQuery("SELECT * FROM Gaming_Environment t where title = :value ", GamingEnvironment.class).setParameter("value", title).getResultList();
 		return geList;
 	}
 
@@ -30,13 +30,13 @@ public class GamingEnvironmentDao extends GenericDAOUUIDImpl<GamingEnvironment, 
 		GamingEnvironment ge = (GamingEnvironment) getEntityManager()
 				.createNativeQuery("SELECT distinct g.* " +
                         " FROM " +
-                        " GamingEnvironment g, " +
-                        " GamingEnvironment_PlatformTitle gp, " +
-                        " PlatformTitle p, " +
-                        " TransliteratedString ts " +
-                        " where g.id = gp.GamingEnvironment_id " +
-                        " and gp.title_id = p.id " +
-                        " and p.text_id = ts.id " +
+                        " Gaming_Environment g, " +
+                        " Gaming_Environment_Title gp, " +
+                        " Platform_Title p, " +
+                        " Transliterated_String ts " +
+                        " where g.id = gp.gaming_environment " +
+                        " and gp.title = p.id " +
+                        " and p.text = ts.id " +
                         " and ts.text = :value ", GamingEnvironment.class).setParameter("value", title).getSingleResult();
 		return ge;
 	}

@@ -52,6 +52,7 @@ public class Game extends BaseEntityUUID {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	@JoinColumn
+    @OrderBy("id")
 	private Set<GameTitle> gameTitleList = new HashSet<>();
 
 	public void addReleaseGroup(ReleaseGroup vog) {

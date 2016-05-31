@@ -28,6 +28,7 @@ public class GamingEnvironment extends BaseEntityUUID {
 	private HardwarePlatform hardwarePlatform;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
+    @OrderBy("id")
 	private Set<PlatformTitle> title = new HashSet<>();
 
 	public Set<PlatformTitle> getTitle() {

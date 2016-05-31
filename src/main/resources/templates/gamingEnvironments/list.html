@@ -14,13 +14,18 @@
     <div class="grids-unit pure-g">
 
         <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-1 pure-u-lg-1-1 pure-u-xl-1-1"
-             style="margin-bottom: 14px;"
+             style="margin-bottom: 20px;"
              th:each="gamingEnvironment : ${list}">
 
-            <div th:each="title,iterStat : ${gamingEnvironment.title}" th:text="${iterStat.last} ? ${title.text.text} :${title.text.text} + ','"></div>
+            <div th:each="title,iterStat : ${gamingEnvironment.title}">
+                <span th:text="${title.text.text}"></span>
+                <span class="hint" th:if="${title.titleType.value}" th:text="${title.titleType.value}"></span>
+                <span class="hint" th:if="${title.region.name}" th:text="${title.region.name}"></span>
+                <!--<span th:text="${iterStat.last} ? '' :  ','"></span>-->
+            </div>
 
-            <a th:href="@{${URL_GAMINGENVIRONMENTS} + '/' + ${gamingEnvironment.id}}"
-            th:text="#{view}">view</a>
+            <a class="pure-button" th:href="@{${URL_GAMINGENVIRONMENTS} + '/' + ${gamingEnvironment.id}}"
+               ><span th:text="#{view}">view</span></a>
 
         </div>
     </div>
