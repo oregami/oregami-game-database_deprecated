@@ -1,17 +1,20 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.datalist.BaseList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class BaseListDao<T extends BaseList> extends GenericDAOUUIDImpl<T, String> {
 
-public class BaseListDao<T extends BaseList> extends GenericDAOUUIDImpl<T, String>{
-
-	@Inject
-	public BaseListDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public BaseListDao(EntityManager em) {
+		super(em);
 	}
 
 	@SuppressWarnings("unchecked")

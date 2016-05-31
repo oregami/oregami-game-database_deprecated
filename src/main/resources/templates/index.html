@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Startseite'"></head>
+<body>
+
+<nav th:replace="navigation :: navigation('index')"></nav>
+
+<div class="content">
+    <br/>
+    <br/>
+    <label th:text="#{welcome}"></label>
+
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

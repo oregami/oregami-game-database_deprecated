@@ -77,9 +77,4 @@ public class Region extends BaseEntityUUID {
 	public static final String EUROPE = "EUROPE";
 	public static final String NORTH_AMERICA = "NORTH_AMERICA";
 
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-    public LocalDateTime getChangeTimeGui() {
-        return getChangeTime();
-    }
-
 }

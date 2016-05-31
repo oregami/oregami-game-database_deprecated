@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<nav th:fragment="navigation(activeUrl)" role="navigation" aria-label="navigation" class="navigation">
+    <!--
+    <a href="/" id="logo">
+        <img src="/ext/images/kp-logo_s.png"/></a>
+        -->
+    <ul class="navigation">
+        <li th:class="${activeUrl}=='index' ? 'active' : ''" id="navHome"><a href="/">Home</a></li>
+        <li th:class="${activeUrl}==URL_PUBLICATIONFRANCHISE ? 'active' : ''"><a th:href="${URL_PUBLICATIONFRANCHISE}" th:text="#{publicationFranchise}"></a></li>
+        <li th:class="${activeUrl}==URL_GAMES ? 'active' : ''"><a th:href="${URL_GAMES}" th:text="#{games}"></a></li>
+        <li th:class="${activeUrl}==URL_GAMINGENVIRONMENTS ? 'active' : ''"><a th:href="${URL_GAMINGENVIRONMENTS}" th:text="#{gamingEnvironments}"></a></li>
+    </ul>
+    <div class="language">
+        <a th:href="@{${#httpServletRequest.requestURI + '?lang=en'}}">en</a>
+        <a th:href="@{${#httpServletRequest.requestURI + '?lang=de'}}">de</a>
+    </div>
+</nav>
+
+
+<body>
+
+
+</body>
+
+</html>

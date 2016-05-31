@@ -1,15 +1,21 @@
 package org.oregami.service;
 
-import com.google.inject.Inject;
 import org.oregami.data.GamingEnvironmentDao;
 import org.oregami.data.GenericDAOUUID;
 import org.oregami.entities.GamingEnvironment;
 import org.oregami.util.validation.IEntityValidator;
 import org.oregami.util.validation.NullValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GamingEnvironmentService extends TopLevelEntityService<GamingEnvironment> {
 
-	@Inject
+	@Autowired
 	private GamingEnvironmentDao dao;
 
     @Override

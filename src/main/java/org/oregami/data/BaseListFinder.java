@@ -1,26 +1,28 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
 import org.oregami.entities.datalist.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BaseListFinder {
 
-	@Inject
+	@Autowired
 	GameEntryTypeDao gameEntryTypeDao;
 
-	@Inject
+	@Autowired
 	ReleaseGroupReasonDao releaseGroupReasonDao;
 
-	@Inject
+	@Autowired
 	ReleaseTypeDao releaseTypeDao;
 
-	@Inject
+	@Autowired
 	TitleTypeDao titleTypeDao;
 
-	@Inject
+	@Autowired
 	DemoContentTypeDao demoContentTypeDao;
 
-    @Inject
+    @Autowired
     ScriptDao scriptDao;
 
 	public GameEntryType getGameEntryType(String value) {

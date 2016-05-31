@@ -1,16 +1,20 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.datalist.ReleaseType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 
-public class ReleaseTypeDao extends GenericDAOUUIDImpl<ReleaseType, Long>{
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class ReleaseTypeDao extends GenericDAOUUIDImpl<ReleaseType, Long> {
 
-	@Inject
-	public ReleaseTypeDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public ReleaseTypeDao(EntityManager em) {
+		super(em);
 		entityClass=ReleaseType.class;
 	}
 

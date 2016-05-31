@@ -1,23 +1,27 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.Region;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 
-public class RegionDao extends GenericDAOUUIDImpl<Region, String>{
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class RegionDao extends GenericDAOUUIDImpl<Region, String> {
 
-	@Inject
-	public RegionDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public RegionDao(EntityManager em) {
+		super(em);
 		entityClass=Region.class;
 	}
 	
 	
 	public Region findByExactName(String name) {
     	Region r = (Region) getEntityManager()
-        		.createNativeQuery("SELECT * FROM Region r where lower(r.name) = :value ", Region.class).setParameter("value", name.toLowerCase()).getSingleResult(); 
+        		.createNativeQuery("SELECT * FROM Region r where lower(r.name) = :value ", Region.class).setParameter("value", name.toLowerCase()).getSingleResult();
         return r;
     }
 

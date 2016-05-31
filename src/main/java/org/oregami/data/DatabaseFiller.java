@@ -1,16 +1,12 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.persist.Transactional;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.oregami.entities.*;
 import org.oregami.entities.datalist.*;
-import org.oregami.entities.user.User;
-import org.oregami.util.StartHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +16,7 @@ import java.util.List;
  * @author twendelmuth
  *
  */
+@Component
 public class DatabaseFiller {
 
 	Logger logger = Logger.getLogger(DatabaseFiller.class);
@@ -34,18 +31,32 @@ public class DatabaseFiller {
 	private static List<String> baseListDataTables =
 			Arrays.asList("Script", "BusinessModel", "CensorshipType", "DemoContentType", "GameEntryType", "ReleaseGroupReason", "ReleaseType", "RemakeEnhancementType", "TitleType", "UnreleaseState");
 
-	@Inject
-	private GameDao gameDao;
-
-	@Inject
+//	@Autowired
+//	private GameDao gameDao;
+//
+	@Autowired
 	private LanguageDao languageDao;
 
-	@Inject
+	@Autowired
 	private PublicationFranchiseDao publicationFranchiseDao;
 
-	BaseListFinder baseListFinder = StartHelper.getInstance(BaseListFinder.class);
+    @Autowired
+    private GamingEnvironmentDao gamingEnvironmentDao;
 
-	BaseListFiller baseListFiller = StartHelper.getInstance(BaseListFiller.class);
+    @Autowired
+    private RegionDao regionDao;
+
+    @Autowired
+    BaseListFinder baseListFinder;
+
+    @Autowired
+    TitleFactory titleFactory;
+
+    @Autowired
+    GameDao gameDao;
+
+//
+//	BaseListFiller baseListFiller = StartHelper.getInstance(BaseListFiller.class);
 
 	public void addPublications() {
 		addPublicationPowerPlay();
@@ -106,8 +117,8 @@ public class DatabaseFiller {
 		gameMonkeyIsland.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
 
 		gameMonkeyIsland.addGameTitle(
-				TitleFactory.createGameTitle(
-						null, //Region
+				titleFactory.createGameTitle(
+						regionDao.findByExactName(Region.NORTH_AMERICA), //Region
 						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
 						baseListFinder.getScript(Script.LATIN),
 						languageDao.findByExactName(Language.ENGLISH),
@@ -116,7 +127,7 @@ public class DatabaseFiller {
 		);
 
 		gameMonkeyIsland.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.ABBREVIATION),
 						baseListFinder.getScript(Script.LATIN),
@@ -126,7 +137,7 @@ public class DatabaseFiller {
 		);
 
 		gameMonkeyIsland.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
 						baseListFinder.getScript(Script.LATIN),
@@ -136,7 +147,7 @@ public class DatabaseFiller {
 		);
 
 		gameMonkeyIsland.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
 						baseListFinder.getScript(Script.CHINESE),
@@ -194,7 +205,7 @@ public class DatabaseFiller {
 		gameResidentEvil.setGameEntryType(baseListFinder.getGameEntryType(GameEntryType.GAME));
 
 		gameResidentEvil.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
 						baseListFinder.getScript(Script.LATIN),
@@ -203,7 +214,7 @@ public class DatabaseFiller {
 				)
 		);
 		gameResidentEvil.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.RE_RELEASE_TITLE),
 						baseListFinder.getScript(Script.LATIN),
@@ -213,6 +224,8 @@ public class DatabaseFiller {
 		);
 
 		ReleaseGroup rgPsOne = new ReleaseGroup("PS 1 Release", getGamingEnvironmentPlaystation1(), baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
+        rgPsOne.setReleaseGroupReason(baseListFinder.getReleaseGroupReason(ReleaseGroupReason.ORIGINAL));
+
 		gameResidentEvil.addReleaseGroup(rgPsOne);
 
 		gameDao.save(gameResidentEvil);
@@ -222,7 +235,7 @@ public class DatabaseFiller {
 		Game gameXWing = new Game();
 
 		gameXWing.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.ABBREVIATION),
 						baseListFinder.getScript(Script.LATIN),
@@ -231,7 +244,7 @@ public class DatabaseFiller {
 				)
 		);
 		gameXWing.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.ABBREVIATION),
 						baseListFinder.getScript(Script.LATIN),
@@ -241,7 +254,7 @@ public class DatabaseFiller {
 		);
 
 		gameXWing.addGameTitle(
-				TitleFactory.createGameTitle(
+				titleFactory.createGameTitle(
 						null, //Region
 						baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
 						baseListFinder.getScript(Script.LATIN),
@@ -253,136 +266,134 @@ public class DatabaseFiller {
 		gameDao.save(gameXWing);
 	}
 
-	private void addGames() {
-
+	public void addGames() {
 		if (gameDao.findAll().size()>0) return;
-
 		addMonkeyIsland();
 		addResidentEvilGame();
 		addXWingGame();
-
 	}
 
-	public void initBaseLists() {
-		baseListFiller.initBaseLists();
-	}
+//
+//	public void initBaseLists() {
+//		baseListFiller.initBaseLists();
+//	}
+//
+//	public void initGameData() {
+//		if (languageDao.findAll().size()==0) {
+//			addLanguages();
+//			addRegions();
+//			addGamingEnvironments();
+//			//addPlatforms();
+//			addGames();
+//			addPublications();
+//		}
+//	}
 
-	public void initGameData() {
-		if (StartHelper.getInstance(LanguageDao.class).findAll().size()==0) {
-			addLanguages();
-			addRegions();
-			addGamingEnvironments();
-			//addPlatforms();
-			addGames();
-			addPublications();
-		}
-	}
-
-	private void addGamingEnvironments() {
-		GamingEnvironmentDao dao = getInjector().getInstance(GamingEnvironmentDao.class);
-
+	public void addGamingEnvironments() {
 		//====== SONY PLAYSTATION =================
 		GamingEnvironment gamingEnvironmentPlaystation = new GamingEnvironment();
-		PlatformTitle pt1 = TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+
+        //gamingEnvironmentPlaystation.setHardwarePlatform(HardwarePlatformTypeDao.);
+
+		PlatformTitle pt1 = titleFactory.createPlatformTitle(
+                regionDao.findByExactName(Region.UNITED_STATES),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.LATIN),
+				languageDao.findByExactName(Language.ENGLISH),
 				"Sony Playstation"
 		);
 		gamingEnvironmentPlaystation.addTitle(pt1);
-		PlatformTitle pt2 = TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
+		PlatformTitle pt2 = titleFactory.createPlatformTitle(
+				regionDao.findByExactName(Region.JAPAN),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.JAPANESE),
+				languageDao.findByExactName(Language.JAPANESE),
 				"プレイステーション"
 		);
 		gamingEnvironmentPlaystation.addTitle(pt2);
-		dao.save(gamingEnvironmentPlaystation);
+		gamingEnvironmentDao.save(gamingEnvironmentPlaystation);
 
 		//====== NES =================
 		GamingEnvironment nes = new GamingEnvironment();
-		nes.addTitle(TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.UNITED_STATES),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+		nes.addTitle(titleFactory.createPlatformTitle(
+				regionDao.findByExactName(Region.UNITED_STATES),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.LATIN),
+				languageDao.findByExactName(Language.ENGLISH),
 				"Famicom"
 		));
-		nes.addTitle(TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+		nes.addTitle(titleFactory.createPlatformTitle(
+				regionDao.findByExactName(Region.EUROPE),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.LATIN),
+				languageDao.findByExactName(Language.ENGLISH),
 				"Nintendo Entertainment System"
 		));
-		nes.addTitle(TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.JAPAN),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.JAPANESE),
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.JAPANESE),
+		nes.addTitle(titleFactory.createPlatformTitle(
+				regionDao.findByExactName(Region.JAPAN),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.JAPANESE),
+				languageDao.findByExactName(Language.JAPANESE),
 				"ファミリーコンピュータ"
 		));
-		dao.save(nes);
+        gamingEnvironmentDao.save(nes);
 
 
 		//====== Amiga =================
 		GamingEnvironment amiga = new GamingEnvironment();
-		amiga.addTitle(TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+		amiga.addTitle(titleFactory.createPlatformTitle(
+				regionDao.findByExactName(Region.EUROPE),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.LATIN),
+				languageDao.findByExactName(Language.ENGLISH),
 				"Commodore Amiga"
 		));
 		HardwarePlatform hpAmiga = new HardwarePlatform();
-		hpAmiga.addTitle(TitleFactory.createLatinPlatformTitle(
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+		hpAmiga.addTitle(titleFactory.createLatinPlatformTitle(
+				languageDao.findByExactName(Language.ENGLISH),
 				"Amiga M68K Machine & Compatibles"
 		));
-		hpAmiga.addTitle(TitleFactory.createLatinPlatformTitle(
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.GERMAN),
+		hpAmiga.addTitle(titleFactory.createLatinPlatformTitle(
+				languageDao.findByExactName(Language.GERMAN),
 				"Amiga M68K und Kompatible"
 		));
 
 		amiga.setHardwarePlatform(hpAmiga);
-		dao.save(amiga);
+        gamingEnvironmentDao.save(amiga);
 
 		//====== C64 =================
 		GamingEnvironment c64 = new GamingEnvironment();
-		c64.addTitle(TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
-				StartHelper.getInstance(LanguageDao.class).findByExactName(Language.ENGLISH),
+		c64.addTitle(titleFactory.createPlatformTitle(
+				regionDao.findByExactName(Region.EUROPE),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.LATIN),
+				languageDao.findByExactName(Language.ENGLISH),
 				"Commodore 64"
 		));
-		dao.save(c64);
+        gamingEnvironmentDao.save(c64);
 
 		//====== MS-DOS =================
 		GamingEnvironment msdos = new GamingEnvironment();
-		msdos.addTitle(TitleFactory.createPlatformTitle(
-				StartHelper.getInstance(RegionDao.class).findByExactName(Region.EUROPE),
-				StartHelper.getInstance(BaseListFinder.class).getTitleType(TitleType.ORIGINAL_TITLE),
-				StartHelper.getInstance(BaseListFinder.class).getScript(Script.LATIN),
+		msdos.addTitle(titleFactory.createPlatformTitle(
+				regionDao.findByExactName(Region.EUROPE),
+				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+				baseListFinder.getScript(Script.LATIN),
 				null,
 				"MS-DOS"
 		));
-		dao.save(msdos);
+        gamingEnvironmentDao.save(msdos);
 
 
 	}
-
-    //	@Transactional
-	public void initData() {
-		initBaseLists();
-		initGameData();
-	}
-
+//
+//    //	@Transactional
+//	public void initData() {
+//		initBaseLists();
+//		initGameData();
+//	}
+//
 	public void addRegions() {
 		//countries:
-		RegionDao regionDao = getInjector().getInstance(RegionDao.class);
 		regionDao.save(new Region(Region.GERMANY, true, false, null));
 		regionDao.save(new Region(Region.UNITED_STATES, true, false, null));
 		regionDao.save(new Region(Region.UNITED_KINGDOM, true, false, null));
@@ -396,7 +407,6 @@ public class DatabaseFiller {
 
 	}
 	public void addLanguages() {
-		LanguageDao languageDao = getInjector().getInstance(LanguageDao.class);
 		languageDao.save(new Language(Language.ARABIC));
 		languageDao.save(new Language(Language.BENGALI));
 		languageDao.save(new Language(Language.CANTONESE));
@@ -420,74 +430,74 @@ public class DatabaseFiller {
 		languageDao.save(new Language(Language.TURKISH));
 
 	}
-
-	@Transactional
-	public void deleteGameData() {
-		EntityManager em = getInjector().getInstance(EntityManager.class);
-		for (String tableName : dataTables) {
-            System.out.println("deleting all rows from " + tableName);
-			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
-			if (logger.isDebugEnabled()) {
-				logger.debug("deleted all " + update + " rows from " + tableName);
-			}
-		}
-	}
-
-	@Transactional
-	public void deleteBaseListData() {
-		EntityManager em = getInjector().getInstance(EntityManager.class);
-		for (String tableName : baseListDataTables) {
-			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
-            System.out.println("deleting all rows from " + tableName);
-			if (logger.isDebugEnabled()) {
-				logger.debug("deleted all " + update + " rows from " + tableName);
-			}
-		}
-	}
-
-
-    @Transactional
-    public void initDemoUser() {
-        UserDao userDao = getInjector().getInstance(UserDao.class);
-		if (userDao.findAll().size()==0) {
-			User user = new User();
-			user.setEmail("user1@oregami.org");
-			user.setUsername("user1");
-			user.setPasswordAndEncryptIt("password1");
-			userDao.save(user);
-
-			User user2 = new User();
-			user2.setEmail("user2@oregami.org");
-			user2.setUsername("user2");
-			user2.setPasswordAndEncryptIt("password2");
-			userDao.save(user2);
-
-			User user3 = new User();
-			user3.setEmail("gene1@oregami.org");
-			user3.setUsername("gene");
-			user3.setPasswordAndEncryptIt("gene");
-			userDao.save(user3);
-		}
-    }
-
-
-    @Transactional
-    public void dropAllData() {
-        EntityManager em = getInjector().getInstance(EntityManager.class);
-        em.createNativeQuery("TRUNCATE SCHEMA public AND COMMIT NO CHECK").executeUpdate();
-        StartHelper.getInstance(BaseListFiller.class).reset();
-    }
-
-    public Injector getInjector() {
-        return StartHelper.getInjector();
-    }
-
-
+//
+//	@Transactional
+//	public void deleteGameData() {
+//		EntityManager em = getInjector().getInstance(EntityManager.class);
+//		for (String tableName : dataTables) {
+//            System.out.println("deleting all rows from " + tableName);
+//			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("deleted all " + update + " rows from " + tableName);
+//			}
+//		}
+//	}
+//
+//	@Transactional
+//	public void deleteBaseListData() {
+//		EntityManager em = getInjector().getInstance(EntityManager.class);
+//		for (String tableName : baseListDataTables) {
+//			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
+//            System.out.println("deleting all rows from " + tableName);
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("deleted all " + update + " rows from " + tableName);
+//			}
+//		}
+//	}
+//
+//
+//    @Transactional
+//    public void initDemoUser() {
+//        UserDao userDao = getInjector().getInstance(UserDao.class);
+//		if (userDao.findAll().size()==0) {
+//			User user = new User();
+//			user.setEmail("user1@oregami.org");
+//			user.setUsername("user1");
+//			user.setPasswordAndEncryptIt("password1");
+//			userDao.save(user);
+//
+//			User user2 = new User();
+//			user2.setEmail("user2@oregami.org");
+//			user2.setUsername("user2");
+//			user2.setPasswordAndEncryptIt("password2");
+//			userDao.save(user2);
+//
+//			User user3 = new User();
+//			user3.setEmail("gene1@oregami.org");
+//			user3.setUsername("gene");
+//			user3.setPasswordAndEncryptIt("gene");
+//			userDao.save(user3);
+//		}
+//    }
+//
+//
+//    @Transactional
+//    public void dropAllData() {
+//        EntityManager em = getInjector().getInstance(EntityManager.class);
+//        em.createNativeQuery("TRUNCATE SCHEMA public AND COMMIT NO CHECK").executeUpdate();
+//        StartHelper.getInstance(BaseListFiller.class).reset();
+//    }
+//
+//    public Injector getInjector() {
+//        return StartHelper.getInjector();
+//    }
+//
+//
 	private GamingEnvironment getGamingEnvironmentPlaystation1() {
-		return getInjector().getInstance(GamingEnvironmentDao.class).findOneByExactTitle("Sony Playstation");
+        return gamingEnvironmentDao.findOneByExactTitle("Sony Playstation");
 	}
 
 	private GamingEnvironment getGamingEnvironmentPlaystation2() {
-		return getInjector().getInstance(GamingEnvironmentDao.class).findOneByExactTitle("Playstation 2");
+		return gamingEnvironmentDao.findOneByExactTitle("Playstation 2");
 	}
 }

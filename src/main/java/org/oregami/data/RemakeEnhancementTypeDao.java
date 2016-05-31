@@ -1,16 +1,20 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.datalist.RemakeEnhancementType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RemakeEnhancementTypeDao extends BaseListDao<RemakeEnhancementType>{
 
-	@Inject
-	public RemakeEnhancementTypeDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public RemakeEnhancementTypeDao(EntityManager em) {
+		super(em);
 		entityClass=RemakeEnhancementType.class;
 	}
 

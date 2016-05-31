@@ -1,17 +1,21 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.persist.Transactional;
 import org.oregami.entities.PublicationFranchise;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranchise, String>{
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class PublicationFranchiseDao extends GenericDAOUUIDImpl<PublicationFranchise, String> {
 
-	@Inject
-	public PublicationFranchiseDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public PublicationFranchiseDao(EntityManager em) {
+		super(em);
 		entityClass=PublicationFranchise.class;
 	}
 

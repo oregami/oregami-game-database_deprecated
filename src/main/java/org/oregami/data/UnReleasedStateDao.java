@@ -1,17 +1,20 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import org.oregami.entities.datalist.ReleaseType;
 import org.oregami.entities.datalist.UnReleasedState;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 
-public class UnReleasedStateDao extends BaseListDao<UnReleasedState>{
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class UnReleasedStateDao extends BaseListDao<UnReleasedState> {
 
-	@Inject
-	public UnReleasedStateDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public UnReleasedStateDao(EntityManager em) {
+		super(em);
 		entityClass=UnReleasedState.class;
 	}
 

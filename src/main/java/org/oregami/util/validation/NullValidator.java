@@ -1,11 +1,7 @@
 package org.oregami.util.validation;
 
 import org.oregami.entities.BaseEntityUUID;
-import org.oregami.entities.Game;
-import org.oregami.service.FieldNames;
 import org.oregami.service.ServiceError;
-import org.oregami.service.ServiceErrorContext;
-import org.oregami.service.ServiceErrorMessage;
 
 import java.util.ArrayList;
 import java.util.List;

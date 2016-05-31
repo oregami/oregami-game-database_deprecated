@@ -8,11 +8,10 @@ import org.oregami.entities.user.User;
 import org.oregami.service.ServiceCallContext;
 import org.oregami.service.ServiceResult;
 import org.oregami.service.TopLevelEntityService;
+import org.oregami.util.exception.BadRequestException;
+import org.oregami.util.exception.NotFoundException;
 
 import javax.persistence.OptimisticLockException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -21,84 +20,77 @@ import java.util.NoSuchElementException;
  */
 public abstract class ResourceHelper {
 
-    public static Response create(User user, BaseEntityUUID entity, TopLevelEntityService service, Class resourceClass) {
+    public static ServiceResult<BaseEntityUUID> create(User user, BaseEntityUUID entity, TopLevelEntityService service, Class resourceClass) {
         try {
             ServiceCallContext context = new ServiceCallContext(user);
             ServiceResult<BaseEntityUUID> serviceResult = service.createNewEntity(entity, context);
             if (serviceResult.hasErrors()) {
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .type("text/json")
-                        .entity(serviceResult.getErrors()).build();
+                return serviceResult;
             }
             //BUG: https://java.net/jira/browse/JERSEY-2838
             //    and https://github.com/dropwizard/dropwizard/issues/878
             //return Response.created(new URI(serviceResult.getResult().getId())).build();
             //workaround:
 
-            final URI uri = UriBuilder.fromResource(resourceClass)
-                    .path("{id}")
-                    .build(serviceResult.getResult().getId());
-            return Response.created(uri).build();
+//            final URI uri = UriComponentsBuilder.(resourceClass)
+//                    .path("{id}")
+//                    .build(serviceResult.getResult().getId());
+            return serviceResult;
 
         } catch (Exception e) {
-            return Response.status(Response.Status.CONFLICT).type("text/plain")
-                    .entity(e.getMessage()).build();
+            e.printStackTrace();
+            return null;
         }
     }
 
-    public static Response update(User user, String id, BaseEntityUUID entity, TopLevelEntityService service) {
+    public static ServiceResult<BaseEntityUUID> update(User user, String id, BaseEntityUUID entity, TopLevelEntityService service) {
         if (entity.getId() == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            throw new BadRequestException();
         }
         try {
             ServiceCallContext context = new ServiceCallContext(user);
             ServiceResult<BaseEntityUUID> serviceResult = service.updateEntity(entity, context);
-            if (serviceResult.hasErrors()) {
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .type("text/json")
-                        .entity(serviceResult.getErrors()).build();
-            }
+            return serviceResult;
         } catch (OptimisticLockException e) {
             Logger.getLogger(ResourceHelper.class).warn("OptimisticLockException", e);
-            return Response.status(Response.Status.BAD_REQUEST).tag("OptimisticLockException").build();
+            throw new BadRequestException();
         }
-        return Response.status(Response.Status.ACCEPTED).entity(entity).build();
     }
 
 
-    public static Response getRevision(String id, String revision, GenericDAOUUIDImpl dao) {
+    public static BaseEntityUUID getRevision(String id, String revision, GenericDAOUUIDImpl dao) {
         BaseEntityUUID entity = dao.findRevision(id, Integer.parseInt(revision));
-        if (entity != null) {
-            return Response.ok(entity).build();
+        if (entity == null) {
+            throw new NotFoundException();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return entity;
         }
     }
 
-    public static Response getRevisions(String id, GenericDAOUUIDImpl dao) {
+    public static List<RevisionInfo> getRevisions(String id, GenericDAOUUIDImpl dao) {
         List<RevisionInfo> revisionList = dao.findRevisions(id);
-        if (revisionList != null) {
-            return Response.ok(revisionList).build();
+        if (revisionList == null) {
+            throw new NotFoundException();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return revisionList;
         }
     }
 
-    public static Response get(String id, GenericDAOUUIDImpl dao) {
+    public static BaseEntityUUID get(String id, GenericDAOUUIDImpl dao) {
         BaseEntityUUID entity = dao.findOne(id);
-        if (entity != null) {
-            return Response.ok(entity).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        if (entity == null) {
+            throw new NotFoundException();
         }
+        return entity;
+
     }
 
-    public static Response delete(User user, String id, TopLevelEntityService service) {
+    public void delete(User user, String id, TopLevelEntityService service) {
         try {
             service.deleteEntity(id);
         } catch (NoSuchElementException e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new NotFoundException();
         }
-        return Response.ok().build();
+
     }
 }

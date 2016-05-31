@@ -1,16 +1,19 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.GameTitle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class GameTitleDao extends GenericDAOUUIDImpl<GameTitle, String> {
 
-public class GameTitleDao extends GenericDAOUUIDImpl<GameTitle, String>{
-
-	@Inject
-	public GameTitleDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public GameTitleDao(EntityManager em) {
+		super(em);
 		entityClass=GameTitle.class;
 	}
 

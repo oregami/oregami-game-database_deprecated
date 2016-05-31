@@ -4,7 +4,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.LocalDate;
 
-import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -15,7 +14,6 @@ public class PublicationIssue extends BaseEntityUUID {
 	private static final long serialVersionUID = -6611241084584031299L;
 
 	@Column
-	@Nullable
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate releaseDate;
 	

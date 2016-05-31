@@ -1,8 +1,5 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.persist.Transactional;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.joda.time.LocalDateTime;
@@ -11,6 +8,8 @@ import org.oregami.entities.CustomRevisionEntity;
 import org.oregami.entities.CustomRevisionListener;
 import org.oregami.entities.TopLevelEntity;
 import org.oregami.service.ServiceCallContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -19,14 +18,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
         GenericDAOUUID<E, P> {
 
-    private final Provider<EntityManager> emf;
+    private final EntityManager em;
 
-    @Inject
-    public GenericDAOUUIDImpl(Provider<EntityManager> emf) {
-        this.emf=emf;
+    @Autowired
+    public GenericDAOUUIDImpl(EntityManager em) {
+        this.em=em;
     }
 
     Class<E> entityClass;
@@ -36,14 +36,14 @@ public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
     @SuppressWarnings("unchecked")
     public P save(E entity) {
         entity.setChangeTime(new LocalDateTime());
-        emf.get().persist(entity);
+        em.persist(entity);
         updateRevisionListener(entity);
         return (P) entity.getId();
     }
 
     @Override
     public E findOne(P id) {
-        return emf.get().find(getEntityClass(), id);
+        return em.find(getEntityClass(), id);
     }
 
     @Override
@@ -51,18 +51,18 @@ public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
     public void update(E entity) {
         updateRevisionListener(entity);
         entity.setChangeTime(new LocalDateTime());
-        emf.get().merge(entity);
+        em.merge(entity);
     }
 
     @Override
     @Transactional
     public void delete(E entity) {
-        emf.get().remove(entity);
+        em.remove(entity);
     }
 
     @Override
     public EntityManager getEntityManager() {
-        return emf.get();
+        return em;
     }
 
     @Override
@@ -86,7 +86,7 @@ public abstract class GenericDAOUUIDImpl<E extends BaseEntityUUID, P> implements
     @SuppressWarnings("unchecked")
     @Override
     public List<E> findAll() {
-        return this.emf.get().createNamedQuery(
+        return this.em.createNamedQuery(
                 getEntityClass().getSimpleName() + ".GetAll").getResultList();
     }
 

@@ -1,16 +1,19 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.datalist.AddOnContentType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class AddOnContentTypeDao extends BaseListDao<AddOnContentType> {
 
-public class AddOnContentTypeDao extends BaseListDao<AddOnContentType>{
-
-	@Inject
-	public AddOnContentTypeDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public AddOnContentTypeDao(EntityManager em) {
+		super(em);
 		entityClass=AddOnContentType.class;
 	}
 

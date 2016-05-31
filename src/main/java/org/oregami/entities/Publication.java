@@ -27,6 +27,7 @@ public class Publication extends BaseEntityUUID {
 	private Language language;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OrderBy("issueNameYear ASC, issueNameNumber ASC")
 	private final Set<PublicationIssue> publicationIssueList = new HashSet<PublicationIssue>();
 
 	public Publication() {

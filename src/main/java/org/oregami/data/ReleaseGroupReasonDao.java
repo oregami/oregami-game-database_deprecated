@@ -1,16 +1,20 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.datalist.ReleaseGroupReason;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 
-public class ReleaseGroupReasonDao extends BaseListDao<ReleaseGroupReason>{
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class ReleaseGroupReasonDao extends BaseListDao<ReleaseGroupReason> {
 
-	@Inject
-	public ReleaseGroupReasonDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public ReleaseGroupReasonDao(EntityManager em) {
+		super(em);
 		entityClass=ReleaseGroupReason.class;
 	}
 	

@@ -14,7 +14,7 @@ import java.util.Set;
 @Audited
 @TopLevelEntity(discriminator = TopLevelEntity.Discriminator.GAMINGENVIRONMENT)
 @NamedQueries({
-	@NamedQuery(name="GamingEnvironment.GetAll", query = 
+	@NamedQuery(name="GamingEnvironment.GetAll", query =
 			"from GamingEnvironment t")
 })
 public class GamingEnvironment extends BaseEntityUUID {
@@ -28,6 +28,7 @@ public class GamingEnvironment extends BaseEntityUUID {
 	private HardwarePlatform hardwarePlatform;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
+    @OrderBy("id")
 	private Set<PlatformTitle> title = new HashSet<>();
 
 	public Set<PlatformTitle> getTitle() {
@@ -40,11 +41,6 @@ public class GamingEnvironment extends BaseEntityUUID {
 
 	public void addTitle(PlatformTitle t) {
 		this.title.add(t);
-	}
-
-	@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-	public LocalDateTime getChangeTimeGui() {
-		return getChangeTime();
 	}
 
 	public HardwarePlatform getHardwarePlatform() {

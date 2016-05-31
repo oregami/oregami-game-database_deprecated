@@ -1,26 +1,25 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.CustomRevisionEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RevisionEntityDao {
 
-    private final Provider<EntityManager> emf;
-
-    @Inject
-	public RevisionEntityDao(Provider<EntityManager> emf) {
-		this.emf = emf;
-	}
-
+    @Autowired
+    public final EntityManagerFactory emf = null;
 
     public List<CustomRevisionEntity> findAll() {
         int limit = 100;
-        Query query = emf.get().createQuery(
+        Query query = emf.createEntityManager().createQuery(
                 "SELECT e FROM CustomRevisionEntity e order by timestamp DESC")
                 .setMaxResults(limit);
         return (List<CustomRevisionEntity>) query.getResultList();

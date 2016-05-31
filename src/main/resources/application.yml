@@ -1,0 +1,58 @@
+app:
+  name: Kultpower.org
+  resources: /Users/sebastian/www/springboot/ #Folder with external content
+
+debug:  true
+
+# DataSource settings: set here your own configurations for the database
+# connection. In this example we have "netgloo_blog" as database name and
+# "root" as username and password.
+spring:
+  datasource:
+    url:  jdbc:mysql://localhost:3306/oregami2?useUnicode=true&characterEncoding=UTF-8
+#CREATE DATABASE `oregami2` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+#CREATE USER 'oregami2'@'localhost' IDENTIFIED BY 'oregami2';
+#GRANT ALL PRIVILEGES ON `oregami2`.* TO 'oregami2'@'localhost' WITH GRANT OPTION;
+    username: oregami2
+    password: oregami2
+  thymeleaf:
+    cache: false
+    #encoding: UTF-8
+  messages:
+# Keep the connection alive if idle for a long time (needed in production)
+    testWhileIdle:  true
+    alidationQuery: SELECT 1
+    #encoding: UTF-8
+
+# Show or not log for each sql query
+  jpa:
+    show-sql: true
+
+# Hibernate ddl auto (create, create-drop, update)
+    hibernate:
+      ddl-auto: create-drop
+
+# Naming strategy
+      naming-strategy:  org.hibernate.cfg.ImprovedNamingStrategy
+
+# Use spring.jpa.properties.* for Hibernate native properties (the prefix is
+# stripped before adding them to the entity manager)
+
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+    properties:
+      hibernate:
+        dialect:  org.hibernate.dialect.MySQL5Dialect
+#      jadira:
+#        usertype:
+#          autoRegisterUserTypes: true
+
+
+logging:
+  level:
+    org.springframework.web:  DEBUG
+    org.springframework.transaction:  DEBUG
+    org.springframework.boot: OFF
+
+liquibase.:
+  #changeLog: classpath:/db/changelog/db.changelog-master.xml
+  changeLog: classpath:/liquibase/master.xml

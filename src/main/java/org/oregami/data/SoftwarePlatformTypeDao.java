@@ -1,17 +1,20 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import org.oregami.entities.datalist.HardwarePlatformType;
 import org.oregami.entities.datalist.SoftwarePlatformType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SoftwarePlatformTypeDao extends BaseListDao<SoftwarePlatformType>{
 
-	@Inject
-	public SoftwarePlatformTypeDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public SoftwarePlatformTypeDao(EntityManager em) {
+		super(em);
 		entityClass=SoftwarePlatformType.class;
 	}
 	

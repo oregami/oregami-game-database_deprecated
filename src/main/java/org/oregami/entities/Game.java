@@ -52,6 +52,7 @@ public class Game extends BaseEntityUUID {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	@JoinColumn
+    @OrderBy("id")
 	private Set<GameTitle> gameTitleList = new HashSet<>();
 
 	public void addReleaseGroup(ReleaseGroup vog) {
@@ -70,11 +71,6 @@ public class Game extends BaseEntityUUID {
 	public void setGameEntryType(GameEntryType gameEntryType) {
 		this.gameEntryType = gameEntryType;
 	}
-
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-    public LocalDateTime getChangeTimeGui() {
-        return getChangeTime();
-    }
 
 	public Set<GameTitle> getGameTitleList() {
 		return gameTitleList;

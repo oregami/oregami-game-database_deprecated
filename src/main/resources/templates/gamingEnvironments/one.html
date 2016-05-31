@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Gaming Environment - One'"></head>
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_GAMINGENVIRONMENTS)"></nav>
+
+
+<div class="content">
+    <h1>
+        <a th:href="@{${URL_GAMINGENVIRONMENTS}}"><i class="fa fa-chevron-circle-left color-primary-0"></i></a>
+        <span th:each="title,iterStat : ${one.title}" th:text="!${iterStat.first} ? ' / ' + ${title.text.text} :${title.text.text}"></span>
+    </h1>
+
+
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

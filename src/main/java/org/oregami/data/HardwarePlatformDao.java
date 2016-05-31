@@ -1,18 +1,19 @@
 package org.oregami.data;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.oregami.entities.HardwarePlatform;
-import org.oregami.entities.TransliteratedString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
-import java.util.List;
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class HardwarePlatformDao extends GenericDAOUUIDImpl<HardwarePlatform, String> {
 
-public class HardwarePlatformDao extends GenericDAOUUIDImpl<HardwarePlatform, String>{
-
-	@Inject
-	public HardwarePlatformDao(Provider<EntityManager> emf) {
-		super(emf);
+	@Autowired
+	public HardwarePlatformDao(EntityManager em) {
+		super(em);
 		entityClass=HardwarePlatform.class;
 	}
 
