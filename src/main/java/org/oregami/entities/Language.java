@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @Entity
 @Audited
 @TopLevelEntity(discriminator = TopLevelEntity.Discriminator.LANGUAGE)
-@NamedQueries({@NamedQuery(name="language.GetAll", query = "from language l")})
+@NamedQueries({@NamedQuery(name="Language.GetAll", query = "from Language l")})
 public class Language extends BaseEntityUUID {
 
 	private static final long serialVersionUID = 8596032241189706765L;
