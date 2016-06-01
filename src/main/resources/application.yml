@@ -14,9 +14,8 @@ spring:
     alidationQuery: SELECT 1
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
       dialect:  org.hibernate.dialect.HSQLDialect
-
       naming-strategy:  org.hibernate.cfg.EJB3NamingStrategy
 
     properties:
