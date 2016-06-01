@@ -33,7 +33,7 @@ spring:
       ddl-auto: create-drop
 
 # Naming strategy
-      naming-strategy:  org.hibernate.cfg.ImprovedNamingStrategy
+      naming-strategy:  org.hibernate.cfg.EJB3NamingStrategy
 
 # Use spring.jpa.properties.* for Hibernate native properties (the prefix is
 # stripped before adding them to the entity manager)
@@ -42,6 +42,7 @@ spring:
     properties:
       hibernate:
         dialect:  org.hibernate.dialect.MySQL5Dialect
+
 #      jadira:
 #        usertype:
 #          autoRegisterUserTypes: true
