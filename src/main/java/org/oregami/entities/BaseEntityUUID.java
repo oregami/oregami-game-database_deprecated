@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -118,6 +119,7 @@ public abstract class BaseEntityUUID implements Serializable
         this.validationId = validationId;
     }
 
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime changeTime = new LocalDateTime();
 
     public LocalDateTime getChangeTime() {

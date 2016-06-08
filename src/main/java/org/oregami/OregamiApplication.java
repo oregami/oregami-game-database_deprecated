@@ -2,7 +2,6 @@ package org.oregami;
 
 import org.oregami.data.BaseListFiller;
 import org.oregami.data.DatabaseFiller;
-import org.oregami.data.LanguageDao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;

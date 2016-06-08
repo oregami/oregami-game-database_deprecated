@@ -1,7 +1,5 @@
 package org.oregami.entities;
 
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.oregami.entities.datalist.SoftwarePlatformType;

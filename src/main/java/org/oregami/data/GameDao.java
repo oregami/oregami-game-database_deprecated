@@ -22,7 +22,7 @@ public class GameDao extends GenericDAOUUIDImpl<Game, String> {
     @SuppressWarnings("unchecked")
 	public List<Game> findByName(String name) {
         List<Game> games = getEntityManager()
-        		.createNativeQuery("SELECT * FROM Game g, GameTitle t where g.id=t.GameId and lower(t.title) like '%" + name.toLowerCase() + "%'", Game.class).getResultList();
+        		.createNativeQuery("SELECT * FROM Game g, GameTitle t where g.id=t.gameTitleList_id and lower(t.title) like '%" + name.toLowerCase() + "%'", Game.class).getResultList();
         return games;
     }
 

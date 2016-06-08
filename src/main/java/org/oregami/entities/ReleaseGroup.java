@@ -42,7 +42,7 @@ public class ReleaseGroup extends BaseEntityUUID {
 	private ReleaseType releaseType;
 
 	@ManyToMany
-	private final Set<DemoContentType> demoContentTypeList = new HashSet<DemoContentType>();
+	private Set<DemoContentType> demoContentTypeList = new HashSet<DemoContentType>();
 	
 	private boolean censored = false;
 	
@@ -59,7 +59,7 @@ public class ReleaseGroup extends BaseEntityUUID {
 
 	@OneToMany(mappedBy = "releaseGroup", cascade = CascadeType.ALL, orphanRemoval=true)
 //	@OrderBy("description ASC")
-	private final Set<Release> releaseList = new HashSet<Release>();
+	private Set<Release> releaseList = new HashSet<Release>();
 
 
 	public ReleaseGroup() {
@@ -143,4 +143,8 @@ public class ReleaseGroup extends BaseEntityUUID {
 	public GamingEnvironment getGamingEnvironment() {
 		return gamingEnvironment;
 	}
+
+    public void setReleaseList(Set<Release> releaseList) {
+        this.releaseList = releaseList;
+    }
 }

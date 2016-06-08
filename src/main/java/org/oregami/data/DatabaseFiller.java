@@ -1,14 +1,11 @@
 package org.oregami.data;
 
-import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.oregami.entities.*;
 import org.oregami.entities.datalist.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Class to fill the database with some sample entities.
@@ -19,21 +16,6 @@ import java.util.List;
 @Component
 public class DatabaseFiller {
 
-	Logger logger = Logger.getLogger(DatabaseFiller.class);
-
-	private static List<String> dataTables =
-			Arrays.asList( "Release", "ReleaseGroup", "GameTitle", "Game",
-                    "GameTitle",
-                    "PublicationIssue",  "Publication",  "PublicationFranchise",
-                    "Language", "Region"
-                    );
-
-	private static List<String> baseListDataTables =
-			Arrays.asList("Script", "BusinessModel", "CensorshipType", "DemoContentType", "GameEntryType", "ReleaseGroupReason", "ReleaseType", "RemakeEnhancementType", "TitleType", "UnreleaseState");
-
-//	@Autowired
-//	private GameDao gameDao;
-//
 	@Autowired
 	private LanguageDao languageDao;
 
@@ -54,9 +36,6 @@ public class DatabaseFiller {
 
     @Autowired
     GameDao gameDao;
-
-//
-//	BaseListFiller baseListFiller = StartHelper.getInstance(BaseListFiller.class);
 
 	public void addPublications() {
 		addPublicationPowerPlay();
@@ -226,6 +205,15 @@ public class DatabaseFiller {
 		ReleaseGroup rgPsOne = new ReleaseGroup("PS 1 Release", getGamingEnvironmentPlaystation1(), baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
         rgPsOne.setReleaseGroupReason(baseListFinder.getReleaseGroupReason(ReleaseGroupReason.ORIGINAL));
 
+        Release releaseGermany = new Release();
+        releaseGermany.setDescription("rel_ger");
+        ReleaseRegion germany = new ReleaseRegion();
+        germany.setRegion(regionDao.findByExactName(Region.GERMANY));
+        germany.setReleaseDate(new LocalDate(1999,12,1));
+        releaseGermany.getReleaseRegionList().add(germany);
+        germany.setRelease(releaseGermany);
+        rgPsOne.addRelease(releaseGermany);
+
 		gameResidentEvil.addReleaseGroup(rgPsOne);
 
 		gameDao.save(gameResidentEvil);
@@ -273,21 +261,6 @@ public class DatabaseFiller {
 		addXWingGame();
 	}
 
-//
-//	public void initBaseLists() {
-//		baseListFiller.initBaseLists();
-//	}
-//
-//	public void initGameData() {
-//		if (languageDao.findAll().size()==0) {
-//			addLanguages();
-//			addRegions();
-//			addGamingEnvironments();
-//			//addPlatforms();
-//			addGames();
-//			addPublications();
-//		}
-//	}
 
 	public void addGamingEnvironments() {
 		//====== SONY PLAYSTATION =================
@@ -385,14 +358,8 @@ public class DatabaseFiller {
 
 
 	}
-//
-//    //	@Transactional
-//	public void initData() {
-//		initBaseLists();
-//		initGameData();
-//	}
-//
-	public void addRegions() {
+
+    public void addRegions() {
 		//countries:
 		regionDao.save(new Region(Region.GERMANY, true, false, null));
 		regionDao.save(new Region(Region.UNITED_STATES, true, false, null));
@@ -431,30 +398,6 @@ public class DatabaseFiller {
 
 	}
 //
-//	@Transactional
-//	public void deleteGameData() {
-//		EntityManager em = getInjector().getInstance(EntityManager.class);
-//		for (String tableName : dataTables) {
-//            System.out.println("deleting all rows from " + tableName);
-//			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
-//			if (logger.isDebugEnabled()) {
-//				logger.debug("deleted all " + update + " rows from " + tableName);
-//			}
-//		}
-//	}
-//
-//	@Transactional
-//	public void deleteBaseListData() {
-//		EntityManager em = getInjector().getInstance(EntityManager.class);
-//		for (String tableName : baseListDataTables) {
-//			int update = em.createQuery("DELETE FROM " + tableName).executeUpdate();
-//            System.out.println("deleting all rows from " + tableName);
-//			if (logger.isDebugEnabled()) {
-//				logger.debug("deleted all " + update + " rows from " + tableName);
-//			}
-//		}
-//	}
-//
 //
 //    @Transactional
 //    public void initDemoUser() {
@@ -479,20 +422,7 @@ public class DatabaseFiller {
 //			userDao.save(user3);
 //		}
 //    }
-//
-//
-//    @Transactional
-//    public void dropAllData() {
-//        EntityManager em = getInjector().getInstance(EntityManager.class);
-//        em.createNativeQuery("TRUNCATE SCHEMA public AND COMMIT NO CHECK").executeUpdate();
-//        StartHelper.getInstance(BaseListFiller.class).reset();
-//    }
-//
-//    public Injector getInjector() {
-//        return StartHelper.getInjector();
-//    }
-//
-//
+
 	private GamingEnvironment getGamingEnvironmentPlaystation1() {
         return gamingEnvironmentDao.findOneByExactTitle("Sony Playstation");
 	}

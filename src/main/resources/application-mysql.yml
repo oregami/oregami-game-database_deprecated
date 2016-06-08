@@ -12,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
       dialect:  org.hibernate.dialect.MySQL5Dialect
 
     properties:

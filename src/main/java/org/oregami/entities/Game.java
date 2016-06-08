@@ -17,12 +17,10 @@
 package org.oregami.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
-import org.joda.time.LocalDateTime;
 import org.oregami.entities.datalist.GameEntryType;
 
 import javax.persistence.*;

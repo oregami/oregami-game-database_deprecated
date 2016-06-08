@@ -1,9 +1,7 @@
 package org.oregami.resources;
 
 import org.oregami.data.GameDao;
-import org.oregami.data.GamingEnvironmentDao;
 import org.oregami.service.GameService;
-import org.oregami.service.GamingEnvironmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

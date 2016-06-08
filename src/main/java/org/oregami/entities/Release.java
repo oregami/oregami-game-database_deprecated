@@ -18,35 +18,48 @@ package org.oregami.entities;
 
 import org.hibernate.envers.Audited;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Audited
-@Table(name="GameRelease")
+@Table(name = "GameRelease") //because "Release" is a reserved word in MySQL)
 public class Release extends BaseEntityUUID {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+    @ManyToOne
+    private ReleaseGroup releaseGroup;
 
-	@ManyToOne
-	private ReleaseGroup releaseGroup;
+    private String description;
 
-	private String description;
+    public Release() {}
 
-	public Release() {}
+    @OneToMany(mappedBy = "release", cascade = CascadeType.ALL, orphanRemoval=true)
+    private Set<ReleaseRegion> releaseRegionList = new HashSet<>();
 
-    public void setReleaseGroup(
-			ReleaseGroup releaseGroup) {
-		this.releaseGroup = releaseGroup;
-	}
 
-	public String getDescription() {
-		return description;
-	}
+    public ReleaseGroup getReleaseGroup() {
+        return releaseGroup;
+    }
 
+    public void setReleaseGroup(ReleaseGroup releaseGroup) {
+        this.releaseGroup = releaseGroup;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<ReleaseRegion> getReleaseRegionList() {
+        return releaseRegionList;
+    }
+
+    public void setReleaseRegionList(Set<ReleaseRegion> releaseRegionList) {
+        this.releaseRegionList = releaseRegionList;
+    }
 }

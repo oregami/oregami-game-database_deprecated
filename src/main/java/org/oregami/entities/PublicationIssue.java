@@ -4,8 +4,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Audited

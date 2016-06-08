@@ -1,10 +1,8 @@
 package org.oregami.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
-import org.joda.time.LocalDateTime;
 
 import javax.persistence.Entity;
 
