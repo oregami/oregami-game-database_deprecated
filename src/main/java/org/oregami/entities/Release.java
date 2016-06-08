@@ -28,24 +28,14 @@ import java.util.Set;
 @Table(name = "GameRelease") //because "Release" is a reserved word in MySQL)
 public class Release extends BaseEntityUUID {
 
-    @ManyToOne
-    private ReleaseGroup releaseGroup;
-
     private String description;
 
     public Release() {}
 
-    @OneToMany(mappedBy = "release", cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn
     private Set<ReleaseRegion> releaseRegionList = new HashSet<>();
 
-
-    public ReleaseGroup getReleaseGroup() {
-        return releaseGroup;
-    }
-
-    public void setReleaseGroup(ReleaseGroup releaseGroup) {
-        this.releaseGroup = releaseGroup;
-    }
 
     public String getDescription() {
         return description;

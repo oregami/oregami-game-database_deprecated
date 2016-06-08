@@ -57,8 +57,9 @@ public class ReleaseGroup extends BaseEntityUUID {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Game game;
 
-	@OneToMany(mappedBy = "releaseGroup", cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
 //	@OrderBy("description ASC")
+    @JoinColumn
 	private Set<Release> releaseList = new HashSet<Release>();
 
 
@@ -77,7 +78,7 @@ public class ReleaseGroup extends BaseEntityUUID {
 	
 	public void addRelease(Release vo) {
 		this.releaseList.add(vo);
-		vo.setReleaseGroup(this);
+//		vo.setReleaseGroup(this);
 	}
 
 	public String getName() {

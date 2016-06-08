@@ -29,9 +29,6 @@ public class ReleaseRegion extends BaseEntityUUID {
 
     public ReleaseRegion() {}
 
-	@ManyToOne
-	private Release release;
-
     private LocalDate releaseDate;
 
     @ManyToOne
@@ -54,11 +51,4 @@ public class ReleaseRegion extends BaseEntityUUID {
         this.releaseDate = releaseDate;
     }
 
-    public Release getRelease() {
-        return release;
-    }
-
-    public void setRelease(Release release) {
-        this.release = release;
-    }
 }

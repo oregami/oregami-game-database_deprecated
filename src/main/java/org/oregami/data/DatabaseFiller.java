@@ -211,7 +211,6 @@ public class DatabaseFiller {
         germany.setRegion(regionDao.findByExactName(Region.GERMANY));
         germany.setReleaseDate(new LocalDate(1999,12,1));
         releaseGermany.getReleaseRegionList().add(germany);
-        germany.setRelease(releaseGermany);
         rgPsOne.addRelease(releaseGermany);
 
 		gameResidentEvil.addReleaseGroup(rgPsOne);
@@ -256,6 +255,7 @@ public class DatabaseFiller {
 
 	public void addGames() {
 		if (gameDao.findAll().size()>0) return;
+        
 		addMonkeyIsland();
 		addResidentEvilGame();
 		addXWingGame();
