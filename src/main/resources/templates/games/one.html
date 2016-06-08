@@ -43,6 +43,7 @@
         </dl>
 
         <hr/>
+
         <div th:each="release,iterStat : ${releaseGroup.releaseList}">
 
             <th:block th:if="${release.description}">
@@ -51,9 +52,13 @@
             </th:block>
 
             <div th:each="releaseRegion,iterStat : ${release.releaseRegionList}">
+
                 <th:block th:if="${releaseRegion.region}">
-                    <dt th:text="#{region}"></dt>
-                    <dd th:text="${releaseRegion.region.name}"></dd>
+                    <h4 th:text="${releaseRegion.region.name}"></h4>
+                    <th:block th:if="${releaseRegion.releaseDate}">
+                        <dt th:text="#{releaseDate}"></dt>
+                        <dd th:text="${releaseRegion.releaseDate}"></dd>
+                    </th:block>
                 </th:block>
             </div>
         </div>

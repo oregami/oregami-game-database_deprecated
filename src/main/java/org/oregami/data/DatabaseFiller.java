@@ -206,12 +206,18 @@ public class DatabaseFiller {
         rgPsOne.setReleaseGroupReason(baseListFinder.getReleaseGroupReason(ReleaseGroupReason.ORIGINAL));
 
         Release releaseGermany = new Release();
-        releaseGermany.setDescription("rel_ger");
         ReleaseRegion germany = new ReleaseRegion();
         germany.setRegion(regionDao.findByExactName(Region.GERMANY));
         germany.setReleaseDate(new LocalDate(1999,12,1));
         releaseGermany.getReleaseRegionList().add(germany);
         rgPsOne.addRelease(releaseGermany);
+
+        Release releaseFrance = new Release();
+        ReleaseRegion france = new ReleaseRegion();
+        france.setRegion(regionDao.findByExactName(Region.FRANCE));
+        france.setReleaseDate(new LocalDate(1999,11,1));
+        releaseFrance.getReleaseRegionList().add(france);
+        rgPsOne.addRelease(releaseFrance);
 
 		gameResidentEvil.addReleaseGroup(rgPsOne);
 
