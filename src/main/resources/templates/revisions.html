@@ -11,10 +11,9 @@
 
 
 <div class="content">
-    <div class="grids-unit pure-g">
+    <div>
 
-        <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-1 pure-u-lg-1-1 pure-u-xl-1-1"
-             style="margin-bottom: 4px;"
+        <div style="margin-bottom: 4px;"
              th:each="revision : ${revisions}">
 
             <div th:text="${revision.id}"></div>
