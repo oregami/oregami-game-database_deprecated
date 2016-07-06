@@ -5,33 +5,27 @@
 
 <head th:fragment="header">
 
-        <meta charset="UTF-8"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title th:text="${title + '  - Oregami.org'}"></title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="${title + '  - Oregami.org'}"></title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"/>
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-        <link href="/style.css" rel="stylesheet" media="all"/>
+    <link rel="stylesheet" href="/css/foundation.css"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <link href="/style.css" rel="stylesheet" media="all"/>
 
-        <!--<script language="JavaScript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"/>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <!--<meta property="og:url"               th:content=""/>-->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" th:content="${title} + ' - Oregami.org'"/>
+    <meta property="og:description" th:content="${description ?: 'Oregami.org'}"/>
 
-        <!--<meta property="og:url"               th:content=""/>-->
-        <meta property="og:type"               content="article" />
-        <meta property="og:title"              th:content="${title} + ' - Oregami.org'" />
-        <meta property="og:description"        th:content="${description ?: 'Oregami.org'}" />
-        <!--
-        <meta property="og:image" th:content="${image ?: 'http://www.kultpower.org/ext/zeitschriften/_previews/powerplay.png'}" />
-        -->
 </head>
 
 <body>
-
-
 
 
 </body>
