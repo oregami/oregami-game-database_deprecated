@@ -21,8 +21,7 @@
                 <span class="hint" th:if="${title.region}" th:text="${title.region.name}"></span>
             </div>
 
-            <a th:href="@{${URL_GAMES} + '/' + ${game.id}}"
-            ><span th:text="#{view}">view</span></a>
+            <a class="small button" th:href="@{${URL_GAMES} + '/' + ${game.id}}"><span th:text="#{view}">view</span></a>
 
         </div>
     </div>

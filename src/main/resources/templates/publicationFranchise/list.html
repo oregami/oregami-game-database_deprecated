@@ -15,8 +15,9 @@
 
         <div th:each="publicationFranchise : ${list}">
 
-            <a th:href="@{${URL_PUBLICATIONFRANCHISE} + '/' + ${publicationFranchise.id}}"
-            ><h2 th:text="${publicationFranchise.name}"></h2></a>
+            <div th:text="${publicationFranchise.name}"></div>
+            <a th:text="#{view}" class="small button" th:href="@{${URL_PUBLICATIONFRANCHISE} + '/' + ${publicationFranchise.id}}"
+            ></a>
 
         </div>
     </div>

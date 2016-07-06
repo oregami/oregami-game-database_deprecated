@@ -18,12 +18,12 @@
     <!--<div th:text="${publicationFranchise.id}"></div>-->
 
     <div th:each="publication : ${publicationFranchise.publicationList}">
-        <h2 th:text="${publication.name}"></h2>
-
+        <strong th:text="${publication.name}"></strong>
+        <br/>
         <div th:each="issue : ${publication.publicationIssueList}">
-            <h3 th:text="${issue.issueNameNumber + '/' + issue.issueNameYear}"></h3>
+            <span th:text="${issue.issueNameNumber + '/' + issue.issueNameYear}"></span>
             <div th:if="${issue.releaseDate}">
-                <label th:text="#{releaseDate}">releaseDate</label>:
+                <label th:text="#{releaseDate}">releaseDate</label>
                 <span th:text="${issue.releaseDate.toString('dd.MM.yyyy')}"></span>
             </div>
         </div>
