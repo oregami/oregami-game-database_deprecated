@@ -17,10 +17,7 @@
 package org.oregami.entities;
 
 import org.hibernate.envers.Audited;
-import org.oregami.entities.datalist.DemoContentType;
-import org.oregami.entities.datalist.ReleaseGroupReason;
-import org.oregami.entities.datalist.ReleaseType;
-import org.oregami.entities.datalist.UnReleasedState;
+import org.oregami.entities.datalist.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -53,6 +50,9 @@ public class ReleaseGroup extends BaseEntityUUID {
 
 	@ManyToOne
 	private UnReleasedState unreleasedState;
+
+    @ManyToOne
+    private ReleaseState releaseState;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Game game;
@@ -147,5 +147,13 @@ public class ReleaseGroup extends BaseEntityUUID {
 
     public void setReleaseList(Set<Release> releaseList) {
         this.releaseList = releaseList;
+    }
+
+    public ReleaseState getReleaseState() {
+        return releaseState;
+    }
+
+    public void setReleaseState(ReleaseState releaseState) {
+        this.releaseState = releaseState;
     }
 }

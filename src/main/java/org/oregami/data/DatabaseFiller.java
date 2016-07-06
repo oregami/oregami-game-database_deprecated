@@ -204,6 +204,7 @@ public class DatabaseFiller {
 
 		ReleaseGroup rgPsOne = new ReleaseGroup("PS 1 Release", getGamingEnvironmentPlaystation1(), baseListFinder.getReleaseType(ReleaseType.NATIVE_DEVELOPMENT));
         rgPsOne.setReleaseGroupReason(baseListFinder.getReleaseGroupReason(ReleaseGroupReason.ORIGINAL));
+        rgPsOne.setReleaseState(baseListFinder.getReleaseState(ReleaseState.OFFICIALLY_RELEASED_DEVELOPMENT_FINISHED));
 
         Release releaseGermany = new Release();
         ReleaseRegion germany = new ReleaseRegion();

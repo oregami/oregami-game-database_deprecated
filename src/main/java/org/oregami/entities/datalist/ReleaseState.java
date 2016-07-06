@@ -26,8 +26,10 @@ public class ReleaseState extends BaseList {
 		super("");
 	}
 
-	public static final String NATIVE_DEVELOPMENT = "NATIVE_DEVELOPMENT";
-	public static final String PORT = "PORT";
-	public static final String EMULATOR_RELEASE = "EMULATOR_RELEASE";
+	public static final String OFFICIALLY_RELEASED_DEVELOPMENT_FINISHED = "OFFICIALLY_RELEASED_DEVELOPMENT_FINISHED";
+    public static final String OFFICIALLY_RELEASED_CLOSED_BETA = "OFFICIALLY_RELEASED_CLOSED_BETA";
+    public static final String OFFICIALLY_RELEASED_OPEN_BETA = "OFFICIALLY_RELEASED_OPEN_BETA";
+    public static final String OFFICIALLY_RELEASED_CONTINUOUS_DEVELOPMENT = "OFFICIALLY_RELEASED_CONTINUOUS_DEVELOPMENT";
+	public static final String UNOFFICIALLY_RELEASED = "UNOFFICIALLY_RELEASED";
 
 }

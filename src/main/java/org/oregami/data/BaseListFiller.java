@@ -162,9 +162,11 @@ public class BaseListFiller {
 	}
 
 	private void initReleaseState() {
-		releaseStateDao.save(new ReleaseState(ReleaseState.EMULATOR_RELEASE));
-		releaseStateDao.save(new ReleaseState(ReleaseState.NATIVE_DEVELOPMENT));
-		releaseStateDao.save(new ReleaseState(ReleaseState.PORT));
+		releaseStateDao.save(new ReleaseState(ReleaseState.OFFICIALLY_RELEASED_DEVELOPMENT_FINISHED));
+		releaseStateDao.save(new ReleaseState(ReleaseState.OFFICIALLY_RELEASED_CONTINUOUS_DEVELOPMENT));
+		releaseStateDao.save(new ReleaseState(ReleaseState.OFFICIALLY_RELEASED_CLOSED_BETA));
+        releaseStateDao.save(new ReleaseState(ReleaseState.OFFICIALLY_RELEASED_OPEN_BETA));
+        releaseStateDao.save(new ReleaseState(ReleaseState.UNOFFICIALLY_RELEASED));
 	}
 
 	private void initCensorshipType() {
