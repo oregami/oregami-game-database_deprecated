@@ -38,22 +38,25 @@ public class ReleaseGroup extends BaseEntityUUID {
 	@ManyToOne
 	private ReleaseType releaseType;
 
+    @ManyToOne
+    private UnReleasedState unreleasedState;
+
+    @ManyToOne
+    private ReleaseState releaseState;
+
 	@ManyToMany
 	private Set<DemoContentType> demoContentTypeList = new HashSet<DemoContentType>();
-	
-	private boolean censored = false;
+
+    @ManyToMany
+    private Set<CensorshipType> censorshipTypeList = new HashSet<CensorshipType>();
+
+    private boolean censored = false;
 	
 	private boolean released = true;
 
 	@ManyToOne
 	private GamingEnvironment gamingEnvironment;
 
-	@ManyToOne
-	private UnReleasedState unreleasedState;
-
-    @ManyToOne
-    private ReleaseState releaseState;
-	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Game game;
 
@@ -155,5 +158,17 @@ public class ReleaseGroup extends BaseEntityUUID {
 
     public void setReleaseState(ReleaseState releaseState) {
         this.releaseState = releaseState;
+    }
+
+    public Set<CensorshipType> getCensorshipTypeList() {
+        return censorshipTypeList;
+    }
+
+    public void setCensorshipTypeList(Set<CensorshipType> censorshipTypeList) {
+        this.censorshipTypeList = censorshipTypeList;
+    }
+
+    public void addCensorshipType(CensorshipType censorshipType) {
+        this.censorshipTypeList.add(censorshipType);
     }
 }
