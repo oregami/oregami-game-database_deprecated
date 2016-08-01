@@ -24,10 +24,7 @@
             </div>
             <span th:if="${gamingEnvironment.firstReleaseYear}" th:text="${gamingEnvironment.firstReleaseYear}"></span>
 
-            <a class="small button" th:href="@{${URL_GAMINGENVIRONMENTS} + '/' + ${gamingEnvironment.id}}"
-            ><span th:text="#{view}">view</span></a>
-
-            <a class="ui button" th:href="@{${URL_GAMINGENVIRONMENTS} + '/' + ${gamingEnvironment.id}}"
+            <a class="mini ui blue button" th:href="@{${URL_GAMINGENVIRONMENTS} + '/' + ${gamingEnvironment.id}}"
             ><span th:text="#{view}">view</span></a>
 
         </div>

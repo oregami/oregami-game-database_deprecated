@@ -10,17 +10,17 @@
 <nav th:replace="navigation :: navigation(URL_PUBLICATIONFRANCHISE)"></nav>
 
 
-<div class="content">
-    <div>
+<div class="ui stackable two column grid">
 
-        <div th:each="publicationFranchise : ${list}">
+        <div th:each="publicationFranchise : ${list}" class="column">
+            <div class="ui segment">
 
             <div th:text="${publicationFranchise.name}"></div>
-            <a th:text="#{view}" class="small button" th:href="@{${URL_PUBLICATIONFRANCHISE} + '/' + ${publicationFranchise.id}}"
+            <a th:text="#{view}" class="mini ui blue button" th:href="@{${URL_PUBLICATIONFRANCHISE} + '/' + ${publicationFranchise.id}}"
             ></a>
+            </div>
 
         </div>
-    </div>
 </div>
 
 
