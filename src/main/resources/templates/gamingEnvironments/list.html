@@ -10,13 +10,13 @@
 <nav th:replace="navigation :: navigation(URL_GAMINGENVIRONMENTS)"></nav>
 
 
-    <div class="row">
+<div class="ui grid container">
 
-        <div th:each="gamingEnvironment : ${list}" class="small-12 medium-6 large-3 x-large-2 columns end">
+    <div th:each="gamingEnvironment : ${list}" class="eight wide mobile six wide tablet four wide computer column">
+        <div class="ui segment">
 
             <div th:each="title,iterStat : ${gamingEnvironment.title}">
                 <span th:text="${title.text.text}"></span>
-
 
                 <span class="hint" th:if="${title.titleType.value}" th:text="${title.titleType.value}"></span>
                 <span class="hint" th:if="${title.region.name}" th:text="${title.region.name}"></span>
@@ -25,10 +25,14 @@
             <span th:if="${gamingEnvironment.firstReleaseYear}" th:text="${gamingEnvironment.firstReleaseYear}"></span>
 
             <a class="small button" th:href="@{${URL_GAMINGENVIRONMENTS} + '/' + ${gamingEnvironment.id}}"
-               ><span th:text="#{view}">view</span></a>
+            ><span th:text="#{view}">view</span></a>
+
+            <a class="ui button" th:href="@{${URL_GAMINGENVIRONMENTS} + '/' + ${gamingEnvironment.id}}"
+            ><span th:text="#{view}">view</span></a>
 
         </div>
     </div>
+</div>
 
 
 <div th:replace="footer :: copy"></div>
