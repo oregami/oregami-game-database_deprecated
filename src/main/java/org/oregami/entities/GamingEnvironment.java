@@ -5,6 +5,7 @@ import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,14 @@ public class GamingEnvironment extends BaseEntityUUID {
 	public GamingEnvironment() {
 	}
 
+    public GamingEnvironment(Integer firstRaseYear) {
+        this.setFirstReleaseYear(firstRaseYear);
+    }
+
+    public GamingEnvironment(PlatformTitle t) {
+        this.addTitle(t);
+    }
+
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
 	private HardwarePlatform hardwarePlatform;
 
@@ -29,7 +38,18 @@ public class GamingEnvironment extends BaseEntityUUID {
     @OrderBy("id")
 	private Set<PlatformTitle> title = new HashSet<>();
 
-	public Set<PlatformTitle> getTitle() {
+    @Column()
+    private Integer firstReleaseYear;
+
+    public Integer getFirstReleaseYear() {
+        return firstReleaseYear;
+    }
+
+    public void setFirstReleaseYear(Integer firstReleaseYear) {
+        this.firstReleaseYear = firstReleaseYear;
+    }
+
+    public Set<PlatformTitle> getTitle() {
 		return title;
 	}
 

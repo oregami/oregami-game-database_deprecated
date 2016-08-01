@@ -271,7 +271,7 @@ public class DatabaseFiller {
 
 	public void addGamingEnvironments() {
 		//====== SONY PLAYSTATION =================
-		GamingEnvironment gamingEnvironmentPlaystation = new GamingEnvironment();
+		GamingEnvironment gamingEnvironmentPlaystation = new GamingEnvironment(1994);
 
         //gamingEnvironmentPlaystation.setHardwarePlatform(HardwarePlatformTypeDao.);
 
@@ -294,7 +294,7 @@ public class DatabaseFiller {
 		gamingEnvironmentDao.save(gamingEnvironmentPlaystation);
 
 		//====== NES =================
-		GamingEnvironment nes = new GamingEnvironment();
+		GamingEnvironment nes = new GamingEnvironment(1983);
 		nes.addTitle(titleFactory.createPlatformTitle(
 				regionDao.findByExactName(Region.UNITED_STATES),
 				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
@@ -320,7 +320,7 @@ public class DatabaseFiller {
 
 
 		//====== Amiga =================
-		GamingEnvironment amiga = new GamingEnvironment();
+		GamingEnvironment amiga = new GamingEnvironment(1985);
 		amiga.addTitle(titleFactory.createPlatformTitle(
 				regionDao.findByExactName(Region.EUROPE),
 				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
@@ -342,7 +342,7 @@ public class DatabaseFiller {
         gamingEnvironmentDao.save(amiga);
 
 		//====== C64 =================
-		GamingEnvironment c64 = new GamingEnvironment();
+		GamingEnvironment c64 = new GamingEnvironment(1982);
 		c64.addTitle(titleFactory.createPlatformTitle(
 				regionDao.findByExactName(Region.EUROPE),
 				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
@@ -353,7 +353,7 @@ public class DatabaseFiller {
         gamingEnvironmentDao.save(c64);
 
 		//====== MS-DOS =================
-		GamingEnvironment msdos = new GamingEnvironment();
+		GamingEnvironment msdos = new GamingEnvironment(1981);
 		msdos.addTitle(titleFactory.createPlatformTitle(
 				regionDao.findByExactName(Region.EUROPE),
 				baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
@@ -362,6 +362,24 @@ public class DatabaseFiller {
 				"MS-DOS"
 		));
         gamingEnvironmentDao.save(msdos);
+
+        GamingEnvironment pet = new GamingEnvironment(1977);
+        pet.addTitle(titleFactory.createPlatformTitle(
+                regionDao.findByExactName(Region.EUROPE),
+                baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+                baseListFinder.getScript(Script.LATIN),
+                null,
+                "Commodore PET"));
+        gamingEnvironmentDao.save(pet);
+
+        GamingEnvironment vic20 = new GamingEnvironment(1980);
+        vic20.addTitle(titleFactory.createPlatformTitle(
+                regionDao.findByExactName(Region.EUROPE),
+                baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+                baseListFinder.getScript(Script.LATIN),
+                null,
+                "Commodore VIC-20"));
+        gamingEnvironmentDao.save(vic20);
 
 
 	}
