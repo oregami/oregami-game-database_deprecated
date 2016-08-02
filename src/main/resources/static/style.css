@@ -121,16 +121,6 @@ a:visited {
 a:hover {
   text-decoration: none;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0px;
-  margin-bottom: 5px;
-  margin-top: 12px;
-}
 div.footer {
   display: block;
   width: 100%;
@@ -141,42 +131,13 @@ div.footer {
   text-align: left;
   padding-left: 2em;
 }
-div.content {
-  text-align: left;
-  width: 98%;
-  padding-left: 10px;
-}
-div.content div {
-  text-align: left;
-}
-/*
-div.content a {
-  text-decoration: underline;
-}
-*/
-div.content ul {
-  padding: 20px;
-}
 .hint {
   color: #888888;
   font-size: 80%;
 }
-a a.pure-button {
+a {
   text-decoration: none;
 }
-/*
-dt {
-  float: left;
-  clear: left;
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-dd {
-  margin-left: 0px;
-  font-weight: normal;
-}
-*/
 /*
 =============================
      _           __

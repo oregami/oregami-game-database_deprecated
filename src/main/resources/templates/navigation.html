@@ -16,8 +16,8 @@
         <li th:class="${activeUrl}==URL_GAMINGENVIRONMENTS ? 'active' : ''"><a th:href="${URL_GAMINGENVIRONMENTS}" th:text="#{gamingEnvironments}"></a></li>
     </ul>
     <div class="language">
-        <a th:href="@{${#httpServletRequest.requestURI + '?lang=en'}}">en</a>
-        <a th:href="@{${#httpServletRequest.requestURI + '?lang=de'}}">de</a>
+        <a th:href="@{${#httpServletRequest.requestURI + '?lang=en'}}" title="en"><i class="gb flag"></i></a>
+        <a th:href="@{${#httpServletRequest.requestURI + '?lang=de'}}" title="de"><i class="de flag"></i></a>
     </div>
 </nav>
 
