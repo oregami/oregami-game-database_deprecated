@@ -27,6 +27,11 @@ public class GamingEnvironment extends BaseEntityUUID {
         this.setFirstReleaseYear(firstRaseYear);
     }
 
+    public GamingEnvironment(Integer firstRaseYear, PlatformTitle t) {
+        this(firstRaseYear);
+        this.addTitle(t);
+    }
+
     public GamingEnvironment(PlatformTitle t) {
         this.addTitle(t);
     }
