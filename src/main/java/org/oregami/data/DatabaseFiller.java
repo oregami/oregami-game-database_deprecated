@@ -355,10 +355,10 @@ public class DatabaseFiller {
         GamingEnvironment msdos = new GamingEnvironment(1981,
                 titleFactory.createPlatformTitle(
                         regionDao.findByExactName(Region.EUROPE),
-                        baseListFinder.getTitleType(TitleType.ORIGINAL_TITLE),
+                        baseListFinder.getTitleType(TitleType.INOFFICIAL_TITLE),
                         baseListFinder.getScript(Script.LATIN),
                         null,
-                        "MS-DOS"
+                        "DOS-PC"
                 ));
         gamingEnvironmentDao.save(msdos);
 
