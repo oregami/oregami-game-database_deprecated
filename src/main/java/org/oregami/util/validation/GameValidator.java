@@ -1,6 +1,6 @@
 package org.oregami.util.validation;
 
-import org.oregami.entities.Game;
+import org.oregami.domain.model.games.Game;
 import org.oregami.service.FieldNames;
 import org.oregami.service.ServiceError;
 import org.oregami.service.ServiceErrorContext;

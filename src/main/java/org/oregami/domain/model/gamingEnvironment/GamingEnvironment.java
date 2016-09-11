@@ -1,11 +1,14 @@
-package org.oregami.entities;
+package org.oregami.domain.model.gamingEnvironment;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.domain.model.hardwarePlatform.HardwarePlatform;
+import org.oregami.entities.PlatformTitle;
+import org.oregami.entities.TopLevelEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.util.HashSet;
 import java.util.Set;
 

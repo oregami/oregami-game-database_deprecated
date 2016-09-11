@@ -1,6 +1,14 @@
 package org.oregami.data;
 
 import org.joda.time.LocalDate;
+import org.oregami.domain.model.games.Game;
+import org.oregami.domain.model.games.Release;
+import org.oregami.domain.model.games.ReleaseGroup;
+import org.oregami.domain.model.gamingEnvironment.GamingEnvironment;
+import org.oregami.domain.model.hardwarePlatform.HardwarePlatform;
+import org.oregami.domain.model.publicationFranchise.Publication;
+import org.oregami.domain.model.publicationFranchise.PublicationFranchise;
+import org.oregami.domain.model.publicationFranchise.PublicationIssue;
 import org.oregami.entities.*;
 import org.oregami.entities.datalist.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.oregami.OregamiApplication;
 import org.oregami.data.PublicationFranchiseDao;
-import org.oregami.entities.Publication;
-import org.oregami.entities.PublicationFranchise;
-import org.oregami.entities.PublicationIssue;
+import org.oregami.domain.model.publicationFranchise.Publication;
+import org.oregami.domain.model.publicationFranchise.PublicationFranchise;
+import org.oregami.domain.model.publicationFranchise.PublicationIssue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -66,7 +66,8 @@ public class TestPublicationFranchiseService {
     @Test
     public void testServiceUpdate() {
 
-//        entityManager.getTransaction().begin();
+        List<PublicationFranchise> list = publicationFranchiseDao.findAll();
+        int size = list.size();
 
         PublicationFranchise pf = new PublicationFranchise();
         pf.setName("Power Play");
@@ -75,9 +76,9 @@ public class TestPublicationFranchiseService {
 //        entityManager.flush();
         publicationFranchiseDao.save(pf);
 
-        List<PublicationFranchise> list = publicationFranchiseDao.findAll();
+        list = publicationFranchiseDao.findAll();
 
-        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(size+1, list.size());
 
 
         PublicationFranchise publicationFranchise = publicationFranchiseDao.findOne(pf.getId());

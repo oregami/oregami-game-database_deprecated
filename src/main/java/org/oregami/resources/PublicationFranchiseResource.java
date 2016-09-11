@@ -2,7 +2,7 @@ package org.oregami.resources;
 
 import org.oregami.data.PublicationFranchiseDao;
 import org.oregami.entities.BaseEntityUUID;
-import org.oregami.entities.PublicationFranchise;
+import org.oregami.domain.model.publicationFranchise.PublicationFranchise;
 import org.oregami.service.PublicationFranchiseService;
 import org.oregami.service.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;

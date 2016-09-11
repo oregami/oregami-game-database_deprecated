@@ -1,9 +1,9 @@
 package org.oregami.util.validation;
 
 import org.apache.commons.lang3.StringUtils;
-import org.oregami.entities.Publication;
-import org.oregami.entities.PublicationFranchise;
-import org.oregami.entities.PublicationIssue;
+import org.oregami.domain.model.publicationFranchise.Publication;
+import org.oregami.domain.model.publicationFranchise.PublicationFranchise;
+import org.oregami.domain.model.publicationFranchise.PublicationIssue;
 import org.oregami.service.FieldNames;
 import org.oregami.service.ServiceError;
 import org.oregami.service.ServiceErrorContext;

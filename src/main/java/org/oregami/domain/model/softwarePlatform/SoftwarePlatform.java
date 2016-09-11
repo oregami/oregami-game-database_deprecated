@@ -1,7 +1,9 @@
-package org.oregami.entities;
+package org.oregami.domain.model.softwarePlatform;
 
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.PlatformTitle;
 import org.oregami.entities.datalist.SoftwarePlatformType;
 
 import javax.persistence.*;

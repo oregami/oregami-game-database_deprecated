@@ -2,7 +2,7 @@ package org.oregami.service;
 
 import org.oregami.data.GamingEnvironmentDao;
 import org.oregami.data.GenericDAOUUID;
-import org.oregami.entities.GamingEnvironment;
+import org.oregami.domain.model.gamingEnvironment.GamingEnvironment;
 import org.oregami.util.validation.IEntityValidator;
 import org.oregami.util.validation.NullValidator;
 import org.springframework.beans.factory.annotation.Autowired;

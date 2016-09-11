@@ -1,6 +1,6 @@
 package org.oregami.data;
 
-import org.oregami.entities.Game;
+import org.oregami.domain.model.games.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

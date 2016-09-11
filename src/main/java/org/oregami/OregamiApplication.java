@@ -19,7 +19,7 @@ import java.util.Locale;
 @ComponentScan({"org.oregami", "org.oregami.resources", "org.oregami.service", "org.oregami.entities", "org.oregami.data"})
 @SpringBootApplication(scanBasePackages = {"org.oregami", "org.oregami.data"})
 @EnableJpaRepositories(repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class, basePackages = {"org.oregami", "org.oregami.entities", "org.oregami.data"})
-@EntityScan(basePackages = "org.oregami.entities")
+@EntityScan(basePackages = {"org.oregami.entities","org.oregami.domain.model"})
 public class OregamiApplication {
 
     public static void main(String[] args) {

@@ -14,9 +14,11 @@
  * 	You should have received a copy of the GNU Affero General Public License
  * 	along with this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package org.oregami.entities;
+package org.oregami.domain.model.games;
 
 import org.hibernate.envers.Audited;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.ReleaseRegion;
 
 import javax.persistence.*;
 import java.util.HashSet;

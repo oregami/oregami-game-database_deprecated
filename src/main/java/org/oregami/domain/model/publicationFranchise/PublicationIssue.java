@@ -1,8 +1,9 @@
-package org.oregami.entities;
+package org.oregami.domain.model.publicationFranchise;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.LocalDate;
+import org.oregami.entities.BaseEntityUUID;
 
 import javax.persistence.*;
 

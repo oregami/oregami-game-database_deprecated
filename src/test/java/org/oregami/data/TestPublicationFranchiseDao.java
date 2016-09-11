@@ -1,12 +1,9 @@
 package org.oregami.data;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.oregami.OregamiApplication;
-import org.oregami.entities.Language;
-import org.oregami.entities.PublicationFranchise;
+import org.oregami.domain.model.publicationFranchise.PublicationFranchise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;

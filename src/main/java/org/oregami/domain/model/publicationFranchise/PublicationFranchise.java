@@ -1,9 +1,11 @@
-package org.oregami.entities;
+package org.oregami.domain.model.publicationFranchise;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.TopLevelEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;

@@ -14,13 +14,16 @@
  * 	You should have received a copy of the GNU Affero General Public License
  * 	along with this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package org.oregami.entities;
+package org.oregami.domain.model.games;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.GameTitle;
+import org.oregami.entities.TopLevelEntity;
 import org.oregami.entities.datalist.GameEntryType;
 
 import javax.persistence.*;

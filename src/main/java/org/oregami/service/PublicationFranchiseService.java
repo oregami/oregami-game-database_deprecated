@@ -2,7 +2,7 @@ package org.oregami.service;
 
 import org.oregami.data.GenericDAOUUID;
 import org.oregami.data.PublicationFranchiseDao;
-import org.oregami.entities.PublicationFranchise;
+import org.oregami.domain.model.publicationFranchise.PublicationFranchise;
 import org.oregami.util.validation.IEntityValidator;
 import org.oregami.util.validation.PublicationFranchiseValidator;
 import org.springframework.beans.factory.annotation.Autowired;

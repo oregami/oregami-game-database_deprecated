@@ -2,7 +2,7 @@ package org.oregami.service;
 
 import org.oregami.data.GameDao;
 import org.oregami.data.GenericDAOUUID;
-import org.oregami.entities.Game;
+import org.oregami.domain.model.games.Game;
 import org.oregami.util.validation.GameValidator;
 import org.oregami.util.validation.IEntityValidator;
 import org.springframework.beans.factory.annotation.Autowired;

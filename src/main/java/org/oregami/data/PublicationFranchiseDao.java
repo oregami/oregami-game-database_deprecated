@@ -1,6 +1,6 @@
 package org.oregami.data;
 
-import org.oregami.entities.PublicationFranchise;
+import org.oregami.domain.model.publicationFranchise.PublicationFranchise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

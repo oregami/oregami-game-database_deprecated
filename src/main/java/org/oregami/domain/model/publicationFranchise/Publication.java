@@ -1,9 +1,12 @@
-package org.oregami.entities;
+package org.oregami.domain.model.publicationFranchise;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
+import org.oregami.entities.BaseEntityUUID;
+import org.oregami.entities.Language;
+import org.oregami.entities.Region;
 
 import javax.persistence.*;
 import java.util.HashSet;
